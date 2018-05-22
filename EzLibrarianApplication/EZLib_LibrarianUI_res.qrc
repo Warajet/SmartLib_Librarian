@@ -1,0 +1,46 @@
+<RCC>
+  <qresource prefix="icon_book">
+    <file>Modern UI Icons Light/appbar.book.hardcover.open.png</file>
+    <file>Modern UI Icons Light/appbar.book.hardcover.open.writing.png</file>
+    <file>Modern UI Icons Light/appbar.book.list.png</file>
+    <file>Modern UI Icons Light/appbar.book.open.information.png</file>
+    <file>Modern UI Icons Light/appbar.book.open.png</file>
+    <file>Modern UI Icons Light/appbar.book.open.text.image.png</file>
+    <file>Modern UI Icons Light/appbar.book.open.text.png</file>
+    <file>Modern UI Icons Light/appbar.book.perspective.png</file>
+    <file>Modern UI Icons Light/appbar.book.png</file>
+    <file>Modern UI Icons Light/appbar.book.side.png</file>
+  </qresource>
+  <qresource prefix="button">
+    <file>IMG/149071.png</file>
+    <file>IMG/167755.png</file>
+    <file>IMG/167756.png</file>
+    <file>IMG/clock-icon.png</file>
+  </qresource>
+  <qresource prefix="avatar">
+    <file>IMG/Susan_big.png</file>
+    <file>IMG/Susan.png</file>
+  </qresource>
+  <qresource prefix="icon_app">
+    <file>Modern UI Icons Light/appbar.arrow.right.png</file>
+    <file>Modern UI Icons Light/appbar.refresh.clockwise.down.png</file>
+    <file>Modern UI Icons Light/appbar.eye.png</file>
+    <file>Modern UI Icons Light/appbar.paper.png</file>
+    <file>Modern UI Icons Light/appbar.tiles.nine.png</file>
+    <file>Modern UI Icons Light/appbar.people.multiple.png</file>
+    <file>Modern UI Icons Light/appbar.qr.png</file>
+    <file>Modern UI Icons Light/appbar.power.png</file>
+    <file>Modern UI Icons Light/appbar.user.add.png</file>
+    <file>Modern UI Icons Light/appbar.calendar.day.png</file>
+    <file>Modern UI Icons Light/appbar.cog.png</file>
+    <file>Modern UI Icons Light/appbar.database.sql.png</file>
+    <file>Modern UI Icons Light/appbar.language.python.png</file>
+    <file>Modern UI Icons Light/appbar.book.perspective.help.png</file>
+    <file>Modern UI Icons Light/appbar.barcode.png</file>
+  </qresource>
+  <qresource prefix="icon_tool">
+    <file>Modern UI Icons Light/appbar.delete.png</file>
+    <file>Modern UI Icons Light/appbar.edit.png</file>
+    <file>Modern UI Icons Light/appbar.add.png</file>
+  </qresource>
+</RCC>
