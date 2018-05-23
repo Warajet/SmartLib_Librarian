@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from EZLib_LibrarianUI import Ui_MainWindow
+from SmartLib_LibrarianUI import Ui_MainWindow
 
 class SmartLibUi(QMainWindow):
     def __init__(self):
@@ -21,7 +21,17 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonOverview_Books.clicked.connect(self.selectTabBooks)
         self.ui.buttonOverview_Users.clicked.connect(self.selectTabUsers)
         self.ui.buttonOverview_Issue.clicked.connect(self.selectTabIssue)
-        self.ui.pushButton_4.clicked.connect(self.dialog_AddBook)
+        self.ui.buttonOverview_4.clicked.connect(self.dialog_AddBook)
+
+        '''
+        UI DECORATORs
+        '''
+        #self.ui.tabWidget.setStyleSheet("QWidget {background-color: yellow }")
+        self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(0,184,237); color:white;")
+        self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(0,156,80); color:white;")
+        self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(216,65,50); color:white;")
+
+
 
         '''
         TAB: BOOKS
@@ -40,12 +50,20 @@ class SmartLibUi(QMainWindow):
         #self.ui.buttonUsers_Go.clicked.connect()
 
         '''
+        TAB: CIRCULATION
+        '''
+        #self.ui.buttonCirculation_Add.clicked.connect(self.dialog_AddBook)
+        #self.ui.buttonCirculation_Edit.clicked.connect()
+        #self.ui.buttonCirculation_Delete.clicked.connect()
+        #self.ui.buttonCirculation_Go.clicked.connect()
+
+        '''
         TAB: ISSUE
         '''
-        #self.ui.buttonBooks_Add.clicked.connect(self.dialog_AddBook)
-        #self.ui.buttonBooks_Edit.clicked.connect()
-        #self.ui.buttonBooks_Delete.clicked.connect()
-        #self.ui.buttonBooks_Go.clicked.connect()
+        #self.ui.buttonIssue_Add.clicked.connect(self.dialog_AddBook)
+        #self.ui.buttonIssue_Edit.clicked.connect()
+        #self.ui.buttonIssue_Delete.clicked.connect()
+        #self.ui.buttonIssue_Go.clicked.connect()
 
     '''
     FUNCTIONS
@@ -62,7 +80,7 @@ class SmartLibUi(QMainWindow):
     def selectTabUsers(self):
         self.ui.tabWidget.setCurrentIndex(2)
     def selectTabIssue(self):
-        self.ui.tabWidget.setCurrentIndex(3)
+        self.ui.tabWidget.setCurrentIndex(4)
 
     # Add/Edit/Delete Dialog
     def dialog_AddBook(self):
