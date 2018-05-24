@@ -22,7 +22,9 @@
     <file>IMG/Susan.png</file>
   </qresource>
   <qresource prefix="icon_app">
+    <file>Modern UI Icons Light/appbar.refresh.png</file>
     <file>Modern UI Icons Light/appbar.arrow.right.png</file>
+    <file>Modern UI Icons Light/appbar.return.png</file>
     <file>Modern UI Icons Light/appbar.refresh.clockwise.down.png</file>
     <file>Modern UI Icons Light/appbar.eye.png</file>
     <file>Modern UI Icons Light/appbar.paper.png</file>

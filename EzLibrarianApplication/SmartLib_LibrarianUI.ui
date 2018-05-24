@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>EasyLibrary - Librarian Console</string>
   </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -534,51 +537,11 @@
          <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.clockwise.down.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.clockwise.down.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Book Circulation</string>
+        <string>History</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <item>
-           <widget class="QToolButton" name="buttonCirculation_Add">
-            <property name="text">
-             <string>  Add  </string>
-            </property>
-            <property name="icon">
-             <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonTextUnderIcon</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="buttonCirculation_Edit">
-            <property name="text">
-             <string>  Edit  </string>
-            </property>
-            <property name="icon">
-             <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonTextUnderIcon</enum>
-            </property>
-           </widget>
-          </item>
           <item>
            <widget class="QToolButton" name="buttonCirculation_Delete">
             <property name="text">
@@ -685,51 +648,11 @@
           <item>
            <widget class="QToolButton" name="buttonIssue_Add">
             <property name="text">
-             <string>  Add  </string>
+             <string>Return Book</string>
             </property>
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonTextUnderIcon</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="buttonIssue_Edit">
-            <property name="text">
-             <string>  Edit  </string>
-            </property>
-            <property name="icon">
-             <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonTextUnderIcon</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="buttonIssue_Delete">
-            <property name="text">
-             <string>  Delete  </string>
-            </property>
-            <property name="icon">
-             <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</iconset>
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.return.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.return.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -827,6 +750,9 @@
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
    <property name="iconSize">
     <size>
      <width>76</width>
@@ -845,12 +771,14 @@
    <addaction name="actionMain_Menu"/>
    <addaction name="separator"/>
    <addaction name="actionAdd_Book"/>
-   <addaction name="separator"/>
    <addaction name="actionAdd_User"/>
    <addaction name="separator"/>
    <addaction name="actionReturnBook"/>
    <addaction name="actionReport"/>
    <addaction name="separator"/>
+   <addaction name="actionRefresh"/>
+   <addaction name="separator"/>
+   <addaction name="actionPython"/>
    <addaction name="actionExit"/>
    <addaction name="separator"/>
   </widget>
@@ -927,6 +855,24 @@
    </property>
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionRefresh">
+   <property name="icon">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
+     <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
+   </property>
+   <property name="text">
+    <string>Refresh</string>
+   </property>
+  </action>
+  <action name="actionPython">
+   <property name="icon">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
+     <normaloff>:/icon_app/Modern UI Icons Light/appbar.language.python.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.language.python.png</iconset>
+   </property>
+   <property name="text">
+    <string>Python</string>
    </property>
   </action>
  </widget>

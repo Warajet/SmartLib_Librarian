@@ -56,7 +56,7 @@ class SmartLibUi(QMainWindow):
         # Green Button
         self.ui.buttonBooks_Add.setStyleSheet("background-color:green;")
         self.ui.buttonUsers_Add.setStyleSheet("background-color:green;")
-        self.ui.buttonCirculation_Add.setStyleSheet("background-color:green;")
+        #self.ui.buttonCirculation_Add.setStyleSheet("background-color:green;")
         self.ui.buttonIssue_Add.setStyleSheet("background-color:green;")
         '''
         TAB: BOOKS
@@ -439,14 +439,15 @@ class SmartLibUi(QMainWindow):
         layout.addWidget(email_textBox)
 
         label3 = QLabel(self)
-        label3.setText("Line token: ")
+        label3.setText("LINE token: ")
         lineToken_textBox = QLineEdit(self)
         lineToken_textBox.setText(user_to_edit.lineToken)
+        lineToken_textBox.setEnabled(False)
         layout.addWidget(label3)
         layout.addWidget(lineToken_textBox)
 
         label4 = QLabel(self)
-        label4.setText("rfid: ")
+        label4.setText("RFID: ")
         rfid_textBox = QLineEdit(self)
         rfid_textBox.setText(user_to_edit.rfid)
         layout.addWidget(label4)
