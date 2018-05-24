@@ -16,7 +16,6 @@ def catch_exceptions(t, val, tb):
     QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
     old_hook(t, val, tb)
 
-
 old_hook = sys.excepthook
 sys.excepthook = catch_exceptions
 
