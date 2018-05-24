@@ -166,6 +166,11 @@ class SmartLibUi(QMainWindow):
         allOnBorrowBooks = self.bookCirculationDAO.getAllOnBorrowCirculation()
         self.onBorrowTableAdapter.addCirculations(allOnBorrowBooks)
 
+        # update users quantity on first page button
+        issueCount = len(allOnBorrowBooks)
+        self.ui.buttonOverview_Issue.setText("   " + str(issueCount) + "  Issue Books")
+
+
 
     '''
         Add books
