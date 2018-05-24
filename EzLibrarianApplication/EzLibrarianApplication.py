@@ -2,13 +2,14 @@ import sys
 import Adapter.TableAdapter as TableAdapter
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from SmartLib_LibrarianUI import Ui_MainWindow
 from threading import Timer
 from DAO import BookDAO, UserDAO, BookCirculationDAO
 from Book import Book
 from User.User import User
 from BookCirculation import BookCirculation
-
+import webbrowser
 
 # Catch Error and display through MessageBox
 def catch_exceptions(t, val, tb):
@@ -30,17 +31,24 @@ class SmartLibUi(QMainWindow):
         INITIAL UI SETUP
         '''
         # QAction (Menu Bar)
-        self.ui.actionMain_Menu.triggered.connect(self.selectTabMainMenu)
+        self.ui.actionMain_Menu.triggered.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
         self.ui.actionAdd_Book.triggered.connect(self.dialog_AddBook)
         self.ui.actionExit.triggered.connect(self.exit)
         self.ui.actionReturnBook.triggered.connect(self.dialog_returnBook)
 
+        self.ui.actionAdd_User.triggered.connect(self.dialog_AddUser)
+        self.ui.actionPython.triggered.connect(lambda: webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
+        self.ui.actionExit.triggered.connect(lambda: app.quit())
 
         # pushButton (Main Menu Buttons)
-        self.ui.buttonOverview_Books.clicked.connect(self.selectTabBooks)
-        self.ui.buttonOverview_Users.clicked.connect(self.selectTabUsers)
-        self.ui.buttonOverview_Issue.clicked.connect(self.selectTabIssue)
+        self.ui.buttonOverview_Books.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
+        self.ui.buttonOverview_Users.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(2))
+        self.ui.buttonOverview_Issue.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
         self.ui.buttonOverview_4.clicked.connect(self.dialog_AddBook)
+        #self.ui.buttonOverview_5.clicked.connect()
+        #self.ui.buttonOverview_6.clicked.connect()
+
+
 
         '''
         UI DECORATORs
@@ -50,17 +58,37 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(0,156,80); color:white;")
         self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(216,65,50); color:white;")
 
+        self.ui.tabWidget.tabBar().setTabTextColor(1, QColor(0,184,237))
+        self.ui.tabWidget.tabBar().setTabTextColor(2, QColor(0,156,80))
+        self.ui.tabWidget.tabBar().setTabTextColor(3, QColor(255, 157, 0))
+        self.ui.tabWidget.tabBar().setTabTextColor(4, QColor(216,65,50))
+
+        # Green Button
+        self.ui.buttonBooks_Add.setStyleSheet("background-color:green;")
+        self.ui.buttonUsers_Add.setStyleSheet("background-color:green;")
+        #self.ui.buttonCirculation_Add.setStyleSheet("background-color:green;")
+        self.ui.buttonIssue_Add.setStyleSheet("background-color:green;")
         '''
         TAB: BOOKS
         '''
+        self.ui.tableBooks.verticalHeader().setVisible(False)
+        self.ui.tableBooks.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.tableBooks.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+
         self.ui.buttonBooks_Add.clicked.connect(self.dialog_AddBook)
-        self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook1)
         self.ui.buttonBooks_Delete.clicked.connect(self.dialog_deleteBook)
+        self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook1_New)
+        # self.ui.buttonBooks_Delete.clicked.connect()
         # self.ui.buttonBooks_Go.clicked.connect()
+        self.ui.tableBooks.doubleClicked.connect(self.dialog_EditBook1_New)
+
 
         '''
         TAB: USERS
         '''
+        self.ui.tableUsers.verticalHeader().setVisible(False)
+        self.ui.tableUsers.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.ui.buttonUsers_Add.clicked.connect(self.dialog_AddUser)
         self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser1)
         self.ui.buttonUsers_Delete.clicked.connect(self.dialog_deleteUser)
@@ -69,6 +97,9 @@ class SmartLibUi(QMainWindow):
         '''
         TAB: CIRCULATION
         '''
+        self.ui.tableCirculation.verticalHeader().setVisible(False)
+        self.ui.tableCirculation.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
         # self.ui.buttonCirculation_Add.clicked.connect(self.dialog_AddBook)
         # self.ui.buttonCirculation_Edit.clicked.connect()
         # self.ui.buttonCirculation_Delete.clicked.connect()
@@ -77,6 +108,8 @@ class SmartLibUi(QMainWindow):
         '''
         TAB: ISSUE
         '''
+        self.ui.tableIssue.verticalHeader().setVisible(False)
+        self.ui.tableIssue.setEditTriggers(QAbstractItemView.NoEditTriggers)
         # self.ui.buttonIssue_Add.clicked.connect(self.dialog_AddBook)
         # self.ui.buttonIssue_Edit.clicked.connect()
         # self.ui.buttonIssue_Delete.clicked.connect()
@@ -100,23 +133,6 @@ class SmartLibUi(QMainWindow):
     FUNCTIONS
     '''
 
-    # App Handler
-    def exit(self):
-        app.quit()
-
-    # Select Tab Functions
-    def selectTabMainMenu(self):
-        self.ui.tabWidget.setCurrentIndex(0)
-
-    def selectTabBooks(self):
-        self.ui.tabWidget.setCurrentIndex(1)
-
-    def selectTabUsers(self):
-        self.ui.tabWidget.setCurrentIndex(2)
-
-    def selectTabIssue(self):
-        self.ui.tabWidget.setCurrentIndex(4)
-
     def init_element(self):
         self.loadAllBooks()
         self.loadAllUsers()
@@ -127,6 +143,7 @@ class SmartLibUi(QMainWindow):
     def loadAllBooks(self):
         allBooks = self.bookDAO.getAllBooks()
         self.booksTableAdapter.addBooks(allBooks)
+        booksCount = len(allBooks)
 
         # update books quantity on first page button
         booksCount = len(allBooks)
@@ -136,6 +153,7 @@ class SmartLibUi(QMainWindow):
     def loadAllUsers(self):
         allUsers = self.userDAO.getAllUsers()
         self.userTableAdapter.addUsers(allUsers)
+        usersCount = len(allUsers)
 
         # update users quantity on first page button
         usersCount = len(allUsers)
@@ -222,6 +240,29 @@ class SmartLibUi(QMainWindow):
         Book Editing
 
     '''
+
+    def dialog_EditBook1_New(self):
+        book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
+
+        dialog = QDialog(self)
+        layout = QVBoxLayout()
+
+        dialog.setWindowTitle("Enter book ID")
+        dialog.resize(630, 150)
+
+        label0 = QLabel(self)
+        label0.setText("ID: ")
+        id_textBox = QLineEdit(self)
+        id_textBox.setText(str(book_id))
+        layout.addWidget(label0)
+        layout.addWidget(id_textBox)
+
+        okButton = QPushButton('Next')
+        okButton.clicked.connect(lambda: self.dialog_EditBook2(dialog, id_textBox))
+        layout.addWidget(okButton)
+
+        dialog.setLayout(layout)
+        dialog.show()
 
     def dialog_EditBook1(self):
         dialog = QDialog(self)
@@ -456,14 +497,15 @@ class SmartLibUi(QMainWindow):
         layout.addWidget(email_textBox)
 
         label3 = QLabel(self)
-        label3.setText("Line token: ")
+        label3.setText("LINE token: ")
         lineToken_textBox = QLineEdit(self)
         lineToken_textBox.setText(user_to_edit.lineToken)
+        lineToken_textBox.setEnabled(False)
         layout.addWidget(label3)
         layout.addWidget(lineToken_textBox)
 
         label4 = QLabel(self)
-        label4.setText("rfid: ")
+        label4.setText("RFID: ")
         rfid_textBox = QLineEdit(self)
         rfid_textBox.setText(user_to_edit.rfid)
         layout.addWidget(label4)
