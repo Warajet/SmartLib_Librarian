@@ -91,6 +91,17 @@ class BookDAO(AbstractDAO):
         else:
             print("Failed")
 
+    def deleteBook(self,book:Book):
+
+        response = requests.delete(self.server_ip + '/book/' + str(book.book_id), timeout=self.timeout)
+        if response.status_code == 200:  # Success
+            print(response.json())
+            pass
+        else:
+            print("Failed")
+
+
+
 
 
 

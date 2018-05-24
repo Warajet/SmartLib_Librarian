@@ -57,3 +57,50 @@ class UserTableAdapter(TableAdapter):
         # header.setSectionResizeMode(0, QHeaderView.Stretch)
         header.setSectionResizeMode(1, QHeaderView.Stretch)
         # header.setSectionResizeMode(2, QHeaderView.Stretch)
+
+
+class HistoryTableAdapter(TableAdapter):
+    def __init__(self,table):
+        TableAdapter.__init__(self,table)
+
+    def addCirculations(self, circulations):
+        self.clearTable()
+        row = 0
+        for circulation in circulations:
+            self.table.insertRow(row)
+            self.table.setItem(row, 0, QTableWidgetItem(str(circulation.borrow_id)))
+            self.table.setItem(row, 1, QTableWidgetItem(circulation.book.title))
+            self.table.setItem(row, 2, QTableWidgetItem(circulation.user.name))
+            self.table.setItem(row, 3, QTableWidgetItem(circulation.borrow_time.strftime('%d/%m/%y')))
+            self.table.setItem(row, 4, QTableWidgetItem(circulation.due_time.strftime('%d/%m/%y')))
+            if (circulation.return_time != None):
+              self.table.setItem(row, 5, QTableWidgetItem(circulation.return_time.strftime('%d/%m/%y')))
+            else:
+                self.table.setItem(row, 5, QTableWidgetItem("-"))
+            row += 1
+        header = self.table.horizontalHeader()
+        # header.setSectionResizeMode(0, QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QHeaderView.Stretch)
+        # header.setSectionResizeMode(2, QHeaderView.Stretch)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

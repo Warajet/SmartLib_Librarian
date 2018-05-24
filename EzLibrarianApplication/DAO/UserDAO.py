@@ -166,6 +166,16 @@ class UserDAO(AbstractDAO):
         else:
             print("Failed")
 
+    def deleteUser(self,user:User):
+
+        response = requests.delete(self.server_ip + '/user/' + str(user.user_id), timeout=self.timeout)
+        if response.status_code == 200:  # Success
+            print(response.json())
+            pass
+        else:
+            print("Failed")
+
+
 if __name__ == "__main__":
     userDAO = UserDAO()
     print(userDAO.getUserFromID(1).name)
