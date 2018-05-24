@@ -33,7 +33,6 @@ class SmartLibUi(QMainWindow):
         # QAction (Menu Bar)
         self.ui.actionMain_Menu.triggered.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
         self.ui.actionAdd_Book.triggered.connect(self.dialog_AddBook)
-        self.ui.actionExit.triggered.connect(self.exit)
         self.ui.actionReturnBook.triggered.connect(self.dialog_returnBook)
 
         self.ui.actionAdd_User.triggered.connect(self.dialog_AddUser)
