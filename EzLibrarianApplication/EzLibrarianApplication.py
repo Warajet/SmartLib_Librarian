@@ -2,22 +2,21 @@ import sys
 import Adapter.TableAdapter as TableAdapter
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from SmartLib_LibrarianUI import Ui_MainWindow
 from threading import Timer
 from DAO import BookDAO, UserDAO
 from Book import Book
 from User.User import User
-
+import webbrowser
 
 # Catch Error and display through MessageBox
 def catch_exceptions(t, val, tb):
     QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
     old_hook(t, val, tb)
 
-
 old_hook = sys.excepthook
 sys.excepthook = catch_exceptions
-
 
 class SmartLibUi(QMainWindow):
     def __init__(self):
@@ -31,6 +30,8 @@ class SmartLibUi(QMainWindow):
         # QAction (Menu Bar)
         self.ui.actionMain_Menu.triggered.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
         self.ui.actionAdd_Book.triggered.connect(self.dialog_AddBook)
+        self.ui.actionAdd_User.triggered.connect(self.dialog_AddUser)
+        self.ui.actionPython.triggered.connect(lambda: webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
         self.ui.actionExit.triggered.connect(lambda: app.quit())
 
         # pushButton (Main Menu Buttons)
@@ -50,8 +51,11 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(0,184,237); color:white;")
         self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(0,156,80); color:white;")
         self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(216,65,50); color:white;")
-        #self.ui.tableBooks.horizontalHeader().setStyleSheet("background-color:rgb(216,65,50);")
 
+        self.ui.tabWidget.tabBar().setTabTextColor(1, QColor(0,184,237))
+        self.ui.tabWidget.tabBar().setTabTextColor(2, QColor(0,156,80))
+        self.ui.tabWidget.tabBar().setTabTextColor(3, QColor(255, 157, 0))
+        self.ui.tabWidget.tabBar().setTabTextColor(4, QColor(216,65,50))
 
         # Green Button
         self.ui.buttonBooks_Add.setStyleSheet("background-color:green;")
