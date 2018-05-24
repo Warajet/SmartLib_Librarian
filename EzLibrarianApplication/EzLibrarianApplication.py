@@ -29,23 +29,29 @@ class SmartLibUi(QMainWindow):
         INITIAL UI SETUP
         '''
         # QAction (Menu Bar)
-        self.ui.actionMain_Menu.triggered.connect(self.selectTabMainMenu)
+        self.ui.actionMain_Menu.triggered.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
         self.ui.actionAdd_Book.triggered.connect(self.dialog_AddBook)
-        self.ui.actionExit.triggered.connect(self.exit)
+        self.ui.actionExit.triggered.connect(lambda: app.quit())
 
         # pushButton (Main Menu Buttons)
-        self.ui.buttonOverview_Books.clicked.connect(self.selectTabBooks)
-        self.ui.buttonOverview_Users.clicked.connect(self.selectTabUsers)
-        self.ui.buttonOverview_Issue.clicked.connect(self.selectTabIssue)
+        self.ui.buttonOverview_Books.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
+        self.ui.buttonOverview_Users.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(2))
+        self.ui.buttonOverview_Issue.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
         self.ui.buttonOverview_4.clicked.connect(self.dialog_AddBook)
+        #self.ui.buttonOverview_5.clicked.connect()
+        #self.ui.buttonOverview_6.clicked.connect()
+
+    
 
         '''
-        UI DECORATORs
+        UI DECORATORS
         '''
-        # self.ui.tabWidget.setStyleSheet("QWidget {background-color: yellow }")
+        #self.ui.toolBar.setStyleSheet("QWidget {background-color: yellow }")
         self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(0,184,237); color:white;")
         self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(0,156,80); color:white;")
         self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(216,65,50); color:white;")
+        #self.ui.tableBooks.horizontalHeader().setStyleSheet("background-color:rgb(216,65,50);")
+
 
         # Green Button
         self.ui.buttonBooks_Add.setStyleSheet("background-color:green;")
@@ -57,11 +63,15 @@ class SmartLibUi(QMainWindow):
         '''
         self.ui.tableBooks.verticalHeader().setVisible(False)
         self.ui.tableBooks.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.tableBooks.setSelectionBehavior(QAbstractItemView.SelectRows)
+
 
         self.ui.buttonBooks_Add.clicked.connect(self.dialog_AddBook)
-        self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook1)
+        self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook1_New)
         # self.ui.buttonBooks_Delete.clicked.connect()
         # self.ui.buttonBooks_Go.clicked.connect()
+        self.ui.tableBooks.doubleClicked.connect(self.dialog_EditBook1_New)
+
 
         '''
         TAB: USERS
@@ -73,6 +83,8 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser1)
         # self.ui.buttonUsers_Delete.clicked.connect()
         # self.ui.buttonUsers_Go.clicked.connect()
+       
+
 
         '''
         TAB: CIRCULATION
@@ -108,23 +120,6 @@ class SmartLibUi(QMainWindow):
     '''
     FUNCTIONS
     '''
-
-    # App Handler
-    def exit(self):
-        app.quit()
-
-    # Select Tab Functions
-    def selectTabMainMenu(self):
-        self.ui.tabWidget.setCurrentIndex(0)
-
-    def selectTabBooks(self):
-        self.ui.tabWidget.setCurrentIndex(1)
-
-    def selectTabUsers(self):
-        self.ui.tabWidget.setCurrentIndex(2)
-
-    def selectTabIssue(self):
-        self.ui.tabWidget.setCurrentIndex(4)
 
     def init_element(self):
         self.loadAllBooks()
@@ -221,7 +216,31 @@ class SmartLibUi(QMainWindow):
 
     '''
 
+    def dialog_EditBook1_New(self):
+        book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
+        
+        dialog = QDialog(self)
+        layout = QVBoxLayout()
+
+        dialog.setWindowTitle("Enter book ID")
+        dialog.resize(630, 150)
+
+        label0 = QLabel(self)
+        label0.setText("ID: ")
+        id_textBox = QLineEdit(self)
+        id_textBox.setText(str(book_id))
+        layout.addWidget(label0)
+        layout.addWidget(id_textBox)
+
+        okButton = QPushButton('Next')
+        okButton.clicked.connect(lambda: self.dialog_EditBook2(dialog, id_textBox))
+        layout.addWidget(okButton)
+
+        dialog.setLayout(layout)
+        dialog.show()
+
     def dialog_EditBook1(self):
+        
         dialog = QDialog(self)
         layout = QVBoxLayout()
 
