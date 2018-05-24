@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>EasyLibrary - Librarian Console</string>
   </property>
+  <property name="statusTip">
+   <string/>
+  </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>
@@ -32,7 +35,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="iconSize">
        <size>
@@ -56,6 +59,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLabel" name="labelOverview_Image">
+            <property name="statusTip">
+             <string>Profile picture</string>
+            </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/avatar/IMG/Susan_big.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
@@ -109,8 +115,11 @@
            <widget class="QPushButton" name="buttonOverview_Books">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>View all books</string>
             </property>
             <property name="text">
              <string>  ___ Books</string>
@@ -131,8 +140,11 @@
            <widget class="QPushButton" name="buttonOverview_Users">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>View all users</string>
             </property>
             <property name="text">
              <string>  ___ Users</string>
@@ -153,8 +165,11 @@
            <widget class="QPushButton" name="buttonOverview_Issue">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>View all issue books</string>
             </property>
             <property name="text">
              <string> ___ Issue Books</string>
@@ -179,8 +194,11 @@
            <widget class="QPushButton" name="buttonOverview_4">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>Add a new book</string>
             </property>
             <property name="text">
              <string>  Add Book</string>
@@ -201,8 +219,11 @@
            <widget class="QPushButton" name="buttonOverview_5">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>Add a new user</string>
             </property>
             <property name="text">
              <string>  Add User</string>
@@ -223,8 +244,11 @@
            <widget class="QPushButton" name="buttonOverview_6">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>Return a book</string>
             </property>
             <property name="text">
              <string>  Return Book</string>
@@ -246,6 +270,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tabBooks">
+       <property name="statusTip">
+        <string/>
+       </property>
        <attribute name="icon">
         <iconset resource="SmartLib_LibrarianRes.qrc">
          <normaloff>:/icon_book/Modern UI Icons Light/appbar.book.list.png</normaloff>:/icon_book/Modern UI Icons Light/appbar.book.list.png</iconset>
@@ -258,6 +285,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
            <widget class="QToolButton" name="buttonBooks_Add">
+            <property name="statusTip">
+             <string>Add a new book</string>
+            </property>
             <property name="text">
              <string>Add Book</string>
             </property>
@@ -278,6 +308,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonBooks_Edit">
+            <property name="statusTip">
+             <string>Edit selected book</string>
+            </property>
             <property name="text">
              <string>Edit Book</string>
             </property>
@@ -298,6 +331,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonBooks_Delete">
+            <property name="statusTip">
+             <string>Delete selected book</string>
+            </property>
             <property name="text">
              <string>Delete Book</string>
             </property>
@@ -331,16 +367,26 @@
           </item>
           <item>
            <widget class="QLabel" name="labelBooks_Search">
+            <property name="statusTip">
+             <string>Enter a book title</string>
+            </property>
             <property name="text">
              <string>Search:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditBooks_SearchBox"/>
+           <widget class="QLineEdit" name="lineEditBooks_SearchBox">
+            <property name="statusTip">
+             <string>Enter a book title</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QToolButton" name="buttonBooks_Go">
+            <property name="statusTip">
+             <string>Enter a book title</string>
+            </property>
             <property name="text">
              <string>Go</string>
             </property>
@@ -354,6 +400,9 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tableBooks">
+          <property name="statusTip">
+           <string>Double click to edit a book</string>
+          </property>
           <column>
            <property name="text">
             <string>ID</string>
@@ -401,6 +450,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
            <widget class="QToolButton" name="buttonUsers_Add">
+            <property name="statusTip">
+             <string>Add a new user</string>
+            </property>
             <property name="text">
              <string>Add User</string>
             </property>
@@ -421,6 +473,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonUsers_Edit">
+            <property name="statusTip">
+             <string>Edit selected user</string>
+            </property>
             <property name="text">
              <string>Edit User</string>
             </property>
@@ -441,6 +496,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonUsers_Delete">
+            <property name="statusTip">
+             <string>Delete selected user</string>
+            </property>
             <property name="text">
              <string>Delete User</string>
             </property>
@@ -474,16 +532,26 @@
           </item>
           <item>
            <widget class="QLabel" name="labelUsers_Search">
+            <property name="statusTip">
+             <string>Enter student name</string>
+            </property>
             <property name="text">
              <string>Search:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditUsers_SearchBox"/>
+           <widget class="QLineEdit" name="lineEditUsers_SearchBox">
+            <property name="statusTip">
+             <string>Enter student name</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QToolButton" name="buttonUsers_Go">
+            <property name="statusTip">
+             <string>Enter student name</string>
+            </property>
             <property name="text">
              <string>Go</string>
             </property>
@@ -497,6 +565,9 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tableUsers">
+          <property name="statusTip">
+           <string>Double click to edit a user</string>
+          </property>
           <column>
            <property name="text">
             <string>ID</string>
@@ -531,10 +602,10 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tabCirculation">
+      <widget class="QWidget" name="tabHistory">
        <attribute name="icon">
         <iconset resource="SmartLib_LibrarianRes.qrc">
-         <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.clockwise.down.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.clockwise.down.png</iconset>
+         <normaloff>:/icon_app/Modern UI Icons Light/appbar.timer.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.timer.png</iconset>
        </attribute>
        <attribute name="title">
         <string>History</string>
@@ -543,13 +614,16 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
-           <widget class="QToolButton" name="buttonCirculation_Delete">
+           <widget class="QToolButton" name="buttonHistory_Refresh">
+            <property name="statusTip">
+             <string>Click to refresh</string>
+            </property>
             <property name="text">
-             <string>  Delete  </string>
+             <string>  Refresh  </string>
             </property>
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</iconset>
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -576,17 +650,27 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label_5">
+           <widget class="QLabel" name="labelHistory_Search">
+            <property name="statusTip">
+             <string>Enter book title or student name</string>
+            </property>
             <property name="text">
              <string>Search:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditCirculation_SearchBox"/>
+           <widget class="QLineEdit" name="lineEditHistory_SearchBox">
+            <property name="statusTip">
+             <string>Enter book title or student name</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="buttonCirculation_Go">
+           <widget class="QToolButton" name="buttonHistory_Go">
+            <property name="statusTip">
+             <string>Enter book title or student name</string>
+            </property>
             <property name="text">
              <string>Go</string>
             </property>
@@ -599,7 +683,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableCirculation">
+         <widget class="QTableWidget" name="tableHistory">
           <column>
            <property name="text">
             <string>ID</string>
@@ -637,7 +721,7 @@
       <widget class="QWidget" name="tabIssue">
        <attribute name="icon">
         <iconset resource="SmartLib_LibrarianRes.qrc">
-         <normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</iconset>
+         <normaloff>:/icon_app/Modern UI Icons Light/appbar.information.circle.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.information.circle.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Issue Books</string>
@@ -646,7 +730,10 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
-           <widget class="QToolButton" name="buttonIssue_Add">
+           <widget class="QToolButton" name="buttonIssue_ReturnBook">
+            <property name="statusTip">
+             <string>Return a book</string>
+            </property>
             <property name="text">
              <string>Return Book</string>
             </property>
@@ -679,7 +766,10 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label_6">
+           <widget class="QLabel" name="labelIssue_Search">
+            <property name="statusTip">
+             <string>Enter </string>
+            </property>
             <property name="text">
              <string>Search:</string>
             </property>
@@ -750,6 +840,9 @@
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
+   <property name="statusTip">
+    <string/>
+   </property>
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
@@ -763,22 +856,23 @@
     <enum>Qt::ToolButtonTextUnderIcon</enum>
    </property>
    <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
+    <enum>LeftToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>false</bool>
+    <bool>true</bool>
    </attribute>
    <addaction name="actionMain_Menu"/>
    <addaction name="separator"/>
    <addaction name="actionAdd_Book"/>
+   <addaction name="separator"/>
    <addaction name="actionAdd_User"/>
    <addaction name="separator"/>
    <addaction name="actionReturnBook"/>
-   <addaction name="actionReport"/>
    <addaction name="separator"/>
    <addaction name="actionRefresh"/>
    <addaction name="separator"/>
    <addaction name="actionPython"/>
+   <addaction name="separator"/>
    <addaction name="actionExit"/>
    <addaction name="separator"/>
   </widget>
@@ -836,18 +930,6 @@
     <bool>true</bool>
    </property>
   </action>
-  <action name="actionReport">
-   <property name="icon">
-    <iconset resource="SmartLib_LibrarianRes.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</iconset>
-   </property>
-   <property name="text">
-    <string>Report</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
-  </action>
   <action name="actionExit">
    <property name="icon">
     <iconset resource="SmartLib_LibrarianRes.qrc">
@@ -855,6 +937,9 @@
    </property>
    <property name="text">
     <string>Exit</string>
+   </property>
+   <property name="statusTip">
+    <string/>
    </property>
   </action>
   <action name="actionRefresh">

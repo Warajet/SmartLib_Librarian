@@ -32,87 +32,82 @@ class SmartLibUi(QMainWindow):
         # QAction (Menu Bar)
         self.ui.actionMain_Menu.triggered.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
         self.ui.actionAdd_Book.triggered.connect(self.dialog_AddBook)
-        self.ui.actionReturnBook.triggered.connect(self.dialog_returnBook)
-
         self.ui.actionAdd_User.triggered.connect(self.dialog_AddUser)
+        self.ui.actionReturnBook.triggered.connect(self.dialog_returnBook)
+        self.ui.actionRefresh.triggered.connect(self.init_element)
         self.ui.actionPython.triggered.connect(lambda: webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
         self.ui.actionExit.triggered.connect(lambda: app.quit())
 
         # pushButton (Main Menu Buttons)
+        # @todo change pushButton variable names
         self.ui.buttonOverview_Books.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
         self.ui.buttonOverview_Users.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(2))
         self.ui.buttonOverview_Issue.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
         self.ui.buttonOverview_4.clicked.connect(self.dialog_AddBook)
-        #self.ui.buttonOverview_5.clicked.connect()
-        #self.ui.buttonOverview_6.clicked.connect()
-
-
+        self.ui.buttonOverview_5.clicked.connect(self.dialog_AddUser)
+        self.ui.buttonOverview_6.clicked.connect(self.dialog_returnBook)
 
         '''
-        UI DECORATORs
+        UI DECORATORS
         '''
-        # self.ui.tabWidget.setStyleSheet("QWidget {background-color: yellow }")
+        # Overview Buttons
         self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(0,184,237); color:white;")
         self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(0,156,80); color:white;")
         self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(216,65,50); color:white;")
 
+        # Tab Text Colors
         self.ui.tabWidget.tabBar().setTabTextColor(1, QColor(0,184,237))
         self.ui.tabWidget.tabBar().setTabTextColor(2, QColor(0,156,80))
         self.ui.tabWidget.tabBar().setTabTextColor(3, QColor(255, 157, 0))
         self.ui.tabWidget.tabBar().setTabTextColor(4, QColor(216,65,50))
 
-        # Green Button
-        self.ui.buttonBooks_Add.setStyleSheet("background-color:green;")
-        self.ui.buttonUsers_Add.setStyleSheet("background-color:green;")
-        #self.ui.buttonCirculation_Add.setStyleSheet("background-color:green;")
-        self.ui.buttonIssue_Add.setStyleSheet("background-color:green;")
         '''
-        TAB: BOOKS
+        TAB[0]: BOOKS
         '''
         self.ui.tableBooks.verticalHeader().setVisible(False)
         self.ui.tableBooks.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.ui.tableBooks.setSelectionBehavior(QAbstractItemView.SelectRows)
 
-
-        self.ui.buttonBooks_Add.clicked.connect(self.dialog_AddBook)
-        self.ui.buttonBooks_Delete.clicked.connect(self.dialog_deleteBook)
-        self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook1_New)
-        # self.ui.buttonBooks_Delete.clicked.connect()
-        # self.ui.buttonBooks_Go.clicked.connect()
         self.ui.tableBooks.doubleClicked.connect(self.dialog_EditBook1_New)
 
+        self.ui.buttonBooks_Add.clicked.connect(self.dialog_AddBook)
+        self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook1_New)
+        self.ui.buttonBooks_Delete.clicked.connect(self.dialog_deleteBook)
+        #self.ui.buttonBooks_Go.clicked.connect()
 
         '''
-        TAB: USERS
+        TAB[1]: USERS
         '''
         self.ui.tableUsers.verticalHeader().setVisible(False)
         self.ui.tableUsers.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.tableUsers.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+        self.ui.tableUsers.doubleClicked.connect(self.dialog_EditUser1)
+
         self.ui.buttonUsers_Add.clicked.connect(self.dialog_AddUser)
         self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser1)
         self.ui.buttonUsers_Delete.clicked.connect(self.dialog_deleteUser)
-        # self.ui.buttonUsers_Go.clicked.connect()
+        #self.ui.buttonUsers_Go.clicked.connect()
 
         '''
-        TAB: CIRCULATION
+        TAB[2]: HISTORY
         '''
-        self.ui.tableCirculation.verticalHeader().setVisible(False)
-        self.ui.tableCirculation.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.tableHistory.verticalHeader().setVisible(False)
+        self.ui.tableHistory.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.tableHistory.setSelectionBehavior(QAbstractItemView.SelectRows)
 
-        # self.ui.buttonCirculation_Add.clicked.connect(self.dialog_AddBook)
-        # self.ui.buttonCirculation_Edit.clicked.connect()
-        # self.ui.buttonCirculation_Delete.clicked.connect()
-        # self.ui.buttonCirculation_Go.clicked.connect()
+        self.ui.buttonHistory_Refresh.clicked.connect(self.init_element)
+        #self.ui.buttonHistory_Go.clicked.connect()
 
         '''
-        TAB: ISSUE
+        TAB[3]: ISSUE
         '''
         self.ui.tableIssue.verticalHeader().setVisible(False)
         self.ui.tableIssue.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        # self.ui.buttonIssue_Add.clicked.connect(self.dialog_AddBook)
-        # self.ui.buttonIssue_Edit.clicked.connect()
-        # self.ui.buttonIssue_Delete.clicked.connect()
-        # self.ui.buttonIssue_Go.clicked.connect()
+        self.ui.tableIssue.setSelectionBehavior(QAbstractItemView.SelectRows)
 
+        self.ui.buttonIssue_ReturnBook.clicked.connect(self.dialog_returnBook)
+        # self.ui.buttonIssue_Go.clicked.connect()
 
         '''
         TableAdapter & DAO
@@ -123,7 +118,7 @@ class SmartLibUi(QMainWindow):
 
         self.booksTableAdapter = TableAdapter.BookTableAdapter(self.ui.tableBooks)
         self.userTableAdapter = TableAdapter.UserTableAdapter(self.ui.tableUsers)
-        self.historyTableAdapter = TableAdapter.HistoryTableAdapter(self.ui.tableCirculation)
+        self.historyTableAdapter = TableAdapter.HistoryTableAdapter(self.ui.tableHistory)
         self.onBorrowTableAdapter = TableAdapter.HistoryTableAdapter(self.ui.tableIssue)
         self.init_element()
 
