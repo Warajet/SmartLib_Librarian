@@ -42,7 +42,7 @@
       </property>
       <widget class="QWidget" name="tabOverview">
        <attribute name="icon">
-        <iconset resource="EZLib_LibrarianUI_res.qrc">
+        <iconset resource="SmartLib_LibrarianRes.qrc">
          <normaloff>:/icon_app/Modern UI Icons Light/appbar.eye.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.eye.png</iconset>
        </attribute>
        <attribute name="title">
@@ -113,7 +113,7 @@
              <string>  ___ Books</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/button/IMG/167756.png</normaloff>:/button/IMG/167756.png</iconset>
             </property>
             <property name="iconSize">
@@ -135,7 +135,7 @@
              <string>  ___ Users</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/button/IMG/149071.png</normaloff>:/button/IMG/149071.png</iconset>
             </property>
             <property name="iconSize">
@@ -157,7 +157,7 @@
              <string> ___ Issue Books</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/button/IMG/clock-icon.png</normaloff>:/button/IMG/clock-icon.png</iconset>
             </property>
             <property name="iconSize">
@@ -183,7 +183,7 @@
              <string>  Add Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/button/IMG/167755.png</normaloff>:/button/IMG/167755.png</iconset>
             </property>
             <property name="iconSize">
@@ -205,7 +205,7 @@
              <string>  Add User</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/button/IMG/167755.png</normaloff>:/button/IMG/167755.png</iconset>
             </property>
             <property name="iconSize">
@@ -227,7 +227,7 @@
              <string>  Return Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/button/IMG/167755.png</normaloff>:/button/IMG/167755.png</iconset>
             </property>
             <property name="iconSize">
@@ -244,7 +244,7 @@
       </widget>
       <widget class="QWidget" name="tabBooks">
        <attribute name="icon">
-        <iconset resource="EZLib_LibrarianUI_res.qrc">
+        <iconset resource="SmartLib_LibrarianRes.qrc">
          <normaloff>:/icon_book/Modern UI Icons Light/appbar.book.list.png</normaloff>:/icon_book/Modern UI Icons Light/appbar.book.list.png</iconset>
        </attribute>
        <attribute name="title">
@@ -259,7 +259,7 @@
              <string>Add Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</iconset>
             </property>
             <property name="iconSize">
@@ -279,7 +279,7 @@
              <string>Edit Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</iconset>
             </property>
             <property name="iconSize">
@@ -299,7 +299,7 @@
              <string>Delete Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</iconset>
             </property>
             <property name="iconSize">
@@ -342,7 +342,7 @@
              <string>Go</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</iconset>
             </property>
            </widget>
@@ -376,13 +376,18 @@
             <string>ISBN</string>
            </property>
           </column>
+          <column>
+           <property name="text">
+            <string>RFID</string>
+           </property>
+          </column>
          </widget>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tabUsers">
        <attribute name="icon">
-        <iconset resource="EZLib_LibrarianUI_res.qrc">
+        <iconset resource="SmartLib_LibrarianRes.qrc">
          <normaloff>:/icon_app/Modern UI Icons Light/appbar.people.multiple.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.people.multiple.png</iconset>
        </attribute>
        <attribute name="title">
@@ -397,7 +402,7 @@
              <string>Add User</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</iconset>
             </property>
             <property name="iconSize">
@@ -417,7 +422,7 @@
              <string>Edit User</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</iconset>
             </property>
             <property name="iconSize">
@@ -437,7 +442,7 @@
              <string>Delete User</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</iconset>
             </property>
             <property name="iconSize">
@@ -480,7 +485,7 @@
              <string>Go</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</iconset>
             </property>
            </widget>
@@ -525,7 +530,7 @@
       </widget>
       <widget class="QWidget" name="tabCirculation">
        <attribute name="icon">
-        <iconset resource="EZLib_LibrarianUI_res.qrc">
+        <iconset resource="SmartLib_LibrarianRes.qrc">
          <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.clockwise.down.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.clockwise.down.png</iconset>
        </attribute>
        <attribute name="title">
@@ -540,7 +545,7 @@
              <string>  Add  </string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</iconset>
             </property>
             <property name="iconSize">
@@ -560,7 +565,7 @@
              <string>  Edit  </string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</iconset>
             </property>
             <property name="iconSize">
@@ -580,7 +585,7 @@
              <string>  Delete  </string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</iconset>
             </property>
             <property name="iconSize">
@@ -623,7 +628,7 @@
              <string>Go</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</iconset>
             </property>
            </widget>
@@ -668,7 +673,7 @@
       </widget>
       <widget class="QWidget" name="tabIssue">
        <attribute name="icon">
-        <iconset resource="EZLib_LibrarianUI_res.qrc">
+        <iconset resource="SmartLib_LibrarianRes.qrc">
          <normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</iconset>
        </attribute>
        <attribute name="title">
@@ -683,7 +688,7 @@
              <string>  Add  </string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</iconset>
             </property>
             <property name="iconSize">
@@ -703,7 +708,7 @@
              <string>  Edit  </string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</iconset>
             </property>
             <property name="iconSize">
@@ -723,7 +728,7 @@
              <string>  Delete  </string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</iconset>
             </property>
             <property name="iconSize">
@@ -766,7 +771,7 @@
              <string>Go</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</iconset>
             </property>
            </widget>
@@ -840,22 +845,18 @@
    <addaction name="actionMain_Menu"/>
    <addaction name="separator"/>
    <addaction name="actionAdd_Book"/>
+   <addaction name="separator"/>
    <addaction name="actionAdd_User"/>
    <addaction name="separator"/>
    <addaction name="actionReturnBook"/>
    <addaction name="actionReport"/>
    <addaction name="separator"/>
-   <addaction name="actionBarcode"/>
-   <addaction name="separator"/>
-   <addaction name="actionSettings"/>
-   <addaction name="actionSQL"/>
-   <addaction name="separator"/>
-   <addaction name="actionHelp"/>
    <addaction name="actionExit"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionMain_Menu">
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_app/Modern UI Icons Light/appbar.tiles.nine.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.tiles.nine.png</iconset>
    </property>
    <property name="text">
@@ -873,7 +874,7 @@
   </action>
   <action name="actionAdd_Book">
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_book/Modern UI Icons Light/appbar.book.png</normaloff>:/icon_book/Modern UI Icons Light/appbar.book.png</iconset>
    </property>
    <property name="text">
@@ -882,7 +883,7 @@
   </action>
   <action name="actionAdd_User">
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_app/Modern UI Icons Light/appbar.user.add.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.user.add.png</iconset>
    </property>
    <property name="text">
@@ -894,7 +895,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_book/Modern UI Icons Light/appbar.book.open.information.png</normaloff>:/icon_book/Modern UI Icons Light/appbar.book.open.information.png</iconset>
    </property>
    <property name="text">
@@ -909,7 +910,7 @@
   </action>
   <action name="actionReport">
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</iconset>
    </property>
    <property name="text">
@@ -919,66 +920,18 @@
     <bool>false</bool>
    </property>
   </action>
-  <action name="actionBarcode">
-   <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.barcode.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.barcode.png</iconset>
-   </property>
-   <property name="text">
-    <string>Barcode</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
-  </action>
-  <action name="actionHelp">
-   <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.book.perspective.help.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.book.perspective.help.png</iconset>
-   </property>
-   <property name="text">
-    <string>Help</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
-  </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_app/Modern UI Icons Light/appbar.power.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.power.png</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionSettings">
-   <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.cog.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.cog.png</iconset>
-   </property>
-   <property name="text">
-    <string>Settings</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
-  </action>
-  <action name="actionSQL">
-   <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.database.sql.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.database.sql.png</iconset>
-   </property>
-   <property name="text">
-    <string>Database</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
-  </action>
  </widget>
  <resources>
-  <include location="EZLib_LibrarianUI_res.qrc"/>
+  <include location="SmartLib_LibrarianRes.qrc"/>
  </resources>
  <connections/>
 </ui>
