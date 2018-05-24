@@ -15,10 +15,8 @@ import webbrowser
 def catch_exceptions(t, val, tb):
     QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
     old_hook(t, val, tb)
-
 old_hook = sys.excepthook
 sys.excepthook = catch_exceptions
-
 
 class SmartLibUi(QMainWindow):
     def __init__(self):
@@ -39,23 +37,24 @@ class SmartLibUi(QMainWindow):
         self.ui.actionExit.triggered.connect(lambda: app.quit())
 
         # pushButton (Main Menu Buttons)
-        # @todo change pushButton variable names
         self.ui.buttonOverview_Books.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
         self.ui.buttonOverview_Users.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(2))
         self.ui.buttonOverview_Issue.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
-        self.ui.buttonOverview_4.clicked.connect(self.dialog_AddBook)
-        self.ui.buttonOverview_5.clicked.connect(self.dialog_AddUser)
-        self.ui.buttonOverview_6.clicked.connect(self.dialog_returnBook)
+        self.ui.buttonOverview_AddBook.clicked.connect(self.dialog_AddBook)
+        self.ui.buttonOverview_AddUser.clicked.connect(self.dialog_AddUser)
+        self.ui.buttonOverview_ReturnBook.clicked.connect(self.dialog_returnBook)
 
         '''
         UI DECORATORS
         '''
-        # Overview Buttons
+        # [Overview] Button Colors
         self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(0,184,237); color:white;")
         self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(0,156,80); color:white;")
         self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(216,65,50); color:white;")
 
-        # Tab Text Colors
+        # [Tab] Text Font & Colors
+        self.ui.tabWidget.setStyleSheet('QTabBar { font-size: 12pt; }')
+
         self.ui.tabWidget.tabBar().setTabTextColor(1, QColor(0,184,237))
         self.ui.tabWidget.tabBar().setTabTextColor(2, QColor(0,156,80))
         self.ui.tabWidget.tabBar().setTabTextColor(3, QColor(255, 157, 0))
@@ -64,51 +63,40 @@ class SmartLibUi(QMainWindow):
         '''
         TAB[0]: BOOKS
         '''
-        self.ui.tableBooks.verticalHeader().setVisible(False)
-        self.ui.tableBooks.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.ui.tableBooks.setSelectionBehavior(QAbstractItemView.SelectRows)
-
         self.ui.tableBooks.doubleClicked.connect(self.dialog_EditBook1_New)
 
         self.ui.buttonBooks_Add.clicked.connect(self.dialog_AddBook)
         self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook1_New)
         self.ui.buttonBooks_Delete.clicked.connect(self.dialog_deleteBook)
         self.ui.buttonBooks_Go.clicked.connect(self.searchBooks)
-
+        self.ui.buttonBooks_Refresh.clicked.connect(self.init_element)
 
         '''
         TAB[1]: USERS
         '''
-        self.ui.tableUsers.verticalHeader().setVisible(False)
-        self.ui.tableUsers.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.ui.tableUsers.setSelectionBehavior(QAbstractItemView.SelectRows)
-
         self.ui.tableUsers.doubleClicked.connect(self.dialog_EditUser1)
-
+        
         self.ui.buttonUsers_Add.clicked.connect(self.dialog_AddUser)
         self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser1)
         self.ui.buttonUsers_Delete.clicked.connect(self.dialog_deleteUser)
         self.ui.buttonUsers_Go.clicked.connect(self.searchUser)
+        self.ui.buttonUsers_Refresh.clicked.connect(self.init_element)
 
         '''
         TAB[2]: HISTORY
         '''
-        self.ui.tableHistory.verticalHeader().setVisible(False)
-        self.ui.tableHistory.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.ui.tableHistory.setSelectionBehavior(QAbstractItemView.SelectRows)
-
-        self.ui.buttonHistory_Refresh.clicked.connect(self.init_element)
+        self.ui.buttonHistory_Filter.setEnabled(False)
         self.ui.buttonHistory_Go.clicked.connect(self.searchHistory)
+        self.ui.buttonHistory_Refresh.clicked.connect(self.init_element)
 
         '''
         TAB[3]: ISSUE
         '''
-        self.ui.tableIssue.verticalHeader().setVisible(False)
-        self.ui.tableIssue.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.ui.tableIssue.setSelectionBehavior(QAbstractItemView.SelectRows)
+        #self.ui.tableUsers.doubleClicked.connect(self.dialog_returnBook)
 
         self.ui.buttonIssue_ReturnBook.clicked.connect(self.dialog_returnBook)
         self.ui.buttonIssue_Go.clicked.connect(self.searchOnBorrow)
+        self.ui.buttonIssue_Refresh.clicked.connect(self.init_element)
 
         '''
         TableAdapter & DAO
@@ -128,7 +116,6 @@ class SmartLibUi(QMainWindow):
         self.ui.lineEditUsers_SearchBox.textChanged.connect(self.searchUser)
         self.ui.lineEditHistory_SearchBox.textChanged.connect(self.searchHistory)
         self.ui.lineEditIssue_SearchBox.textChanged.connect(self.searchOnBorrow)
-
 
     '''
     FUNCTIONS
@@ -170,9 +157,7 @@ class SmartLibUi(QMainWindow):
 
         # update users quantity on first page button
         issueCount = len(allOnBorrowBooks)
-        self.ui.buttonOverview_Issue.setText("   " + str(issueCount) + "  Issue Books")
-
-
+        self.ui.buttonOverview_Issue.setText(" " + str(issueCount) + " Issue Books")
 
     '''
         Add books
@@ -244,7 +229,6 @@ class SmartLibUi(QMainWindow):
 
     '''
         Book Editing
-
     '''
 
     def dialog_EditBook1_New(self):

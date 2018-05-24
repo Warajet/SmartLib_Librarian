@@ -34,8 +34,11 @@
         <pointsize>8</pointsize>
        </font>
       </property>
+      <property name="statusTip">
+       <string/>
+      </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -191,7 +194,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QPushButton" name="buttonOverview_4">
+           <widget class="QPushButton" name="buttonOverview_AddBook">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -216,7 +219,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="buttonOverview_5">
+           <widget class="QPushButton" name="buttonOverview_AddUser">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -241,7 +244,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="buttonOverview_6">
+           <widget class="QPushButton" name="buttonOverview_ReturnBook">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -285,6 +288,18 @@
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
            <widget class="QToolButton" name="buttonBooks_Add">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
             <property name="statusTip">
              <string>Add a new book</string>
             </property>
@@ -308,6 +323,18 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonBooks_Edit">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
             <property name="statusTip">
              <string>Edit selected book</string>
             </property>
@@ -331,6 +358,18 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonBooks_Delete">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
             <property name="statusTip">
              <string>Delete selected book</string>
             </property>
@@ -367,6 +406,11 @@
           </item>
           <item>
            <widget class="QLabel" name="labelBooks_Search">
+            <property name="font">
+             <font>
+              <pointsize>8</pointsize>
+             </font>
+            </property>
             <property name="statusTip">
              <string>Enter a book title</string>
             </property>
@@ -377,6 +421,11 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEditBooks_SearchBox">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="statusTip">
              <string>Enter a book title</string>
             </property>
@@ -385,7 +434,7 @@
           <item>
            <widget class="QToolButton" name="buttonBooks_Go">
             <property name="statusTip">
-             <string>Enter a book title</string>
+             <string>Search</string>
             </property>
             <property name="text">
              <string>Go</string>
@@ -393,6 +442,42 @@
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonBooks_Refresh">
+            <property name="statusTip">
+             <string>Refresh</string>
+            </property>
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+            <property name="icon">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
             </property>
            </widget>
           </item>
@@ -403,6 +488,24 @@
           <property name="statusTip">
            <string>Double click to edit a book</string>
           </property>
+          <property name="tabKeyNavigation">
+           <bool>false</bool>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>ID</string>
@@ -450,6 +553,18 @@
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
            <widget class="QToolButton" name="buttonUsers_Add">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
             <property name="statusTip">
              <string>Add a new user</string>
             </property>
@@ -473,6 +588,18 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonUsers_Edit">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
             <property name="statusTip">
              <string>Edit selected user</string>
             </property>
@@ -496,6 +623,18 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonUsers_Delete">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
             <property name="statusTip">
              <string>Delete selected user</string>
             </property>
@@ -542,6 +681,11 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEditUsers_SearchBox">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="statusTip">
              <string>Enter student name</string>
             </property>
@@ -561,6 +705,36 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonUsers_Refresh">
+            <property name="statusTip">
+             <string>Refresh</string>
+            </property>
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+            <property name="icon">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -568,6 +742,21 @@
           <property name="statusTip">
            <string>Double click to edit a user</string>
           </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>ID</string>
@@ -614,16 +803,31 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
-           <widget class="QToolButton" name="buttonHistory_Refresh">
+           <widget class="QToolButton" name="buttonHistory_Filter">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
             <property name="statusTip">
              <string>Click to refresh</string>
             </property>
             <property name="text">
-             <string>  Refresh  </string>
+             <string> Filter Date </string>
             </property>
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.calendar.day.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.calendar.day.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -661,6 +865,11 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEditHistory_SearchBox">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="statusTip">
              <string>Enter book title or student name</string>
             </property>
@@ -680,10 +889,58 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonHistory_Refresh">
+            <property name="statusTip">
+             <string>Refresh</string>
+            </property>
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+            <property name="icon">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
          <widget class="QTableWidget" name="tableHistory">
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>ID</string>
@@ -731,6 +988,18 @@
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
            <widget class="QToolButton" name="buttonIssue_ReturnBook">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
             <property name="statusTip">
              <string>Return a book</string>
             </property>
@@ -776,7 +1045,13 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditIssue_SearchBox"/>
+           <widget class="QLineEdit" name="lineEditIssue_SearchBox">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QToolButton" name="buttonIssue_Go">
@@ -789,10 +1064,55 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonIssue_Refresh">
+            <property name="statusTip">
+             <string>Refresh</string>
+            </property>
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+            <property name="icon">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
          <widget class="QTableWidget" name="tableIssue">
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>ID</string>
@@ -846,6 +1166,9 @@
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
    <property name="iconSize">
     <size>
      <width>76</width>
@@ -859,7 +1182,7 @@
     <enum>LeftToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="actionMain_Menu"/>
    <addaction name="separator"/>
@@ -902,6 +1225,9 @@
    <property name="text">
     <string>Add Book</string>
    </property>
+   <property name="statusTip">
+    <string>Add a new book</string>
+   </property>
   </action>
   <action name="actionAdd_User">
    <property name="icon">
@@ -910,6 +1236,9 @@
    </property>
    <property name="text">
     <string>Add User</string>
+   </property>
+   <property name="statusTip">
+    <string>Add a new user</string>
    </property>
   </action>
   <action name="actionReturnBook">
@@ -926,6 +1255,9 @@
    <property name="iconText">
     <string>Return Book</string>
    </property>
+   <property name="statusTip">
+    <string>Return a book</string>
+   </property>
    <property name="visible">
     <bool>true</bool>
    </property>
@@ -939,7 +1271,7 @@
     <string>Exit</string>
    </property>
    <property name="statusTip">
-    <string/>
+    <string>Exit a program</string>
    </property>
   </action>
   <action name="actionRefresh">
@@ -948,7 +1280,10 @@
      <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
    </property>
    <property name="text">
-    <string>Refresh</string>
+    <string>Refresh All</string>
+   </property>
+   <property name="statusTip">
+    <string>Refresh all of the data</string>
    </property>
   </action>
   <action name="actionPython">
@@ -958,6 +1293,9 @@
    </property>
    <property name="text">
     <string>Python</string>
+   </property>
+   <property name="statusTip">
+    <string>Build with Python :)</string>
    </property>
   </action>
  </widget>
