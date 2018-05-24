@@ -53,6 +53,8 @@ class BookCirculationDAO(AbstractDAO):
         except requests.exceptions.ConnectTimeout:  # Connection timeout, use offline mockup data
             print("Timeout")
 
+        return None
+
     def getAllOnBorrowCirculation(self):
         try:
             response = requests.get(self.server_ip + '/borrow' , timeout = self.timeout)
@@ -96,6 +98,47 @@ class BookCirculationDAO(AbstractDAO):
             pass
         else:
             print("Failed")
+
+    def searchHistory(self, keyword):
+        if keyword == "" or keyword.startswith(' '):
+            return self.getAllCirculations()
+
+        try:
+            response = requests.get(self.server_ip + '/history/search/'+ keyword , timeout = self.timeout)
+            circulations = None
+            if response.status_code == 200:
+                to_return = []
+                for raw_data in response.json():
+                    to_return.append(self.construct_book_circulation(raw_data ))
+                return to_return
+            else:
+                print("Request failed")
+        except requests.exceptions.ConnectTimeout:  # Connection timeout, use offline mockup data
+            print("Timeout")
+
+        return None
+
+    def searchOnBorrow(self, keyword):
+        if keyword == "" or keyword.startswith(' '):
+            return self.getAllCirculations()
+
+        try:
+            response = requests.get(self.server_ip + '/borrow/search/'+ keyword , timeout = self.timeout)
+            circulations = None
+            if response.status_code == 200:
+                to_return = []
+                for raw_data in response.json():
+                    to_return.append(self.construct_book_circulation(raw_data ))
+                return to_return
+            else:
+                print("Request failed")
+        except requests.exceptions.ConnectTimeout:  # Connection timeout, use offline mockup data
+            print("Timeout")
+
+        return None
+
+
+
 
 
 if __name__ == "__main__":

@@ -21,6 +21,9 @@ class BookTableAdapter(TableAdapter):
         self.clearTable()
 
         row  = 0
+        if books is None:
+            return
+
         for book in books:
             self.table.insertRow(row)
             self.table.setItem(row, 0, QTableWidgetItem(str(book.book_id)))
@@ -44,6 +47,9 @@ class UserTableAdapter(TableAdapter):
         self.clearTable()
 
         row = 0
+        if users is None:
+            return
+
         for user in users:
             self.table.insertRow(row)
             self.table.setItem(row, 0, QTableWidgetItem(str(user.user_id)))
@@ -66,6 +72,8 @@ class HistoryTableAdapter(TableAdapter):
     def addCirculations(self, circulations):
         self.clearTable()
         row = 0
+        if circulations is None:
+            return
         for circulation in circulations:
             self.table.insertRow(row)
             self.table.setItem(row, 0, QTableWidgetItem(str(circulation.borrow_id)))

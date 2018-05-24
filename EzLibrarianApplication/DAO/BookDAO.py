@@ -100,17 +100,30 @@ class BookDAO(AbstractDAO):
         else:
             print("Failed")
 
+    def searchBook(self,keyword:str):
+        if keyword == "" or keyword.startswith(' '):
+            return self.getAllBooks()
 
+        try:
+            response = requests.get(self.server_ip + '/book/search/' + str(keyword), timeout=self.timeout)
+            book = None
+            if response.status_code == 200:
+                to_return = []
+                for raw_data in response.json():
+                    to_return.append(self.constructBook(raw_data))
+
+                return to_return
+        except requests.exceptions.ConnectTimeout:  # Connection timeout, use offline mockup data
+            print("Timeout")
 
 
 
 
 if __name__ == "__main__":
     bookDAO = BookDAO()
-    # for book in bookDAO.getAllBooks():
-    #     print(book.__dict__)
-    #
+    for book in bookDAO.searchBook("asp"):
+        print(book.__dict__)
 
-    bookDAO.addBook(Book(None,"Testbook","sfsfsfdfwfwfwf",None,None,"Akshi","EazyLib","0002"))
+
 
 

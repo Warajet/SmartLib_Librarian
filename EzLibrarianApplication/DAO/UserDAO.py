@@ -122,10 +122,13 @@ class UserDAO(AbstractDAO):
                 to_return = []
                 for raw_data in response.json():
                     to_return.append(self.constructUser(raw_data))
-
                 return to_return
+
         except requests.exceptions.ConnectTimeout:  # Connection timeout, use offline mockup data
             print("Timeout")
+
+        return None
+
 
 
     @staticmethod
@@ -174,6 +177,24 @@ class UserDAO(AbstractDAO):
             pass
         else:
             print("Failed")
+
+    def searchUser(self, keyword:str):
+        if keyword == "" or keyword.startswith(' '):
+            return self.getAllUsers()
+
+        try:
+            response = requests.get(self.server_ip + '/user/search/' + str(keyword), timeout=self.timeout)
+            user = None
+            if response.status_code == 200:
+                to_return = []
+                for raw_data in response.json():
+                    to_return.append(self.constructUser(raw_data))
+                return to_return
+
+        except requests.exceptions.ConnectTimeout:  # Connection timeout, use offline mockup data
+            print("Timeout")
+
+        return None
 
 
 if __name__ == "__main__":

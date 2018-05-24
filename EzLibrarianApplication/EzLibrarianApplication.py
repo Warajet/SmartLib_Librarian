@@ -73,7 +73,8 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonBooks_Add.clicked.connect(self.dialog_AddBook)
         self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook1_New)
         self.ui.buttonBooks_Delete.clicked.connect(self.dialog_deleteBook)
-        #self.ui.buttonBooks_Go.clicked.connect()
+        self.ui.buttonBooks_Go.clicked.connect(self.searchBooks)
+
 
         '''
         TAB[1]: USERS
@@ -87,7 +88,7 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonUsers_Add.clicked.connect(self.dialog_AddUser)
         self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser1)
         self.ui.buttonUsers_Delete.clicked.connect(self.dialog_deleteUser)
-        #self.ui.buttonUsers_Go.clicked.connect()
+        self.ui.buttonUsers_Go.clicked.connect(self.searchUser)
 
         '''
         TAB[2]: HISTORY
@@ -97,7 +98,7 @@ class SmartLibUi(QMainWindow):
         self.ui.tableHistory.setSelectionBehavior(QAbstractItemView.SelectRows)
 
         self.ui.buttonHistory_Refresh.clicked.connect(self.init_element)
-        #self.ui.buttonHistory_Go.clicked.connect()
+        self.ui.buttonHistory_Go.clicked.connect(self.searchHistory)
 
         '''
         TAB[3]: ISSUE
@@ -107,7 +108,7 @@ class SmartLibUi(QMainWindow):
         self.ui.tableIssue.setSelectionBehavior(QAbstractItemView.SelectRows)
 
         self.ui.buttonIssue_ReturnBook.clicked.connect(self.dialog_returnBook)
-        # self.ui.buttonIssue_Go.clicked.connect()
+        self.ui.buttonIssue_Go.clicked.connect(self.searchOnBorrow)
 
         '''
         TableAdapter & DAO
@@ -121,6 +122,13 @@ class SmartLibUi(QMainWindow):
         self.historyTableAdapter = TableAdapter.HistoryTableAdapter(self.ui.tableHistory)
         self.onBorrowTableAdapter = TableAdapter.HistoryTableAdapter(self.ui.tableIssue)
         self.init_element()
+
+        #Realtime search when typing
+        self.ui.lineEditBooks_SearchBox.textChanged.connect(self.searchBooks)
+        self.ui.lineEditUsers_SearchBox.textChanged.connect(self.searchUser)
+        self.ui.lineEditHistory_SearchBox.textChanged.connect(self.searchHistory)
+        self.ui.lineEditIssue_SearchBox.textChanged.connect(self.searchOnBorrow)
+
 
     '''
     FUNCTIONS
@@ -387,6 +395,9 @@ class SmartLibUi(QMainWindow):
         self.loadAllBooks()
 
 
+
+
+
     '''
      Add user
     '''
@@ -599,6 +610,27 @@ class SmartLibUi(QMainWindow):
         self.bookCirculationDAO.returnBook(borrowID_to_return)
         self.loadAllOnBorrowBooks()
         self.loadAllHistory()
+
+    '''
+        Search 
+    '''
+
+    def searchUser(self):
+        keyword = self.ui.lineEditUsers_SearchBox.text()
+        self.userTableAdapter.addUsers(self.userDAO.searchUser(keyword))
+
+    def searchBooks(self):
+        keyword = self.ui.lineEditBooks_SearchBox.text()
+        self.booksTableAdapter.addBooks(self.bookDAO.searchBook(keyword))
+
+    def searchHistory(self):
+        keyword = self.ui.lineEditHistory_SearchBox.text()
+        self.historyTableAdapter.addCirculations(self.bookCirculationDAO.searchHistory(keyword))
+
+    def searchOnBorrow(self):
+        keyword = self.ui.lineEditIssue_SearchBox.text()
+        self.onBorrowTableAdapter.addCirculations(self.bookCirculationDAO.searchOnBorrow(keyword))
+
 
 
 
