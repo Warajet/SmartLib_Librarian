@@ -47,9 +47,17 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(0,156,80); color:white;")
         self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(216,65,50); color:white;")
 
+        # Green Button
+        self.ui.buttonBooks_Add.setStyleSheet("background-color:green;")
+        self.ui.buttonUsers_Add.setStyleSheet("background-color:green;")
+        self.ui.buttonCirculation_Add.setStyleSheet("background-color:green;")
+        self.ui.buttonIssue_Add.setStyleSheet("background-color:green;")
         '''
         TAB: BOOKS
         '''
+        self.ui.tableBooks.verticalHeader().setVisible(False)
+        self.ui.tableBooks.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
         self.ui.buttonBooks_Add.clicked.connect(self.dialog_AddBook)
         self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook1)
         # self.ui.buttonBooks_Delete.clicked.connect()
@@ -58,6 +66,9 @@ class SmartLibUi(QMainWindow):
         '''
         TAB: USERS
         '''
+        self.ui.tableUsers.verticalHeader().setVisible(False)
+        self.ui.tableUsers.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
         self.ui.buttonUsers_Add.clicked.connect(self.dialog_AddUser)
         self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser1)
         # self.ui.buttonUsers_Delete.clicked.connect()
@@ -66,6 +77,9 @@ class SmartLibUi(QMainWindow):
         '''
         TAB: CIRCULATION
         '''
+        self.ui.tableCirculation.verticalHeader().setVisible(False)
+        self.ui.tableCirculation.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
         # self.ui.buttonCirculation_Add.clicked.connect(self.dialog_AddBook)
         # self.ui.buttonCirculation_Edit.clicked.connect()
         # self.ui.buttonCirculation_Delete.clicked.connect()
@@ -74,6 +88,8 @@ class SmartLibUi(QMainWindow):
         '''
         TAB: ISSUE
         '''
+        self.ui.tableIssue.verticalHeader().setVisible(False)
+        self.ui.tableIssue.setEditTriggers(QAbstractItemView.NoEditTriggers)
         # self.ui.buttonIssue_Add.clicked.connect(self.dialog_AddBook)
         # self.ui.buttonIssue_Edit.clicked.connect()
         # self.ui.buttonIssue_Delete.clicked.connect()
