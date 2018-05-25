@@ -92,8 +92,6 @@ class SmartLibUi(QMainWindow):
         '''
         TAB[3]: ISSUE
         '''
-        #self.ui.tableUsers.doubleClicked.connect(self.dialog_ReturnBook)
-
         self.ui.buttonIssue_ReturnBook.clicked.connect(self.dialog_ReturnBook)
         self.ui.buttonIssue_Go.clicked.connect(self.searchOnBorrow)
         self.ui.buttonIssue_Refresh.clicked.connect(self.init_element)
@@ -467,18 +465,18 @@ class SmartLibUi(QMainWindow):
         dialog = QDialog(self)
         layout = QVBoxLayout()
 
-        dialog.setWindowTitle("Enter book ID")
+        dialog.setWindowTitle("Enter Book ID")
         dialog.resize(630, 150)
 
         label0 = QLabel(self)
-        label0.setText("ID: ")
+        label0.setText("Book ID: ")
         id_textBox = QLineEdit(self)
         layout.addWidget(label0)
         layout.addWidget(id_textBox)
 
         okButton = QPushButton('Next')
-        okButton.clicked.connect(lambda: self.returnBook(dialog, id_textBox))
         layout.addWidget(okButton)
+        okButton.clicked.connect(lambda: self.returnBook(dialog, id_textBox))
 
         dialog.setLayout(layout)
         dialog.show()
