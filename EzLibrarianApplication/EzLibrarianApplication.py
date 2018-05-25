@@ -63,10 +63,10 @@ class SmartLibUi(QMainWindow):
         '''
         TAB[0]: BOOKS
         '''
-        self.ui.tableBooks.doubleClicked.connect(self.dialog_EditBook1_New)
+        self.ui.tableBooks.doubleClicked.connect(self.dialog_EditBook)
 
         self.ui.buttonBooks_Add.clicked.connect(self.dialog_AddBook)
-        self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook1_New)
+        self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook)
         self.ui.buttonBooks_Delete.clicked.connect(self.dialog_deleteBook)
         self.ui.buttonBooks_Go.clicked.connect(self.searchBooks)
         self.ui.buttonBooks_Refresh.clicked.connect(self.init_element)
@@ -74,10 +74,10 @@ class SmartLibUi(QMainWindow):
         '''
         TAB[1]: USERS
         '''
-        self.ui.tableUsers.doubleClicked.connect(self.dialog_EditUser1)
+        self.ui.tableUsers.doubleClicked.connect(self.dialog_EditUser)
         
         self.ui.buttonUsers_Add.clicked.connect(self.dialog_AddUser)
-        self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser1)
+        self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser)
         self.ui.buttonUsers_Delete.clicked.connect(self.dialog_deleteUser)
         self.ui.buttonUsers_Go.clicked.connect(self.searchUser)
         self.ui.buttonUsers_Refresh.clicked.connect(self.init_element)
@@ -162,67 +162,64 @@ class SmartLibUi(QMainWindow):
     '''
         Add books
     '''
-
     def dialog_AddBook(self):
         dialog = QDialog(self)
-        layout = QVBoxLayout()
-
         dialog.setWindowTitle("Add Book")
         dialog.resize(630, 150)
+        layout = QVBoxLayout()
 
         label1 = QLabel(self)
         label1.setText("Title: ")
-        title_textBox = QLineEdit(self)
+        lineEdit_Title = QLineEdit(self)
         layout.addWidget(label1)
-        layout.addWidget(title_textBox)
+        layout.addWidget(lineEdit_Title)
 
         label2 = QLabel(self)
         label2.setText("ISBN: ")
-        ISBN_textBox = QLineEdit(self)
+        lineEdit_ISBN = QLineEdit(self)
         layout.addWidget(label2)
-        layout.addWidget(ISBN_textBox)
+        layout.addWidget(lineEdit_ISBN)
 
         label3 = QLabel(self)
         label3.setText("Author: ")
-        author_textBox = QLineEdit(self)
+        lineEdit_Author = QLineEdit(self)
         layout.addWidget(label3)
-        layout.addWidget(author_textBox)
+        layout.addWidget(lineEdit_Author)
 
         label4 = QLabel(self)
         label4.setText("Publisher: ")
-        publisher_textBox = QLineEdit(self)
+        lineEdit_Publisher = QLineEdit(self)
         layout.addWidget(label4)
-        layout.addWidget(publisher_textBox)
+        layout.addWidget(lineEdit_Publisher)
 
         label5 = QLabel(self)
         label5.setText("RFID: ")
-        rfid_textBox = QLineEdit(self)
+        lineEdit_RFID = QLineEdit(self)
         layout.addWidget(label5)
-        layout.addWidget(rfid_textBox)
+        layout.addWidget(lineEdit_RFID)
 
-        closeButton = QPushButton('OK')
+        okButton = QPushButton('OK')
+        layout.addWidget(okButton)
 
         field = []
-        field.append(title_textBox)
-        field.append(ISBN_textBox)
-        field.append(author_textBox)
-        field.append(publisher_textBox)
-        field.append(rfid_textBox)
-        closeButton.clicked.connect(lambda: self.onDialogAddBookSaved(dialog, field))
-        layout.addWidget(closeButton)
-
-        print(dialog.children())
+        field.append(lineEdit_Title)
+        field.append(lineEdit_ISBN)
+        field.append(lineEdit_Author)
+        field.append(lineEdit_Publisher)
+        field.append(lineEdit_RFID)
+        okButton.clicked.connect(lambda: self.onDialogAddBookSaved(dialog, field))
+        
         dialog.setLayout(layout)
         dialog.show()
 
     def onDialogAddBookSaved(self, dialog, field):
         title = field[0].text()
-        ISBN = field[1].text()
+        isbn = field[1].text()
         author = field[2].text()
         publisher = field[3].text()
         rfid = field[4].text()
 
-        newBook = Book(None, title, ISBN, None, author, publisher, rfid)
+        newBook = Book(None, title, isbn, None, author, publisher, rfid)
         self.bookDAO.addBook(newBook)
         dialog.close()
         Timer(1, self.loadAllBooks).start()
@@ -230,8 +227,7 @@ class SmartLibUi(QMainWindow):
     '''
         Book Editing
     '''
-
-    def dialog_EditBook1_New(self):
+    def dialog_EditBook(self):
         book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
         book_to_edit = self.bookDAO.getBookFromID(book_id)
         if (book_to_edit == None):
@@ -241,81 +237,67 @@ class SmartLibUi(QMainWindow):
 
         dialog = QDialog(self)
         dialog.setWindowTitle("Edit Book ID<" + str(book_to_edit.book_id) + ">")
-        dialog.resize(630, 700)
+        dialog.resize(630, 600)
 
         layout = QVBoxLayout()
+
         label1 = QLabel(self)
         label1.setText("Title: ")
-        title_textBox = QLineEdit(self)
-        title_textBox.setText(book_to_edit.title)
-        font = title_textBox.font()
-        font.setPointSize(10)
-        title_textBox.setFont(font)
+        lineEdit_Title = QLineEdit(self)
+        lineEdit_Title.setText(book_to_edit.title)
         layout.addWidget(label1)
-        layout.addWidget(title_textBox)
+        layout.addWidget(lineEdit_Title)
 
         label2 = QLabel(self)
         label2.setText("ISBN: ")
-        ISBN_textBox = QLineEdit(self)
-        ISBN_textBox.setText(book_to_edit.isbn)
-        font = ISBN_textBox.font()
-        font.setPointSize(10)
-        ISBN_textBox.setFont(font)
+        lineEdit_ISBN = QLineEdit(self)
+        lineEdit_ISBN.setText(book_to_edit.isbn)
         layout.addWidget(label2)
-        layout.addWidget(ISBN_textBox)
+        layout.addWidget(lineEdit_ISBN)
 
         label3 = QLabel(self)
         label3.setText("Author: ")
-        author_textBox = QLineEdit(self)
-        author_textBox.setText(book_to_edit.author)
-        font = author_textBox.font()
-        font.setPointSize(10)
-        author_textBox.setFont(font)
+        lineEdit_Author = QLineEdit(self)
+        lineEdit_Author.setText(book_to_edit.author)
         layout.addWidget(label3)
-        layout.addWidget(author_textBox)
+        layout.addWidget(lineEdit_Author)
 
         label4 = QLabel(self)
         label4.setText("Publisher: ")
-        publisher_textBox = QLineEdit(self)
-        publisher_textBox.setText(book_to_edit.publisher)
-        font = publisher_textBox.font()
-        font.setPointSize(10)
-        publisher_textBox.setFont(font)
+        lineEdit_Publisher = QLineEdit(self)
+        lineEdit_Publisher.setText(book_to_edit.publisher)
         layout.addWidget(label4)
-        layout.addWidget(publisher_textBox)
+        layout.addWidget(lineEdit_Publisher)
 
         label5 = QLabel(self)
         label5.setText("RFID: ")
-        rfid_textBox = QLineEdit(self)
-        rfid_textBox.setText(book_to_edit.rfid)
-        font = rfid_textBox.font()
-        font.setPointSize(10)
-        rfid_textBox.setFont(font)
+        lineEdit_RFID = QLineEdit(self)
+        lineEdit_RFID.setText(book_to_edit.rfid)
         layout.addWidget(label5)
-        layout.addWidget(rfid_textBox)
+        layout.addWidget(lineEdit_RFID)
 
-        closeButton = QPushButton('OK')
+        okButton = QPushButton('OK')
+        layout.addWidget(okButton)
 
         field = []
-        field.append(title_textBox)
-        field.append(ISBN_textBox)
-        field.append(author_textBox)
-        field.append(publisher_textBox)
-        field.append(rfid_textBox)
-        closeButton.clicked.connect(lambda: self.onDialogEditBookSaved(dialog, book_to_edit, field))
-        layout.addWidget(closeButton)
+        field.append(lineEdit_Title)
+        field.append(lineEdit_ISBN)
+        field.append(lineEdit_Author)
+        field.append(lineEdit_Publisher)
+        field.append(lineEdit_RFID)
+        okButton.clicked.connect(lambda: self.onDialogEditBookSaved(dialog, book_to_edit, field))
 
         dialog.setLayout(layout)
         dialog.show()
 
     def onDialogEditBookSaved(self, dialog, oldBook, field):
         title = field[0].text()
-        ISBN = field[1].text()
+        isbn = field[1].text()
         author = field[2].text()
         publisher = field[3].text()
         rfid = field[4].text()
 
-        updatedBook = Book(oldBook.book_id, title, ISBN, oldBook.added_on, author, publisher, rfid)
+        updatedBook = Book(oldBook.book_id, title, isbn, oldBook.added_on, author, publisher, rfid)
         self.bookDAO.updateBook(updatedBook)
         dialog.close()
         self.loadAllBooks()
@@ -325,96 +307,63 @@ class SmartLibUi(QMainWindow):
     '''
     def dialog_deleteBook(self):
         book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
-        dialog = QDialog(self)
-        layout = QVBoxLayout()
-
-        dialog.setWindowTitle("Enter book ID")
-        dialog.resize(630, 150)
-
-        label0 = QLabel(self)
-        label0.setText("ID: ")
-        id_textBox = QLineEdit(self)
-        id_textBox.setText(book_id)
-        layout.addWidget(label0)
-        layout.addWidget(id_textBox)
-
-        okButton = QPushButton('Next')
-        okButton.clicked.connect(lambda: self.deleteBook(dialog, id_textBox))
-        layout.addWidget(okButton)
-
-        dialog.setLayout(layout)
-        dialog.show()
-
-    def deleteBook(self,dialog, id_textBox):
-        book_to_delete = self.bookDAO.getBookFromID(id_textBox.text())
+        book_title = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 1).text()
+        book_to_delete = self.bookDAO.getBookFromID(book_id)
         if (book_to_delete == None):
             errorDialog = QErrorMessage(self)
             errorDialog.showMessage("Error", "Couldn't find book for this ID")
             return
-        buttonReply = QMessageBox.question(self, 'Warning', "Do you want to delete the selected book?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        warningText = "Do you want to delete the selected book?" + "\n\nID: " + str(book_id) + "\nTitle: " + str(book_title)
+        buttonReply = QMessageBox.question(self, "Warning", warningText, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if buttonReply == QMessageBox.Yes:
             self.bookDAO.deleteBook(book_to_delete)
             self.loadAllBooks()
-        dialog.close()
 
     '''
      Add user
     '''
-
     def dialog_AddUser(self):
         dialog = QDialog(self)
-        layout = QVBoxLayout()
-
         dialog.setWindowTitle("Add User")
         dialog.resize(630, 150)
+        layout = QVBoxLayout()
 
-        # label1 = QLabel(self)
-        # label1.setText("ID: ")
-        # id_textBox = QLineEdit(self)
-        # layout.addWidget(label1)
-        # layout.addWidget(id_textBox)
+        label1 = QLabel(self)
+        label1.setText("Name: ")
+        lineEdit_Name = QLineEdit(self)
+        layout.addWidget(label1)
+        layout.addWidget(lineEdit_Name)
 
         label2 = QLabel(self)
-        label2.setText("Name: ")
-        name_textBox = QLineEdit(self)
+        label2.setText("Email: ")
+        lineEdit_Email = QLineEdit(self)
         layout.addWidget(label2)
-        layout.addWidget(name_textBox)
+        layout.addWidget(lineEdit_Email)
 
         label3 = QLabel(self)
-        label3.setText("Email: ")
-        email_textBox = QLineEdit(self)
+        label3.setText("RFID: ")
+        lineEdit_RFID = QLineEdit(self)
         layout.addWidget(label3)
-        layout.addWidget(email_textBox)
+        layout.addWidget(lineEdit_RFID)
 
-        label5 = QLabel(self)
-        label5.setText("RFID: ")
-        rfid_textBox = QLineEdit(self)
-        layout.addWidget(label5)
-        layout.addWidget(rfid_textBox)
-
-        closeButton = QPushButton('OK')
+        okButton = QPushButton('OK')
+        layout.addWidget(okButton)
 
         field = []
-        # field.append(id_textBox)
-        field.append(name_textBox)
-        field.append(email_textBox)
-        field.append(rfid_textBox)
-        closeButton.clicked.connect(lambda: self.onDialogAddUserSaved(dialog, field))
-        layout.addWidget(closeButton)
+        field.append(lineEdit_Name)
+        field.append(lineEdit_Email)
+        field.append(lineEdit_RFID)
+        okButton.clicked.connect(lambda: self.onDialogAddUserSaved(dialog, field))
 
         dialog.setLayout(layout)
         dialog.show()
 
     def onDialogAddUserSaved(self, dialog, field):
-        # id = field[0].text()
-        # name = field[1].text()
-        # email = field[2].text()
-        # rfid = field[3].text()
         name = field[0].text()
         email = field[1].text()
         rfid = field[2].text()
 
-        # newUser = User(id, name, None, email, rfid, None)
         newUser = User(None, name, None, email, rfid, None)
         self.userDAO.addUser(newUser)
         dialog.close()
@@ -423,75 +372,58 @@ class SmartLibUi(QMainWindow):
     '''
      Edit user
     '''
-
-    def dialog_EditUser1(self):
-        dialog = QDialog(self)
-        layout = QVBoxLayout()
-
-        dialog.setWindowTitle("Enter user ID")
-        dialog.resize(630, 150)
-
-        label0 = QLabel(self)
-        label0.setText("ID: ")
-        id_textBox = QLineEdit(self)
-        layout.addWidget(label0)
-        layout.addWidget(id_textBox)
-
-        okButton = QPushButton('Next')
-        okButton.clicked.connect(lambda: self.dialog_EditUser2(dialog, id_textBox))
-        layout.addWidget(okButton)
-
-        dialog.setLayout(layout)
-        dialog.show()
-
-    def dialog_EditUser2(self, first_dialog, id_textBox):
-        user_to_edit = self.userDAO.getUserFromID(id_textBox.text())
+    def dialog_EditUser(self):
+        user_id = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 0).text()
+        user_to_edit = self.userDAO.getUserFromID(user_id)
         if (user_to_edit == None):
             errorDialog = QErrorMessage(self)
             errorDialog.showMessage("Error", "Couldn't find user for this ID")
             return
 
-        first_dialog.close()
         dialog = QDialog(self)
+        dialog.setWindowTitle("Edit User ID<" + str(user_to_edit.user_id) + ">")
+        dialog.resize(630, 600)
+
         layout = QVBoxLayout()
+
         label1 = QLabel(self)
         label1.setText("Name: ")
-        name_textBox = QLineEdit(self)
-        name_textBox.setText(user_to_edit.name)
+        lineEdit_Name = QLineEdit(self)
+        lineEdit_Name.setText(user_to_edit.name)
         layout.addWidget(label1)
-        layout.addWidget(name_textBox)
+        layout.addWidget(lineEdit_Name)
 
         label2 = QLabel(self)
         label2.setText("Email: ")
-        email_textBox = QLineEdit(self)
-        email_textBox.setText(user_to_edit.email)
+        lineEdit_Email = QLineEdit(self)
+        lineEdit_Email.setText(user_to_edit.email)
         layout.addWidget(label2)
-        layout.addWidget(email_textBox)
+        layout.addWidget(lineEdit_Email)
 
         label3 = QLabel(self)
-        label3.setText("LINE token: ")
-        lineToken_textBox = QLineEdit(self)
-        lineToken_textBox.setText(user_to_edit.lineToken)
-        lineToken_textBox.setEnabled(False)
+        label3.setText("LINE Token: ")
+        lineEdit_LineToken = QLineEdit(self)
+        lineEdit_LineToken.setText(user_to_edit.lineToken)
+        lineEdit_LineToken.setEnabled(False)    #Librarian should not edit this value
         layout.addWidget(label3)
-        layout.addWidget(lineToken_textBox)
+        layout.addWidget(lineEdit_LineToken)
 
         label4 = QLabel(self)
         label4.setText("RFID: ")
-        rfid_textBox = QLineEdit(self)
-        rfid_textBox.setText(user_to_edit.rfid)
+        lineEdit_RFID = QLineEdit(self)
+        lineEdit_RFID.setText(user_to_edit.rfid)
         layout.addWidget(label4)
-        layout.addWidget(rfid_textBox)
+        layout.addWidget(lineEdit_RFID)
 
-        closeButton = QPushButton('OK')
+        okButton = QPushButton('OK')
+        layout.addWidget(okButton)
 
         field = []
-        field.append(name_textBox)
-        field.append(email_textBox)
-        field.append(lineToken_textBox)
-        field.append(rfid_textBox)
-        closeButton.clicked.connect(lambda: self.onDialogEditUserSaved(dialog, user_to_edit, field))
-        layout.addWidget(closeButton)
+        field.append(lineEdit_Name)
+        field.append(lineEdit_Email)
+        field.append(lineEdit_LineToken)
+        field.append(lineEdit_RFID)
+        okButton.clicked.connect(lambda: self.onDialogEditUserSaved(dialog, user_to_edit, field))
 
         dialog.setLayout(layout)
         dialog.show()
@@ -511,34 +443,19 @@ class SmartLibUi(QMainWindow):
         Delete user
     '''
     def dialog_deleteUser(self):
-        dialog = QDialog(self)
-        layout = QVBoxLayout()
-
-        dialog.setWindowTitle("Enter user ID")
-        dialog.resize(630, 150)
-
-        label0 = QLabel(self)
-        label0.setText("ID: ")
-        id_textBox = QLineEdit(self)
-        layout.addWidget(label0)
-        layout.addWidget(id_textBox)
-
-        okButton = QPushButton('Next')
-        okButton.clicked.connect(lambda: self.deleteUser(dialog, id_textBox))
-        layout.addWidget(okButton)
-
-        dialog.setLayout(layout)
-        dialog.show()
-
-    def deleteUser(self,dialog, id_textBox):
-        user_to_delete = self.userDAO.getUserFromID(id_textBox.text())
+        user_id = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 0).text()
+        user_name = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 1).text()
+        user_to_delete = self.userDAO.getUserFromID(user_id)
         if (user_to_delete == None):
             errorDialog = QErrorMessage(self)
             errorDialog.showMessage("Error", "Couldn't find user for this ID")
             return
-        dialog.close()
-        self.userDAO.deleteUser(user_to_delete)
-        self.loadAllUsers()
+
+        warningText = "Do you want to delete the selected user?" + "\n\nID: " + str(user_id) + "\nName: " + str(user_name)
+        buttonReply = QMessageBox.question(self, "Warning", warningText, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if buttonReply == QMessageBox.Yes:
+            self.userDAO.deleteUser(user_to_delete)
+            self.loadAllUsers()
 
     '''
         Return book
@@ -593,9 +510,6 @@ class SmartLibUi(QMainWindow):
     def searchOnBorrow(self):
         keyword = self.ui.lineEditIssue_SearchBox.text()
         self.onBorrowTableAdapter.addCirculations(self.bookCirculationDAO.searchOnBorrow(keyword))
-
-
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
