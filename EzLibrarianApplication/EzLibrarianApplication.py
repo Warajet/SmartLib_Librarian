@@ -368,11 +368,11 @@ class SmartLibUi(QMainWindow):
         dialog.setWindowTitle("Add User")
         dialog.resize(630, 150)
 
-        label1 = QLabel(self)
-        label1.setText("ID: ")
-        id_textBox = QLineEdit(self)
-        layout.addWidget(label1)
-        layout.addWidget(id_textBox)
+        # label1 = QLabel(self)
+        # label1.setText("ID: ")
+        # id_textBox = QLineEdit(self)
+        # layout.addWidget(label1)
+        # layout.addWidget(id_textBox)
 
         label2 = QLabel(self)
         label2.setText("Name: ")
@@ -395,7 +395,7 @@ class SmartLibUi(QMainWindow):
         closeButton = QPushButton('OK')
 
         field = []
-        field.append(id_textBox)
+        # field.append(id_textBox)
         field.append(name_textBox)
         field.append(email_textBox)
         field.append(rfid_textBox)
@@ -406,12 +406,16 @@ class SmartLibUi(QMainWindow):
         dialog.show()
 
     def onDialogAddUserSaved(self, dialog, field):
-        id = field[0].text()
-        name = field[1].text()
-        email = field[2].text()
-        rfid = field[3].text()
+        # id = field[0].text()
+        # name = field[1].text()
+        # email = field[2].text()
+        # rfid = field[3].text()
+        name = field[0].text()
+        email = field[1].text()
+        rfid = field[2].text()
 
-        newUser = User(id, name, None, email, rfid, None)
+        # newUser = User(id, name, None, email, rfid, None)
+        newUser = User(None, name, None, email, rfid, None)
         self.userDAO.addUser(newUser)
         dialog.close()
         Timer(1, self.loadAllUsers).start()
