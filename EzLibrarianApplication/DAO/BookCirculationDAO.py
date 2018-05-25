@@ -21,7 +21,8 @@ class BookCirculationDAO(AbstractDAO):
             borrow_list.append({"user": {"user_id": user.user_id}, "book": {"book_id": book.book_id}})
 
         # try:
-        response = requests.post(self.server_ip + '/borrow', json=borrow_list, timeout = self.timeout)
+        path = '/borrow'
+        response = requests.post(self.server_ip + path, json=borrow_list, timeout = self.timeout, headers=self.get_authentication_header(path))
         if response.status_code == 200:   #Success
             book_circulations = []
             for raw_book_circulation in response.json():
@@ -41,7 +42,8 @@ class BookCirculationDAO(AbstractDAO):
 
     def getAllCirculations(self):
         try:
-            response = requests.get(self.server_ip + '/history' , timeout = self.timeout)
+            path = '/history'
+            response = requests.get(self.server_ip + path , timeout = self.timeout, headers=self.get_authentication_header(path))
             circulations = None
             if response.status_code == 200:
                 to_return = []
@@ -57,7 +59,8 @@ class BookCirculationDAO(AbstractDAO):
 
     def getAllOnBorrowCirculation(self):
         try:
-            response = requests.get(self.server_ip + '/borrow' , timeout = self.timeout)
+            path = '/borrow'
+            response = requests.get(self.server_ip + path , timeout = self.timeout, headers=self.get_authentication_header(path))
             circulations = None
             if response.status_code == 200:
                 to_return = []
@@ -92,7 +95,8 @@ class BookCirculationDAO(AbstractDAO):
         return None
 
     def returnBook(self,borrowID):
-        response = requests.delete(self.server_ip + '/return/' + str(borrowID), timeout=self.timeout)
+        path = '/return/' + str(borrowID)
+        response = requests.delete(self.server_ip + path, timeout=self.timeout, headers=self.get_authentication_header(path))
         if response.status_code == 200:  # Success
             print(response.text)
             pass
@@ -104,7 +108,8 @@ class BookCirculationDAO(AbstractDAO):
             return self.getAllCirculations()
 
         try:
-            response = requests.get(self.server_ip + '/history/search/'+ keyword , timeout = self.timeout)
+            path = '/history/search/' + keyword
+            response = requests.get(self.server_ip + path, timeout = self.timeout, headers=self.get_authentication_header(path))
             circulations = None
             if response.status_code == 200:
                 to_return = []
@@ -123,7 +128,8 @@ class BookCirculationDAO(AbstractDAO):
             return self.getAllCirculations()
 
         try:
-            response = requests.get(self.server_ip + '/borrow/search/'+ keyword , timeout = self.timeout)
+            path = '/borrow/search/' + keyword
+            response = requests.get(self.server_ip + path , timeout = self.timeout, headers=self.get_authentication_header(path))
             circulations = None
             if response.status_code == 200:
                 to_return = []

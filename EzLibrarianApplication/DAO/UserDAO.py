@@ -82,7 +82,8 @@ class UserDAO(AbstractDAO):
     def getUserFromID(self, id):
         print("Get info id : " + str(id))
         try :
-            response = requests.get(self.server_ip + '/user/' + str(id), timeout = self.timeout)
+            path = '/user/' + str(id)
+            response = requests.get(self.server_ip + path, timeout = self.timeout, headers = self.get_authentication_header(path))
             user = None
             if response.status_code == 200:   # Success
                 user = self.constructUser(response.json())
@@ -100,7 +101,8 @@ class UserDAO(AbstractDAO):
 
     def getUserFromRFID_ID(self, rfid):
         try:
-            response = requests.get(self.server_ip + '/user/rfid/' + str(rfid), timeout=self.timeout)
+            path = '/user/rfid/' + str(rfid)
+            response = requests.get(self.server_ip + path, timeout=self.timeout, headers = self.get_authentication_header(path))
             user = None
             if response.status_code == 200:     #Success
                 user = self.constructUser(response.json())
@@ -116,7 +118,8 @@ class UserDAO(AbstractDAO):
 
     def getAllUsers(self):
         try:
-            response = requests.get(self.server_ip + '/user', timeout=self.timeout)
+            path = '/user'
+            response = requests.get(self.server_ip + path, timeout=self.timeout, headers = self.get_authentication_header(path))
             user = None
             if response.status_code == 200:
                 to_return = []
@@ -150,7 +153,8 @@ class UserDAO(AbstractDAO):
 
         print(dict_to_add)
 
-        response = requests.post(self.server_ip + '/user', json=dict_to_add, timeout=self.timeout)
+        path = '/user'
+        response = requests.post(self.server_ip + path, json=dict_to_add, timeout=self.timeout, headers = self.get_authentication_header(path))
         if response.status_code == 201:  # Success
             print(response.json())
             pass
@@ -162,7 +166,8 @@ class UserDAO(AbstractDAO):
 
         print(dict_to_add)
 
-        response = requests.put(self.server_ip + '/user/' + str(user.user_id), json=dict_to_add, timeout=self.timeout)
+        path = '/user/' + str(user.user_id)
+        response = requests.put(self.server_ip + path, json=dict_to_add, timeout=self.timeout, headers = self.get_authentication_header(path))
         if response.status_code == 200:  # Success
             print(response.json())
             pass
@@ -171,7 +176,8 @@ class UserDAO(AbstractDAO):
 
     def deleteUser(self,user:User):
 
-        response = requests.delete(self.server_ip + '/user/' + str(user.user_id), timeout=self.timeout)
+        path = '/user/' + str(user.user_id)
+        response = requests.delete(self.server_ip + path, timeout=self.timeout, headers = self.get_authentication_header(path))
         if response.status_code == 200:  # Success
             print(response.json())
             pass
@@ -183,7 +189,8 @@ class UserDAO(AbstractDAO):
             return self.getAllUsers()
 
         try:
-            response = requests.get(self.server_ip + '/user/search/' + str(keyword), timeout=self.timeout)
+            path = '/user/search/' + str(keyword)
+            response = requests.get(self.server_ip + path, timeout=self.timeout, headers = self.get_authentication_header(path))
             user = None
             if response.status_code == 200:
                 to_return = []

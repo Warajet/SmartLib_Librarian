@@ -15,7 +15,8 @@ class BookDAO(AbstractDAO):
 
     def getBookFromID(self, id):
         try:
-            response = requests.get(self.server_ip + '/book/' + str(id), timeout = self.timeout)
+            path = '/book/' + str(id)
+            response = requests.get(self.server_ip + path, timeout = self.timeout, headers=self.get_authentication_header(path))
             book = None
             if response.status_code == 200:
                 book = self.constructBook(response.json())
@@ -30,7 +31,8 @@ class BookDAO(AbstractDAO):
 
     def getBookFromRFID_ID(self, rfid):
         try:
-            response = requests.get(self.server_ip + '/book/rfid/' + str(rfid), timeout = self.timeout)
+            path = '/book/rfid/' + str(rfid)
+            response = requests.get(self.server_ip + path, timeout = self.timeout, headers=self.get_authentication_header(path))
             book = None
             if response.status_code == 200:
                 book = self.constructBook(response.json())
@@ -55,7 +57,8 @@ class BookDAO(AbstractDAO):
 
     def getAllBooks(self):
         try:
-            response = requests.get(self.server_ip + '/book' , timeout = self.timeout)
+            path = '/book'
+            response = requests.get(self.server_ip + path, timeout = self.timeout, headers=self.get_authentication_header(path))
             book = None
             if response.status_code == 200:
                 to_return = []
@@ -67,24 +70,28 @@ class BookDAO(AbstractDAO):
             print("Timeout")
 
     def addBook(self, book:Book):
+        path = '/book'
+
         dict_to_add = book.__dict__
         del dict_to_add['book_id']
         del dict_to_add['added_on']
 
         print(dict_to_add)
 
-        response = requests.post(self.server_ip + '/book', json=dict_to_add, timeout=self.timeout)
+        response = requests.post(self.server_ip + path, json=dict_to_add, timeout=self.timeout, headers=self.get_authentication_header(path))
         if response.status_code == 201:  # Success
             print(response.json())
             pass
 
     def updateBook(self, book:Book):
+        path = '/book/' + str(book.book_id)
+
         dict_to_add = book.__dict__
         del dict_to_add['added_on']
 
         print(dict_to_add)
 
-        response = requests.put(self.server_ip + '/book/' + str(book.book_id), json=dict_to_add, timeout=self.timeout)
+        response = requests.put(self.server_ip + path, json=dict_to_add, timeout=self.timeout, headers=self.get_authentication_header(path))
         if response.status_code == 200:  # Success
             print(response.json())
             pass
@@ -92,8 +99,9 @@ class BookDAO(AbstractDAO):
             print("Failed")
 
     def deleteBook(self,book:Book):
+        path = '/book/' + str(book.book_id)
 
-        response = requests.delete(self.server_ip + '/book/' + str(book.book_id), timeout=self.timeout)
+        response = requests.delete(self.server_ip + path, timeout=self.timeout, headers=self.get_authentication_header(path))
         if response.status_code == 200:  # Success
             print(response.json())
             pass
@@ -105,7 +113,8 @@ class BookDAO(AbstractDAO):
             return self.getAllBooks()
 
         try:
-            response = requests.get(self.server_ip + '/book/search/' + str(keyword), timeout=self.timeout)
+            path = '/book/search/' + str(keyword)
+            response = requests.get(self.server_ip + path, timeout=self.timeout, headers=self.get_authentication_header(path))
             book = None
             if response.status_code == 200:
                 to_return = []
