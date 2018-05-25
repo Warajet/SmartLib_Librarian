@@ -233,61 +233,24 @@ class SmartLibUi(QMainWindow):
 
     def dialog_EditBook1_New(self):
         book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
-
-        dialog = QDialog(self)
-        layout = QVBoxLayout()
-
-        dialog.setWindowTitle("Enter book ID")
-        dialog.resize(630, 150)
-
-        label0 = QLabel(self)
-        label0.setText("ID: ")
-        id_textBox = QLineEdit(self)
-        id_textBox.setText(str(book_id))
-        layout.addWidget(label0)
-        layout.addWidget(id_textBox)
-
-        okButton = QPushButton('Next')
-        okButton.clicked.connect(lambda: self.dialog_EditBook2(dialog, id_textBox))
-        layout.addWidget(okButton)
-
-        dialog.setLayout(layout)
-        dialog.show()
-
-    def dialog_EditBook1(self):
-        dialog = QDialog(self)
-        layout = QVBoxLayout()
-
-        dialog.setWindowTitle("Enter book ID")
-        dialog.resize(630, 150)
-
-        label0 = QLabel(self)
-        label0.setText("ID: ")
-        id_textBox = QLineEdit(self)
-        layout.addWidget(label0)
-        layout.addWidget(id_textBox)
-
-        okButton = QPushButton('Next')
-        okButton.clicked.connect(lambda: self.dialog_EditBook2(dialog, id_textBox))
-        layout.addWidget(okButton)
-
-        dialog.setLayout(layout)
-        dialog.show()
-
-    def dialog_EditBook2(self, first_dialog, id_textBox):
-        book_to_edit = self.bookDAO.getBookFromID(id_textBox.text())
+        book_to_edit = self.bookDAO.getBookFromID(book_id)
         if (book_to_edit == None):
             errorDialog = QErrorMessage(self)
             errorDialog.showMessage("Error", "Couldn't find book for this ID")
             return
 
-        first_dialog.close()
         dialog = QDialog(self)
+        dialog.setWindowTitle("Edit Book ID<" + str(book_to_edit.book_id) + ">")
+        dialog.resize(630, 700)
+
         layout = QVBoxLayout()
         label1 = QLabel(self)
         label1.setText("Title: ")
         title_textBox = QLineEdit(self)
         title_textBox.setText(book_to_edit.title)
+        font = title_textBox.font()
+        font.setPointSize(10)
+        title_textBox.setFont(font)
         layout.addWidget(label1)
         layout.addWidget(title_textBox)
 
@@ -295,6 +258,9 @@ class SmartLibUi(QMainWindow):
         label2.setText("ISBN: ")
         ISBN_textBox = QLineEdit(self)
         ISBN_textBox.setText(book_to_edit.isbn)
+        font = ISBN_textBox.font()
+        font.setPointSize(10)
+        ISBN_textBox.setFont(font)
         layout.addWidget(label2)
         layout.addWidget(ISBN_textBox)
 
@@ -302,6 +268,9 @@ class SmartLibUi(QMainWindow):
         label3.setText("Author: ")
         author_textBox = QLineEdit(self)
         author_textBox.setText(book_to_edit.author)
+        font = author_textBox.font()
+        font.setPointSize(10)
+        author_textBox.setFont(font)
         layout.addWidget(label3)
         layout.addWidget(author_textBox)
 
@@ -309,6 +278,9 @@ class SmartLibUi(QMainWindow):
         label4.setText("Publisher: ")
         publisher_textBox = QLineEdit(self)
         publisher_textBox.setText(book_to_edit.publisher)
+        font = publisher_textBox.font()
+        font.setPointSize(10)
+        publisher_textBox.setFont(font)
         layout.addWidget(label4)
         layout.addWidget(publisher_textBox)
 
@@ -316,6 +288,9 @@ class SmartLibUi(QMainWindow):
         label5.setText("RFID: ")
         rfid_textBox = QLineEdit(self)
         rfid_textBox.setText(book_to_edit.rfid)
+        font = rfid_textBox.font()
+        font.setPointSize(10)
+        rfid_textBox.setFont(font)
         layout.addWidget(label5)
         layout.addWidget(rfid_textBox)
 
@@ -349,6 +324,7 @@ class SmartLibUi(QMainWindow):
         Book Delete
     '''
     def dialog_deleteBook(self):
+        book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
         dialog = QDialog(self)
         layout = QVBoxLayout()
 
@@ -358,6 +334,7 @@ class SmartLibUi(QMainWindow):
         label0 = QLabel(self)
         label0.setText("ID: ")
         id_textBox = QLineEdit(self)
+        id_textBox.setText(book_id)
         layout.addWidget(label0)
         layout.addWidget(id_textBox)
 
@@ -374,13 +351,11 @@ class SmartLibUi(QMainWindow):
             errorDialog = QErrorMessage(self)
             errorDialog.showMessage("Error", "Couldn't find book for this ID")
             return
+        buttonReply = QMessageBox.question(self, 'Warning', "Do you want to delete the selected book?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if buttonReply == QMessageBox.Yes:
+            self.bookDAO.deleteBook(book_to_delete)
+            self.loadAllBooks()
         dialog.close()
-        self.bookDAO.deleteBook(book_to_delete)
-        self.loadAllBooks()
-
-
-
-
 
     '''
      Add user
