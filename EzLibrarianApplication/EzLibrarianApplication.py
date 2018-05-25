@@ -5,18 +5,22 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from SmartLib_LibrarianUI import Ui_MainWindow
 from threading import Timer
-from DAO import BookDAO, UserDAO, BookCirculationDAO
+from DAO import BookDAO, UserDAO, BookCirculationDAO, LineNotificationDAO
 from Book import Book
 from User.User import User
 from BookCirculation import BookCirculation
 import webbrowser
 
+
 # Catch Error and display through MessageBox
 def catch_exceptions(t, val, tb):
     QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
     old_hook(t, val, tb)
+
+
 old_hook = sys.excepthook
 sys.excepthook = catch_exceptions
+
 
 class SmartLibUi(QMainWindow):
     def __init__(self):
@@ -55,10 +59,10 @@ class SmartLibUi(QMainWindow):
         # [Tab] Text Font & Colors
         self.ui.tabWidget.setStyleSheet('QTabBar { font-size: 12pt; }')
 
-        self.ui.tabWidget.tabBar().setTabTextColor(1, QColor(0,184,237))
-        self.ui.tabWidget.tabBar().setTabTextColor(2, QColor(0,156,80))
+        self.ui.tabWidget.tabBar().setTabTextColor(1, QColor(0, 184, 237))
+        self.ui.tabWidget.tabBar().setTabTextColor(2, QColor(0, 156, 80))
         self.ui.tabWidget.tabBar().setTabTextColor(3, QColor(255, 157, 0))
-        self.ui.tabWidget.tabBar().setTabTextColor(4, QColor(216,65,50))
+        self.ui.tabWidget.tabBar().setTabTextColor(4, QColor(216, 65, 50))
 
         '''
         TAB[0]: BOOKS
@@ -75,7 +79,7 @@ class SmartLibUi(QMainWindow):
         TAB[1]: USERS
         '''
         self.ui.tableUsers.doubleClicked.connect(self.dialog_EditUser)
-        
+
         self.ui.buttonUsers_Add.clicked.connect(self.dialog_AddUser)
         self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser)
         self.ui.buttonUsers_Delete.clicked.connect(self.dialog_DeleteUser)
@@ -95,12 +99,14 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonIssue_ReturnBook.clicked.connect(self.dialog_ReturnBook)
         self.ui.buttonIssue_Go.clicked.connect(self.searchOnBorrow)
         self.ui.buttonIssue_Refresh.clicked.connect(self.init_element)
+        self.ui.buttonIssue_Remind.clicked.connect(self.sendNotificationToAllOnBorrow)
 
         '''
         TableAdapter & DAO
         '''
         self.bookDAO = BookDAO.BookDAO()
         self.userDAO = UserDAO.UserDAO()
+        self.lineDAO = LineNotificationDAO.LineNotificationDAO()
         self.bookCirculationDAO = BookCirculationDAO.BookCirculationDAO()
 
         self.booksTableAdapter = TableAdapter.BookTableAdapter(self.ui.tableBooks)
@@ -109,7 +115,7 @@ class SmartLibUi(QMainWindow):
         self.onBorrowTableAdapter = TableAdapter.HistoryTableAdapter(self.ui.tableIssue)
         self.init_element()
 
-        #Realtime search when typing
+        # Realtime search when typing
         self.ui.lineEditBooks_SearchBox.textChanged.connect(self.searchBooks)
         self.ui.lineEditUsers_SearchBox.textChanged.connect(self.searchUser)
         self.ui.lineEditHistory_SearchBox.textChanged.connect(self.searchHistory)
@@ -125,7 +131,6 @@ class SmartLibUi(QMainWindow):
         self.loadAllHistory()
         self.loadAllOnBorrowBooks()
 
-
     # Load all books(or update) in database to books table
     def loadAllBooks(self):
         allBooks = self.bookDAO.getAllBooks()
@@ -135,8 +140,6 @@ class SmartLibUi(QMainWindow):
         # update books quantity on first page button
         booksCount = len(allBooks)
         self.ui.buttonOverview_Books.setText("   " + str(booksCount) + "  Books")
-
-
 
     # Load all student(or update) in database to student table
     def loadAllUsers(self):
@@ -163,6 +166,7 @@ class SmartLibUi(QMainWindow):
     '''
         Add books
     '''
+
     def dialog_AddBook(self):
         dialog = QDialog(self)
         dialog.setWindowTitle("Add Book")
@@ -209,7 +213,7 @@ class SmartLibUi(QMainWindow):
         field.append(lineEdit_Publisher)
         field.append(lineEdit_RFID)
         okButton.clicked.connect(lambda: self.onDialogAddBookSaved(dialog, field))
-        
+
         dialog.setLayout(layout)
         dialog.show()
 
@@ -228,6 +232,7 @@ class SmartLibUi(QMainWindow):
     '''
         Book Editing
     '''
+
     def dialog_EditBook(self):
         book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
         book_to_edit = self.bookDAO.getBookFromID(book_id)
@@ -306,6 +311,7 @@ class SmartLibUi(QMainWindow):
     '''
         Book Delete
     '''
+
     def dialog_deleteBook(self):
         book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
         book_title = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 1).text()
@@ -315,8 +321,10 @@ class SmartLibUi(QMainWindow):
             errorDialog.showMessage("Error", "Couldn't find book for this ID")
             return
 
-        warningText = "Do you want to delete the selected book?" + "\n\nID: " + str(book_id) + "\nTitle: " + str(book_title)
-        buttonReply = QMessageBox.question(self, "Warning", warningText, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        warningText = "Do you want to delete the selected book?" + "\n\nID: " + str(book_id) + "\nTitle: " + str(
+            book_title)
+        buttonReply = QMessageBox.question(self, "Warning", warningText, QMessageBox.Yes | QMessageBox.No,
+                                           QMessageBox.No)
         if buttonReply == QMessageBox.Yes:
             self.bookDAO.deleteBook(book_to_delete)
             self.loadAllBooks()
@@ -324,6 +332,7 @@ class SmartLibUi(QMainWindow):
     '''
      Add user
     '''
+
     def dialog_AddUser(self):
         dialog = QDialog(self)
         dialog.setWindowTitle("Add User")
@@ -373,6 +382,7 @@ class SmartLibUi(QMainWindow):
     '''
      Edit user
     '''
+
     def dialog_EditUser(self):
         user_id = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 0).text()
         user_to_edit = self.userDAO.getUserFromID(user_id)
@@ -405,7 +415,7 @@ class SmartLibUi(QMainWindow):
         label3.setText("LINE Token: ")
         lineEdit_LineToken = QLineEdit(self)
         lineEdit_LineToken.setText(user_to_edit.lineToken)
-        lineEdit_LineToken.setEnabled(False)    #Librarian should not edit this value
+        lineEdit_LineToken.setEnabled(False)  # Librarian should not edit this value
         layout.addWidget(label3)
         layout.addWidget(lineEdit_LineToken)
 
@@ -443,6 +453,7 @@ class SmartLibUi(QMainWindow):
     '''
         Delete user
     '''
+
     def dialog_DeleteUser(self):
         user_id = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 0).text()
         user_name = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 1).text()
@@ -452,8 +463,10 @@ class SmartLibUi(QMainWindow):
             errorDialog.showMessage("Error", "Couldn't find user for this ID")
             return
 
-        warningText = "Do you want to delete the selected user?" + "\n\nID: " + str(user_id) + "\nName: " + str(user_name)
-        buttonReply = QMessageBox.question(self, "Warning", warningText, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        warningText = "Do you want to delete the selected user?" + "\n\nID: " + str(user_id) + "\nName: " + str(
+            user_name)
+        buttonReply = QMessageBox.question(self, "Warning", warningText, QMessageBox.Yes | QMessageBox.No,
+                                           QMessageBox.No)
         if buttonReply == QMessageBox.Yes:
             self.userDAO.deleteUser(user_to_delete)
             self.loadAllUsers()
@@ -461,6 +474,7 @@ class SmartLibUi(QMainWindow):
     '''
         Return book
     '''
+
     def dialog_ReturnBook(self):
         dialog = QDialog(self)
         layout = QVBoxLayout()
@@ -481,7 +495,7 @@ class SmartLibUi(QMainWindow):
         dialog.setLayout(layout)
         dialog.show()
 
-    def returnBook(self,dialog, id_textBox):
+    def returnBook(self, dialog, id_textBox):
         borrowID_to_return = self.bookCirculationDAO.getBorrowIDFromBookID(id_textBox.text())
         if (borrowID_to_return == None):
             errorDialog = QErrorMessage(self)
@@ -491,6 +505,14 @@ class SmartLibUi(QMainWindow):
         self.bookCirculationDAO.returnBook(borrowID_to_return)
         self.loadAllOnBorrowBooks()
         self.loadAllHistory()
+
+    def sendNotificationToAllOnBorrow(self):
+        # TODO: this features on server is currently in implementing process.
+        warningText = "Do you want to notify user?"
+        buttonReply = QMessageBox.question(self, "Information", warningText, QMessageBox.Yes | QMessageBox.No,
+                                           QMessageBox.No)
+        if buttonReply == QMessageBox.Yes:
+            self.lineDAO.notifyAllOnBorrow()
 
     '''
         Search 
@@ -511,6 +533,7 @@ class SmartLibUi(QMainWindow):
     def searchOnBorrow(self):
         keyword = self.ui.lineEditIssue_SearchBox.text()
         self.onBorrowTableAdapter.addCirculations(self.bookCirculationDAO.searchOnBorrow(keyword))
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
