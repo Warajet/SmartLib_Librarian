@@ -31,7 +31,7 @@ class SmartLibUi(QMainWindow):
         self.ui.actionMain_Menu.triggered.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
         self.ui.actionAdd_Book.triggered.connect(self.dialog_AddBook)
         self.ui.actionAdd_User.triggered.connect(self.dialog_AddUser)
-        self.ui.actionReturnBook.triggered.connect(self.dialog_returnBook)
+        self.ui.actionReturnBook.triggered.connect(self.dialog_ReturnBook)
         self.ui.actionRefresh.triggered.connect(self.init_element)
         self.ui.actionPython.triggered.connect(lambda: webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
         self.ui.actionExit.triggered.connect(lambda: app.quit())
@@ -42,7 +42,7 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonOverview_Issue.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
         self.ui.buttonOverview_AddBook.clicked.connect(self.dialog_AddBook)
         self.ui.buttonOverview_AddUser.clicked.connect(self.dialog_AddUser)
-        self.ui.buttonOverview_ReturnBook.clicked.connect(self.dialog_returnBook)
+        self.ui.buttonOverview_ReturnBook.clicked.connect(self.dialog_ReturnBook)
 
         '''
         UI DECORATORS
@@ -78,7 +78,7 @@ class SmartLibUi(QMainWindow):
         
         self.ui.buttonUsers_Add.clicked.connect(self.dialog_AddUser)
         self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser)
-        self.ui.buttonUsers_Delete.clicked.connect(self.dialog_deleteUser)
+        self.ui.buttonUsers_Delete.clicked.connect(self.dialog_DeleteUser)
         self.ui.buttonUsers_Go.clicked.connect(self.searchUser)
         self.ui.buttonUsers_Refresh.clicked.connect(self.init_element)
 
@@ -92,9 +92,9 @@ class SmartLibUi(QMainWindow):
         '''
         TAB[3]: ISSUE
         '''
-        #self.ui.tableUsers.doubleClicked.connect(self.dialog_returnBook)
+        #self.ui.tableUsers.doubleClicked.connect(self.dialog_ReturnBook)
 
-        self.ui.buttonIssue_ReturnBook.clicked.connect(self.dialog_returnBook)
+        self.ui.buttonIssue_ReturnBook.clicked.connect(self.dialog_ReturnBook)
         self.ui.buttonIssue_Go.clicked.connect(self.searchOnBorrow)
         self.ui.buttonIssue_Refresh.clicked.connect(self.init_element)
 
@@ -442,7 +442,7 @@ class SmartLibUi(QMainWindow):
     '''
         Delete user
     '''
-    def dialog_deleteUser(self):
+    def dialog_DeleteUser(self):
         user_id = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 0).text()
         user_name = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 1).text()
         user_to_delete = self.userDAO.getUserFromID(user_id)
@@ -460,7 +460,7 @@ class SmartLibUi(QMainWindow):
     '''
         Return book
     '''
-    def dialog_returnBook(self):
+    def dialog_ReturnBook(self):
         dialog = QDialog(self)
         layout = QVBoxLayout()
 
