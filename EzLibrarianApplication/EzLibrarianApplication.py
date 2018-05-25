@@ -127,6 +127,7 @@ class SmartLibUi(QMainWindow):
         self.loadAllHistory()
         self.loadAllOnBorrowBooks()
 
+
     # Load all books(or update) in database to books table
     def loadAllBooks(self):
         allBooks = self.bookDAO.getAllBooks()
@@ -136,6 +137,8 @@ class SmartLibUi(QMainWindow):
         # update books quantity on first page button
         booksCount = len(allBooks)
         self.ui.buttonOverview_Books.setText("   " + str(booksCount) + "  Books")
+
+
 
     # Load all student(or update) in database to student table
     def loadAllUsers(self):

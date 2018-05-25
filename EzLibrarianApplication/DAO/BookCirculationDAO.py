@@ -125,7 +125,7 @@ class BookCirculationDAO(AbstractDAO):
 
     def searchOnBorrow(self, keyword):
         if keyword == "" or keyword.startswith(' '):
-            return self.getAllCirculations()
+            return self.getAllOnBorrowCirculation()
 
         try:
             path = '/borrow/search/' + keyword
