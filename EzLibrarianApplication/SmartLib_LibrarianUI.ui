@@ -38,7 +38,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <property name="iconSize">
        <size>
@@ -1009,6 +1009,38 @@
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_app/Modern UI Icons Light/appbar.return.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.return.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextUnderIcon</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonIssue_Remind">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Remind</string>
+            </property>
+            <property name="icon">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.timer.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.timer.png</iconset>
             </property>
             <property name="iconSize">
              <size>

@@ -377,6 +377,14 @@ class Ui_MainWindow(object):
         self.buttonIssue_ReturnBook.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.buttonIssue_ReturnBook.setObjectName("buttonIssue_ReturnBook")
         self.horizontalLayout_8.addWidget(self.buttonIssue_ReturnBook)
+        self.buttonIssue_Remind = QtWidgets.QToolButton(self.tabIssue)
+        self.buttonIssue_Remind.setMinimumSize(QtCore.QSize(135, 83))
+        self.buttonIssue_Remind.setMaximumSize(QtCore.QSize(135, 83))
+        self.buttonIssue_Remind.setIcon(icon13)
+        self.buttonIssue_Remind.setIconSize(QtCore.QSize(48, 48))
+        self.buttonIssue_Remind.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
+        self.buttonIssue_Remind.setObjectName("buttonIssue_Remind")
+        self.horizontalLayout_8.addWidget(self.buttonIssue_Remind)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_8.addItem(spacerItem4)
         self.labelIssue_Search = QtWidgets.QLabel(self.tabIssue)
@@ -494,7 +502,7 @@ class Ui_MainWindow(object):
         self.toolBar.addSeparator()
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -598,6 +606,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabHistory), _translate("MainWindow", "History"))
         self.buttonIssue_ReturnBook.setStatusTip(_translate("MainWindow", "Return a book"))
         self.buttonIssue_ReturnBook.setText(_translate("MainWindow", "Return Book"))
+        self.buttonIssue_Remind.setText(_translate("MainWindow", "Remind"))
         self.labelIssue_Search.setStatusTip(_translate("MainWindow", "Enter "))
         self.labelIssue_Search.setText(_translate("MainWindow", "Search:"))
         self.buttonIssue_Go.setText(_translate("MainWindow", "Go"))
