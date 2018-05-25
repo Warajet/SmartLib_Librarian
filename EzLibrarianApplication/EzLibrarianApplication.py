@@ -33,7 +33,7 @@ class SmartLibUi(QMainWindow):
         self.ui.actionAdd_User.triggered.connect(self.dialog_AddUser)
         self.ui.actionReturnBook.triggered.connect(self.dialog_ReturnBook)
         self.ui.actionRefresh.triggered.connect(self.init_element)
-        self.ui.actionPython.triggered.connect(lambda: webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
+        self.ui.actionReport.triggered.connect(lambda: webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
         self.ui.actionExit.triggered.connect(lambda: app.quit())
 
         # pushButton (Main Menu Buttons)

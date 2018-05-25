@@ -17,7 +17,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>EasyLibrary - Librarian Console</string>
+   <string>SmartLibrary - Librarian Console</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="SmartLib_LibrarianRes.qrc">
+    <normaloff>:/button/IMG/library.png</normaloff>:/button/IMG/library.png</iconset>
   </property>
   <property name="statusTip">
    <string/>
@@ -38,7 +42,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -124,12 +128,15 @@
             <property name="statusTip">
              <string>View all books</string>
             </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>  ___ Books</string>
             </property>
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/button/IMG/167756.png</normaloff>:/button/IMG/167756.png</iconset>
+              <normaloff>:/button/IMG/library.png</normaloff>:/button/IMG/library.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -154,7 +161,7 @@
             </property>
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/button/IMG/149071.png</normaloff>:/button/IMG/149071.png</iconset>
+              <normaloff>:/button/IMG/all_users.png</normaloff>:/button/IMG/all_users.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -179,7 +186,7 @@
             </property>
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/button/IMG/clock-icon.png</normaloff>:/button/IMG/clock-icon.png</iconset>
+              <normaloff>:/button/IMG/issue_books.png</normaloff>:/button/IMG/issue_books.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -208,7 +215,7 @@
             </property>
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/button/IMG/167755.png</normaloff>:/button/IMG/167755.png</iconset>
+              <normaloff>:/button/IMG/add_book.png</normaloff>:/button/IMG/add_book.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -233,7 +240,7 @@
             </property>
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/button/IMG/167755.png</normaloff>:/button/IMG/167755.png</iconset>
+              <normaloff>:/button/IMG/add_user.png</normaloff>:/button/IMG/add_user.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -258,7 +265,7 @@
             </property>
             <property name="icon">
              <iconset resource="SmartLib_LibrarianRes.qrc">
-              <normaloff>:/button/IMG/167755.png</normaloff>:/button/IMG/167755.png</iconset>
+              <normaloff>:/button/IMG/return_book.png</normaloff>:/button/IMG/return_book.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -923,6 +930,9 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tableHistory">
+          <property name="editTriggers">
+           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+          </property>
           <property name="alternatingRowColors">
            <bool>true</bool>
           </property>
@@ -1130,6 +1140,9 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tableIssue">
+          <property name="editTriggers">
+           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+          </property>
           <property name="alternatingRowColors">
            <bool>true</bool>
           </property>
@@ -1226,7 +1239,7 @@
    <addaction name="separator"/>
    <addaction name="actionRefresh"/>
    <addaction name="separator"/>
-   <addaction name="actionPython"/>
+   <addaction name="actionReport"/>
    <addaction name="separator"/>
    <addaction name="actionExit"/>
    <addaction name="separator"/>
@@ -1318,16 +1331,16 @@
     <string>Refresh all of the data</string>
    </property>
   </action>
-  <action name="actionPython">
+  <action name="actionReport">
    <property name="icon">
     <iconset resource="SmartLib_LibrarianRes.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.language.python.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.language.python.png</iconset>
+     <normaloff>:/icon_app/Modern UI Icons Light/appbar.graph.line.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.graph.line.png</iconset>
    </property>
    <property name="text">
-    <string>Python</string>
+    <string>View Report</string>
    </property>
    <property name="statusTip">
-    <string>Build with Python :)</string>
+    <string>View statistical report</string>
    </property>
   </action>
  </widget>

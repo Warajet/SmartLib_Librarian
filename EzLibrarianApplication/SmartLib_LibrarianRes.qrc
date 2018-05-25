@@ -12,10 +12,13 @@
     <file>Modern UI Icons Light/appbar.book.side.png</file>
   </qresource>
   <qresource prefix="button">
-    <file>IMG/149071.png</file>
-    <file>IMG/167755.png</file>
-    <file>IMG/167756.png</file>
-    <file>IMG/clock-icon.png</file>
+    <file>IMG/add_book.png</file>
+    <file>IMG/add_user.png</file>
+    <file>IMG/all_users.png</file>
+    <file>IMG/issue_books.png</file>
+    <file>IMG/library.png</file>
+    <file>IMG/return_book.png</file>
+    <file>IMG/studying.png</file>
   </qresource>
   <qresource prefix="avatar">
     <file>IMG/Susan_big.png</file>
