@@ -11,6 +11,8 @@ from User.User import User
 from Scanner.CameraScanner import CameraScanner
 import cv2
 from CameraViewerWidget import CameraViewerWidget
+import pyqtgraph.examples
+
 
 # Catch Error and display through MessageBox
 def catch_exceptions(t, val, tb):
@@ -35,7 +37,7 @@ class SmartLibUi(QMainWindow):
         self.ui.actionAdd_User.triggered.connect(self.dialog_AddUser)
         self.ui.actionReturnBook.triggered.connect(self.dialog_ReturnBook)
         self.ui.actionRefresh.triggered.connect(self.init_element)
-        #self.ui.actionReport.triggered.connect(lambda: webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
+        self.ui.actionReport.triggered.connect(self.quickReportDetails)
         self.ui.actionExit.triggered.connect(lambda: app.quit())
 
         # pushButton (Main Menu Buttons)
@@ -50,12 +52,9 @@ class SmartLibUi(QMainWindow):
         UI DECORATORS
         '''
         # [Overview] Button Colors
-        #self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(0,184,237); color:white;")
-        #self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(0,156,80); color:white;")
-        #self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(216,65,50); color:white;")
-        self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(186,225,255); color:white;")
-        self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(186,255,201); color:white;")
-        self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(255,179,186); color:white;")
+        self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(186,225,255);")
+        self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(186,255,201);")
+        self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(255,179,186);")
 
         # [Tab] Text Font & Colors
         self.ui.tabWidget.setStyleSheet('QTabBar { font-size: 12pt; }')
@@ -145,6 +144,9 @@ class SmartLibUi(QMainWindow):
         booksCount = len(allBooks)
         self.ui.buttonOverview_Books.setText("   " + str(booksCount) + "  Books")
 
+    def getCountAllBooks(self):
+        return len(self.bookDAO.getAllBooks())
+
     # Load all student(or update) in database to student table
     def loadAllUsers(self):
         allUsers = self.userDAO.getAllUsers()
@@ -154,6 +156,9 @@ class SmartLibUi(QMainWindow):
         # update users quantity on first page button
         usersCount = len(allUsers)
         self.ui.buttonOverview_Users.setText("   " + str(usersCount) + "  Users")
+
+    def getCountAllUsers(self):
+        return len(self.userDAO.getAllUsers())
 
     def loadAllHistory(self):
         allHistory = self.bookCirculationDAO.getAllCirculations()
@@ -166,6 +171,57 @@ class SmartLibUi(QMainWindow):
         # update users quantity on first page button
         issueCount = len(allOnBorrowBooks)
         self.ui.buttonOverview_Issue.setText(" " + str(issueCount) + " Issue Books")
+
+    def getCountIssueBooks(self):
+        return len(self.bookCirculationDAO.getAllOnBorrowCirculation())
+
+    #TODO: Implement report fuction with export files
+    #Temp report function (can be changed later)
+    def quickReportDetails(self):
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Quick Report")
+        dialog.resize(630, 150)
+        layout = QVBoxLayout()
+
+        label1 = QLabel(self)
+        label1.setText("Total Number of Books: ")
+        lineEdit_AllBooks = QLineEdit(self)
+        lineEdit_AllBooks.setEnabled(False)
+        lineEdit_AllBooks.setText(str(self.getCountAllBooks()))
+        f = lineEdit_AllBooks.font()
+        f.setPointSize(16)
+        lineEdit_AllBooks.setFont(f)
+        layout.addWidget(label1)
+        layout.addWidget(lineEdit_AllBooks)
+
+        label2 = QLabel(self)
+        label2.setText("Total Number of Users: ")
+        lineEdit_AllUsers = QLineEdit(self)
+        lineEdit_AllUsers.setEnabled(False)
+        lineEdit_AllUsers.setText(str(self.getCountAllUsers()))
+        f = lineEdit_AllUsers.font()
+        f.setPointSize(16)
+        lineEdit_AllUsers.setFont(f)
+        layout.addWidget(label2)
+        layout.addWidget(lineEdit_AllUsers)
+
+        label3 = QLabel(self)
+        label3.setText("Total Number of Issue Books: ")
+        lineEdit_IssueBooks = QLineEdit(self)
+        lineEdit_IssueBooks.setEnabled(False)
+        lineEdit_IssueBooks.setText(str(self.getCountIssueBooks()))
+        f = lineEdit_IssueBooks.font()
+        f.setPointSize(16)
+        lineEdit_IssueBooks.setFont(f)
+        layout.addWidget(label3)
+        layout.addWidget(lineEdit_IssueBooks)
+
+        okButton = QPushButton('OK')
+        okButton.clicked.connect(lambda: dialog.close())
+        layout.addWidget(okButton)
+
+        dialog.setLayout(layout)
+        dialog.show()
 
     '''
         Add books
@@ -494,7 +550,7 @@ class SmartLibUi(QMainWindow):
         self.returnDialog = QDialog(self)
         layout = QVBoxLayout()
 
-        self.returnDialog.setWindowTitle("Enter Book ID")
+        self.returnDialog.setWindowTitle("Scan or Enter Book ID")
         self.returnDialog.resize(630, 150)
 
         label0 = QLabel(self)
