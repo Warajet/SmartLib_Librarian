@@ -80,7 +80,6 @@ class UserDAO(AbstractDAO):
         self.parent = parent
 
     def getUserFromID(self, id):
-        print("Get info id : " + str(id))
         try :
             path = '/user/' + str(id)
             response = requests.get(self.server_ip + path, timeout = self.timeout, headers = self.get_authentication_header(path))

@@ -11,18 +11,14 @@ from User.User import User
 from Scanner.CameraScanner import CameraScanner
 import cv2
 from CameraViewerWidget import CameraViewerWidget
-import webbrowser
-
 
 # Catch Error and display through MessageBox
 def catch_exceptions(t, val, tb):
     QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
     old_hook(t, val, tb)
 
-
 old_hook = sys.excepthook
 sys.excepthook = catch_exceptions
-
 
 class SmartLibUi(QMainWindow):
     def __init__(self):
@@ -39,7 +35,7 @@ class SmartLibUi(QMainWindow):
         self.ui.actionAdd_User.triggered.connect(self.dialog_AddUser)
         self.ui.actionReturnBook.triggered.connect(self.dialog_ReturnBook)
         self.ui.actionRefresh.triggered.connect(self.init_element)
-        self.ui.actionReport.triggered.connect(lambda: webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
+        #self.ui.actionReport.triggered.connect(lambda: webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
         self.ui.actionExit.triggered.connect(lambda: app.quit())
 
         # pushButton (Main Menu Buttons)
@@ -54,9 +50,12 @@ class SmartLibUi(QMainWindow):
         UI DECORATORS
         '''
         # [Overview] Button Colors
-        self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(0,184,237); color:white;")
-        self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(0,156,80); color:white;")
-        self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(216,65,50); color:white;")
+        #self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(0,184,237); color:white;")
+        #self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(0,156,80); color:white;")
+        #self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(216,65,50); color:white;")
+        self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(186,225,255); color:white;")
+        self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(186,255,201); color:white;")
+        self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(255,179,186); color:white;")
 
         # [Tab] Text Font & Colors
         self.ui.tabWidget.setStyleSheet('QTabBar { font-size: 12pt; }')
