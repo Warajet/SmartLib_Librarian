@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from SmartLib_LibrarianUI import Ui_MainWindow
 from threading import Timer
-from DAO import BookDAO, UserDAO, BookCirculationDAO, LineNotificationDAO
+from DAO import BookDAO, UserDAO, BookCirculationDAO, NotificationDAO
 from Book import Book
 from User.User import User
 from Scanner.CameraScanner import CameraScanner
@@ -111,7 +111,7 @@ class SmartLibUi(QMainWindow):
         '''
         self.bookDAO = BookDAO.BookDAO()
         self.userDAO = UserDAO.UserDAO()
-        self.lineDAO = LineNotificationDAO.LineNotificationDAO()
+        self.notificationDAO = NotificationDAO.NotificationDAO()
         self.bookCirculationDAO = BookCirculationDAO.BookCirculationDAO()
 
         self.booksTableAdapter = TableAdapter.BookTableAdapter(self.ui.tableBooks)
@@ -582,7 +582,7 @@ class SmartLibUi(QMainWindow):
         buttonReply = QMessageBox.question(self, "Information", warningText, QMessageBox.Yes | QMessageBox.No,
                                            QMessageBox.No)
         if buttonReply == QMessageBox.Yes:
-            self.lineDAO.notifyAllOnBorrow()
+            self.notificationDAO.notifyAllOnBorrow()
 
     '''
         Search 
