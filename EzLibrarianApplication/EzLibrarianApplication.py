@@ -1,14 +1,16 @@
 import sys
 import Adapter.TableAdapter as TableAdapter
-from PyQt5.QtCore import *
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from SmartLib_LibrarianUI import Ui_MainWindow
 from threading import Timer
-from DAO import BookDAO, UserDAO, BookCirculationDAO, LineNotificationDAO
+from DAO import BookDAO, UserDAO, BookCirculationDAO, NotificationDAO
 from Book import Book
 from User.User import User
-from BookCirculation import BookCirculation
+from Scanner.CameraScanner import CameraScanner
+import cv2
+from CameraViewerWidget import CameraViewerWidget
 import webbrowser
 
 
@@ -100,13 +102,16 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonIssue_Go.clicked.connect(self.searchOnBorrow)
         self.ui.buttonIssue_Refresh.clicked.connect(self.init_element)
         self.ui.buttonIssue_Remind.clicked.connect(self.sendNotificationToAllOnBorrow)
+        self.camUpdatetimer = None
+        self.camIDscan = None
+        self.returnDialog = None
 
         '''
         TableAdapter & DAO
         '''
         self.bookDAO = BookDAO.BookDAO()
         self.userDAO = UserDAO.UserDAO()
-        self.lineDAO = LineNotificationDAO.LineNotificationDAO()
+        self.notificationDAO = NotificationDAO.NotificationDAO()
         self.bookCirculationDAO = BookCirculationDAO.BookCirculationDAO()
 
         self.booksTableAdapter = TableAdapter.BookTableAdapter(self.ui.tableBooks)
@@ -487,11 +492,11 @@ class SmartLibUi(QMainWindow):
     '''
 
     def dialog_ReturnBook(self):
-        dialog = QDialog(self)
+        self.returnDialog = QDialog(self)
         layout = QVBoxLayout()
 
-        dialog.setWindowTitle("Enter Book ID")
-        dialog.resize(630, 150)
+        self.returnDialog.setWindowTitle("Enter Book ID")
+        self.returnDialog.resize(630, 150)
 
         label0 = QLabel(self)
         label0.setText("Book ID: ")
@@ -499,23 +504,77 @@ class SmartLibUi(QMainWindow):
         layout.addWidget(label0)
         layout.addWidget(id_textBox)
 
+        #Camera scanner
+        self.camIDscan = CameraScanner(self, 1280, 720, 10, 0)
+        camViewWidget = CameraViewerWidget(self)
+        # camViewWidget.setFixedWidth(400)
+        # camViewWidget.setFixedHeight(300)
+        layout.addWidget(camViewWidget)
+        self.camUpdatetimer = QtCore.QTimer(self)
+        self.camUpdatetimer.timeout.connect(lambda: self.updateCamImage(camViewWidget,self.camIDscan))
+        self.camUpdatetimer.start(1)
+        self.camIDscan.start()
+
         okButton = QPushButton('Next')
         layout.addWidget(okButton)
-        okButton.clicked.connect(lambda: self.returnBook(dialog, id_textBox))
+        okButton.clicked.connect(lambda: self.returnBook(id_textBox))
 
-        dialog.setLayout(layout)
-        dialog.show()
+        self.returnDialog.setLayout(layout)
+        self.returnDialog.show()
 
-    def returnBook(self, dialog, id_textBox):
-        borrowID_to_return = self.bookCirculationDAO.getBorrowIDFromBookID(id_textBox.text())
-        if (borrowID_to_return == None):
-            errorDialog = QErrorMessage(self)
-            errorDialog.showMessage("Error", "Couldn't find user for this ID")
-            return
-        dialog.close()
+    def returnBook(self, id_textBox=None,id=None):
+        self.camUpdatetimer.stop()
+        self.camIDscan.pause()
+
+        if id_textBox is None:          # Input via camera
+            print("return id " + str(id))
+            borrowID_to_return = self.bookCirculationDAO.getBorrowIDFromBookID(id)
+
+
+        else:                           # Manual textbox input
+            borrowID_to_return = self.bookCirculationDAO.getBorrowIDFromBookID(id_textBox.text())
+            if (borrowID_to_return == None):
+                errorDialog = QErrorMessage(self)
+                errorDialog.showMessage("Couldn't find user for this ID")
         self.bookCirculationDAO.returnBook(borrowID_to_return)
         self.loadAllOnBorrowBooks()
         self.loadAllHistory()
+
+        Timer(0.5, self.returnDialog.close).start()
+
+
+    def createDialog(self):
+        pass
+
+
+    def updateCamImage(self,camViewWidget,camIDScan):
+        self.window_width_idScan = 400
+        self.window_height_idScan = 300
+        # self.window_height = self.groupBox_scanner.geometry().width() *16 /9
+        if not camIDScan.getImageQueue().empty():
+            # self.startButton.setText('Camera is live')
+            frame = camIDScan.getImageQueue().get()
+            img = frame["img"]
+
+            try:
+                img_height, img_width, img_colors = img.shape
+            except AttributeError:
+                return
+
+            scale_w = float(self.window_width_idScan) / float(img_width)
+            scale_h = float(self.window_height_idScan) / float(img_height)
+            scale = min([scale_w, scale_h])
+
+            if scale == 0:
+                scale = 1
+
+            img = cv2.resize(img, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            height, width, bpc = img.shape
+            bpl = bpc * width
+            image = QImage(img.data, width, height, bpl, QImage.Format_RGB888).mirrored(True, False)
+            camViewWidget.setImage(image)
+
 
     def sendNotificationToAllOnBorrow(self):
         # TODO: this features on server is currently in implementing process.
@@ -523,7 +582,7 @@ class SmartLibUi(QMainWindow):
         buttonReply = QMessageBox.question(self, "Information", warningText, QMessageBox.Yes | QMessageBox.No,
                                            QMessageBox.No)
         if buttonReply == QMessageBox.Yes:
-            self.lineDAO.notifyAllOnBorrow()
+            self.notificationDAO.notifyAllOnBorrow()
 
     '''
         Search 
