@@ -234,7 +234,12 @@ class SmartLibUi(QMainWindow):
     '''
 
     def dialog_EditBook(self):
-        book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
+        try:
+            book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
+        except AttributeError:
+            errorDialog = QErrorMessage(self)
+            errorDialog.showMessage("Please select specific row to edit first!")
+            return
         book_to_edit = self.bookDAO.getBookFromID(book_id)
         if (book_to_edit == None):
             errorDialog = QErrorMessage(self)
@@ -384,7 +389,13 @@ class SmartLibUi(QMainWindow):
     '''
 
     def dialog_EditUser(self):
-        user_id = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 0).text()
+        try:
+            user_id = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 0).text()
+        except AttributeError:
+            errorDialog = QErrorMessage(self)
+            errorDialog.showMessage("Please select specific row to edit first!")
+            return
+
         user_to_edit = self.userDAO.getUserFromID(user_id)
         if (user_to_edit == None):
             errorDialog = QErrorMessage(self)
