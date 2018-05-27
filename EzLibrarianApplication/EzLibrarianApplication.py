@@ -14,8 +14,6 @@ from CameraViewerWidget import CameraViewerWidget
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
-import pyqtgraph.examples
-
 
 # Catch Error and display through MessageBox
 def catch_exceptions(t, val, tb):
@@ -55,13 +53,13 @@ class SmartLibUi(QMainWindow):
         UI DECORATORS
         '''
         # [Overview] Button Colors
-        self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(186,225,255);")
-        self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(186,255,201);")
-        self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(255,179,186);")
+        self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(135, 206, 250);")
+        self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(128, 255, 212);")
+        self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(241, 128, 128);")
 
         # [Tab] Text Font & Colors
         self.ui.tabWidget.setStyleSheet('QTabBar { font-size: 12pt; }')
-
+        
         self.ui.tabWidget.tabBar().setTabTextColor(1, QColor(0, 184, 237))
         self.ui.tabWidget.tabBar().setTabTextColor(2, QColor(0, 156, 80))
         self.ui.tabWidget.tabBar().setTabTextColor(3, QColor(255, 157, 0))
@@ -178,70 +176,25 @@ class SmartLibUi(QMainWindow):
     def getCountIssueBooks(self):
         return len(self.bookCirculationDAO.getAllOnBorrowCirculation())
 
-    #TODO: Implement report fuction with export files
-    #Temp report function (can be changed later)
     def quickReportDetails(self):
-        # dialog = QDialog(self)
-        # dialog.setWindowTitle("Quick Report")
-        # dialog.resize(630, 150)
-        # layout = QVBoxLayout()
-        #
-        # label1 = QLabel(self)
-        # label1.setText("Total Number of Books: ")
-        # lineEdit_AllBooks = QLineEdit(self)
-        # lineEdit_AllBooks.setEnabled(False)
-        # lineEdit_AllBooks.setText(str(self.getCountAllBooks()))
-        # f = lineEdit_AllBooks.font()
-        # f.setPointSize(16)
-        # lineEdit_AllBooks.setFont(f)
-        # layout.addWidget(label1)
-        # layout.addWidget(lineEdit_AllBooks)
-        #
-        # label2 = QLabel(self)
-        # label2.setText("Total Number of Users: ")
-        # lineEdit_AllUsers = QLineEdit(self)
-        # lineEdit_AllUsers.setEnabled(False)
-        # lineEdit_AllUsers.setText(str(self.getCountAllUsers()))
-        # f = lineEdit_AllUsers.font()
-        # f.setPointSize(16)
-        # lineEdit_AllUsers.setFont(f)
-        # layout.addWidget(label2)
-        # layout.addWidget(lineEdit_AllUsers)
-        #
-        # label3 = QLabel(self)
-        # label3.setText("Total Number of Issue Books: ")
-        # lineEdit_IssueBooks = QLineEdit(self)
-        # lineEdit_IssueBooks.setEnabled(False)
-        # lineEdit_IssueBooks.setText(str(self.getCountIssueBooks()))
-        # f = lineEdit_IssueBooks.font()
-        # f.setPointSize(16)
-        # lineEdit_IssueBooks.setFont(f)
-        # layout.addWidget(label3)
-        # layout.addWidget(lineEdit_IssueBooks)
-        #
-        # okButton = QPushButton('OK')
-        # okButton.clicked.connect(lambda: dialog.close())
-        # layout.addWidget(okButton)
-        #
-        # dialog.setLayout(layout)
-        # dialog.show()
+        plt.figure(num='Quick Report', figsize=(5, 6), dpi=200)
+        reportGrid = GridSpec(2, 1)
 
-        # Some data
-        the_grid = GridSpec(2, 1)
+        # Book Status
+        book_status = [self.getCountAllBooks(), self.getCountIssueBooks()]
+        labels1 = 'On Shelves' , 'Issue Books'
+        plt.subplot(reportGrid[0, 0], aspect=1)
+        plt.title('Book Status')
+        plt.pie(book_status, explode=(0, 0.2), labels=labels1, colors=['lightskyblue', 'lightcoral'], autopct='%1.1f%%')
+        
+        # Books Issued till Date
+        book_issued_till_date = [len(self.bookCirculationDAO.getAllOnBorrowCirculation()) - len(self.bookCirculationDAO.getOverdueCirculation()), len(self.bookCirculationDAO.getOverdueCirculation())]
+        labels2 = 'In-period', 'Overdue Books'
+        plt.subplot(reportGrid[1, 0], aspect=1)
+        plt.title('Books Issued till Date')
+        plt.pie(book_issued_till_date, explode=(0, 0.2), labels=labels2, colors=['aquamarine', 'khaki'], autopct='%1.1f%%')
 
-
-        labels = 'On Shelves' , 'Issue books'
-        fracs = [self.getCountAllBooks(), self.getCountIssueBooks()]
-
-        plt.subplot(the_grid[0, 0], aspect=1)
-        plt.pie(fracs, labels=labels, autopct='%1.1f%%', shadow=True)
-
-        labels2 = 'In-period', 'Overdue books'
-        fracs2 = [len(self.bookCirculationDAO.getAllOnBorrowCirculation()) - len(self.bookCirculationDAO.getOverdueCirculation())
-            , len(self.bookCirculationDAO.getOverdueCirculation())]
-        print(fracs2)
-        plt.subplot(the_grid[1, 0], aspect=1)
-        plt.pie(fracs2, labels=labels2, autopct='%1.1f%%', shadow=True)
+        plt.tight_layout()
         plt.show()
 
     '''
