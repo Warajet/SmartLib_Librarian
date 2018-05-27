@@ -1,27 +1,18 @@
 import sys
+import cv2
 import Adapter.TableAdapter as TableAdapter
+import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
+from SmartLib_LibrarianUI import Ui_MainWindow
+from Scanner.CameraScanner import CameraScanner
+from CameraViewerWidget import CameraViewerWidget
+from DAO import BookDAO, UserDAO, BookCirculationDAO, NotificationDAO
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from SmartLib_LibrarianUI import Ui_MainWindow
-from threading import Timer
-from DAO import BookDAO, UserDAO, BookCirculationDAO, NotificationDAO
 from Book import Book
 from User.User import User
-from Scanner.CameraScanner import CameraScanner
-import cv2
-from CameraViewerWidget import CameraViewerWidget
-import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
-
-
-# Catch Error and display through MessageBox
-def catch_exceptions(t, val, tb):
-    QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
-    old_hook(t, val, tb)
-
-old_hook = sys.excepthook
-sys.excepthook = catch_exceptions
+from threading import Timer
 
 class SmartLibUi(QMainWindow):
     def __init__(self):
@@ -30,9 +21,9 @@ class SmartLibUi(QMainWindow):
         self.ui.setupUi(self)
 
         '''
-        INITIAL UI SETUP
+        UI SIGNALS & SLOTS
         '''
-        # QAction (Menu Bar)
+        # Menu Bar (QAction)
         self.ui.actionMain_Menu.triggered.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
         self.ui.actionAdd_Book.triggered.connect(self.dialog_AddBook)
         self.ui.actionAdd_User.triggered.connect(self.dialog_AddUser)
@@ -40,8 +31,7 @@ class SmartLibUi(QMainWindow):
         self.ui.actionRefresh.triggered.connect(self.init_element)
         self.ui.actionReport.triggered.connect(self.quickReportDetails)
         self.ui.actionExit.triggered.connect(lambda: app.quit())
-
-        # pushButton (Main Menu Buttons)
+        # Main Menu Buttons (pushButton)
         self.ui.buttonOverview_Books.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
         self.ui.buttonOverview_Users.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(2))
         self.ui.buttonOverview_Issue.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
@@ -56,51 +46,39 @@ class SmartLibUi(QMainWindow):
         self.ui.buttonOverview_Books.setStyleSheet("background-color:rgb(135, 206, 250);")
         self.ui.buttonOverview_Users.setStyleSheet("background-color:rgb(128, 255, 212);")
         self.ui.buttonOverview_Issue.setStyleSheet("background-color:rgb(241, 128, 128);")
-
         # [Tab] Text Font & Colors
         self.ui.tabWidget.setStyleSheet('QTabBar { font-size: 12pt; }')
-        
         self.ui.tabWidget.tabBar().setTabTextColor(1, QColor(0, 184, 237))
         self.ui.tabWidget.tabBar().setTabTextColor(2, QColor(0, 156, 80))
         self.ui.tabWidget.tabBar().setTabTextColor(3, QColor(255, 157, 0))
         self.ui.tabWidget.tabBar().setTabTextColor(4, QColor(216, 65, 50))
 
         '''
-        TAB[0]: BOOKS
+        UI TABS
         '''
-        self.ui.tableBooks.doubleClicked.connect(self.dialog_EditBook)
-
+        # Tab[0] All Books
         self.ui.buttonBooks_Add.clicked.connect(self.dialog_AddBook)
         self.ui.buttonBooks_Edit.clicked.connect(self.dialog_EditBook)
         self.ui.buttonBooks_Delete.clicked.connect(self.dialog_deleteBook)
         self.ui.buttonBooks_Go.clicked.connect(self.searchBooks)
         self.ui.buttonBooks_Refresh.clicked.connect(self.init_element)
-
-        '''
-        TAB[1]: USERS
-        '''
-        self.ui.tableUsers.doubleClicked.connect(self.dialog_EditUser)
-
+        self.ui.tableBooks.doubleClicked.connect(self.dialog_EditBook)
+        # Tab[1] All Users
         self.ui.buttonUsers_Add.clicked.connect(self.dialog_AddUser)
         self.ui.buttonUsers_Edit.clicked.connect(self.dialog_EditUser)
         self.ui.buttonUsers_Delete.clicked.connect(self.dialog_DeleteUser)
         self.ui.buttonUsers_Go.clicked.connect(self.searchUser)
         self.ui.buttonUsers_Refresh.clicked.connect(self.init_element)
-
-        '''
-        TAB[2]: HISTORY
-        '''
+        self.ui.tableUsers.doubleClicked.connect(self.dialog_EditUser)
+        # Tab[2] History
         self.ui.buttonHistory_Filter.setEnabled(False)
         self.ui.buttonHistory_Go.clicked.connect(self.searchHistory)
         self.ui.buttonHistory_Refresh.clicked.connect(self.init_element)
-
-        '''
-        TAB[3]: ISSUE
-        '''
+        # Tab[3] Issue Books
         self.ui.buttonIssue_ReturnBook.clicked.connect(self.dialog_ReturnBook)
+        self.ui.buttonIssue_Remind.clicked.connect(self.sendNotificationToAllOnBorrow)
         self.ui.buttonIssue_Go.clicked.connect(self.searchOnBorrow)
         self.ui.buttonIssue_Refresh.clicked.connect(self.init_element)
-        self.ui.buttonIssue_Remind.clicked.connect(self.sendNotificationToAllOnBorrow)
         self.camUpdatetimer = None
         self.camIDscan = None
         self.returnDialog = None
@@ -112,76 +90,55 @@ class SmartLibUi(QMainWindow):
         self.userDAO = UserDAO.UserDAO()
         self.notificationDAO = NotificationDAO.NotificationDAO()
         self.bookCirculationDAO = BookCirculationDAO.BookCirculationDAO()
-
         self.booksTableAdapter = TableAdapter.BookTableAdapter(self.ui.tableBooks)
         self.userTableAdapter = TableAdapter.UserTableAdapter(self.ui.tableUsers)
         self.historyTableAdapter = TableAdapter.HistoryTableAdapter(self.ui.tableHistory)
         self.onBorrowTableAdapter = TableAdapter.HistoryTableAdapter(self.ui.tableIssue)
         self.init_element()
-
-        # Realtime search when typing
+        # Real-time search when typing
         self.ui.lineEditBooks_SearchBox.textChanged.connect(self.searchBooks)
         self.ui.lineEditUsers_SearchBox.textChanged.connect(self.searchUser)
         self.ui.lineEditHistory_SearchBox.textChanged.connect(self.searchHistory)
         self.ui.lineEditIssue_SearchBox.textChanged.connect(self.searchOnBorrow)
 
     '''
-    FUNCTIONS
+    ALL FUNCTIONS
     '''
-
     def init_element(self):
         self.loadAllBooks()
         self.loadAllUsers()
         self.loadAllHistory()
         self.loadAllOnBorrowBooks()
 
-    # Load all books(or update) in database to books table
+    # Load data and display + getter function
     def loadAllBooks(self):
-        allBooks = self.bookDAO.getAllBooks()
-        self.booksTableAdapter.addBooks(allBooks)
-        booksCount = len(allBooks)
-
-        # update books quantity on first page button
-        booksCount = len(allBooks)
-        self.ui.buttonOverview_Books.setText("   " + str(booksCount) + "  Books")
-
-    def getCountAllBooks(self):
-        return len(self.bookDAO.getAllBooks())
-
-    # Load all student(or update) in database to student table
+        self.booksTableAdapter.addBooks(self.bookDAO.getAllBooks())
+        self.ui.buttonOverview_Books.setText("   " + str(self.getNumAllBooks()) + "  Books")
     def loadAllUsers(self):
-        allUsers = self.userDAO.getAllUsers()
-        self.userTableAdapter.addUsers(allUsers)
-        usersCount = len(allUsers)
-
-        # update users quantity on first page button
-        usersCount = len(allUsers)
-        self.ui.buttonOverview_Users.setText("   " + str(usersCount) + "  Users")
-
-    def getCountAllUsers(self):
-        return len(self.userDAO.getAllUsers())
-
+        self.userTableAdapter.addUsers(self.userDAO.getAllUsers())
+        self.ui.buttonOverview_Users.setText("   " + str(self.getNumAllUsers()) + "  Users")
     def loadAllHistory(self):
         allHistory = self.bookCirculationDAO.getAllCirculations()
         self.historyTableAdapter.addCirculations(allHistory)
-
     def loadAllOnBorrowBooks(self):
-        allOnBorrowBooks = self.bookCirculationDAO.getAllOnBorrowCirculation()
-        self.onBorrowTableAdapter.addCirculations(allOnBorrowBooks)
-
-        # update users quantity on first page button
-        issueCount = len(allOnBorrowBooks)
-        self.ui.buttonOverview_Issue.setText(" " + str(issueCount) + " Issue Books")
-
-    def getCountIssueBooks(self):
+        self.onBorrowTableAdapter.addCirculations(self.bookCirculationDAO.getAllOnBorrowCirculation())
+        self.ui.buttonOverview_Issue.setText(" " + str(self.getNumBorrowBooks()) + " Issue Books")
+    def getNumAllBooks(self):
+        return len(self.bookDAO.getAllBooks())
+    def getNumAllUsers(self):
+        return len(self.userDAO.getAllUsers())
+    def getNumIssueBooks(self):
+        return len(self.bookCirculationDAO.getAllOnBorrowCirculation())
+    def getNumBorrowBooks(self):
         return len(self.bookCirculationDAO.getAllOnBorrowCirculation())
 
+    # Data visualization (pie chart)
     def quickReportDetails(self):
         plt.figure(num='Quick Report', figsize=(5, 6), dpi=200)
         reportGrid = GridSpec(2, 1)
 
         # Book Status
-        book_status = [self.getCountAllBooks(), self.getCountIssueBooks()]
+        book_status = [self.getNumAllBooks(), self.getNumIssueBooks()]
         labels1 = 'On Shelves' , 'Issue Books'
         plt.subplot(reportGrid[0, 0], aspect=1)
         plt.title('Book Status')
@@ -198,9 +155,8 @@ class SmartLibUi(QMainWindow):
         plt.show()
 
     '''
-        Add books
+    POP-UP DIALOGS
     '''
-
     def dialog_AddBook(self):
         dialog = QDialog(self)
         dialog.setWindowTitle("Add Book")
@@ -263,27 +219,20 @@ class SmartLibUi(QMainWindow):
         dialog.close()
         Timer(1, self.loadAllBooks).start()
 
-    '''
-        Book Editing
-    '''
-
     def dialog_EditBook(self):
         try:
             book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
         except AttributeError:
-            errorDialog = QErrorMessage(self)
-            errorDialog.showMessage("Please select specific row to edit first!")
+            self.displayErrorNoSpecificRow()
             return
         book_to_edit = self.bookDAO.getBookFromID(book_id)
         if (book_to_edit == None):
-            errorDialog = QErrorMessage(self)
-            errorDialog.showMessage("Error", "Couldn't find book for this ID")
+            self.displayErrorNoID()
             return
 
         dialog = QDialog(self)
         dialog.setWindowTitle("Edit Book ID<" + str(book_to_edit.book_id) + ">")
         dialog.resize(630, 600)
-
         layout = QVBoxLayout()
 
         label1 = QLabel(self)
@@ -347,30 +296,23 @@ class SmartLibUi(QMainWindow):
         dialog.close()
         self.loadAllBooks()
 
-    '''
-        Book Delete
-    '''
-
     def dialog_deleteBook(self):
-        book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
-        book_title = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 1).text()
+        try:
+            book_id = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 0).text()
+            book_title = self.ui.tableBooks.item(self.ui.tableBooks.currentRow(), 1).text()
+        except AttributeError:
+            self.displayErrorNoSpecificRow()
+            return
         book_to_delete = self.bookDAO.getBookFromID(book_id)
         if (book_to_delete == None):
-            errorDialog = QErrorMessage(self)
-            errorDialog.showMessage("Error", "Couldn't find book for this ID")
+            self.displayErrorNoID()
             return
 
-        warningText = "Do you want to delete the selected book?" + "\n\nID: " + str(book_id) + "\nTitle: " + str(
-            book_title)
-        buttonReply = QMessageBox.question(self, "Warning", warningText, QMessageBox.Yes | QMessageBox.No,
-                                           QMessageBox.No)
+        warningText = "Do you want to delete the selected book?" + "\n\nID: " + str(book_id) + "\nTitle: " + str(book_title)
+        buttonReply = QMessageBox.question(self, "Warning", warningText, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if buttonReply == QMessageBox.Yes:
             self.bookDAO.deleteBook(book_to_delete)
             self.loadAllBooks()
-
-    '''
-     Add user
-    '''
 
     def dialog_AddUser(self):
         dialog = QDialog(self)
@@ -418,28 +360,20 @@ class SmartLibUi(QMainWindow):
         dialog.close()
         Timer(1, self.loadAllUsers).start()
 
-    '''
-     Edit user
-    '''
-
     def dialog_EditUser(self):
         try:
             user_id = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 0).text()
         except AttributeError:
-            errorDialog = QErrorMessage(self)
-            errorDialog.showMessage("Please select specific row to edit first!")
+            self.displayErrorNoSpecificRow()
             return
-
         user_to_edit = self.userDAO.getUserFromID(user_id)
         if (user_to_edit == None):
-            errorDialog = QErrorMessage(self)
-            errorDialog.showMessage("Error", "Couldn't find user for this ID")
+            self.displayErrorNoID()
             return
 
         dialog = QDialog(self)
         dialog.setWindowTitle("Edit User ID<" + str(user_to_edit.user_id) + ">")
         dialog.resize(630, 600)
-
         layout = QVBoxLayout()
 
         label1 = QLabel(self)
@@ -460,7 +394,7 @@ class SmartLibUi(QMainWindow):
         label3.setText("LINE Token: ")
         lineEdit_LineToken = QLineEdit(self)
         lineEdit_LineToken.setText(user_to_edit.lineToken)
-        lineEdit_LineToken.setEnabled(False)  # Librarian should not edit this value
+        lineEdit_LineToken.setEnabled(False)
         layout.addWidget(label3)
         layout.addWidget(lineEdit_LineToken)
 
@@ -495,49 +429,50 @@ class SmartLibUi(QMainWindow):
         dialog.close()
         self.loadAllUsers()
 
-    '''
-        Delete user
-    '''
-
     def dialog_DeleteUser(self):
-        user_id = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 0).text()
-        user_name = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 1).text()
+        try:
+            user_id = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 0).text()
+            user_name = self.ui.tableUsers.item(self.ui.tableUsers.currentRow(), 1).text()
+        except AttributeError:
+            self.displayErrorNoSpecificRow()
+            return
         user_to_delete = self.userDAO.getUserFromID(user_id)
         if (user_to_delete == None):
-            errorDialog = QErrorMessage(self)
-            errorDialog.showMessage("Error", "Couldn't find user for this ID")
+            self.displayErrorNoID()
             return
 
-        warningText = "Do you want to delete the selected user?" + "\n\nID: " + str(user_id) + "\nName: " + str(
-            user_name)
-        buttonReply = QMessageBox.question(self, "Warning", warningText, QMessageBox.Yes | QMessageBox.No,
-                                           QMessageBox.No)
+        warningText = "Do you want to delete the selected user?" + "\n\nID: " + str(user_id) + "\nName: " + str(user_name)
+        buttonReply = QMessageBox.question(self, "Warning", warningText, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if buttonReply == QMessageBox.Yes:
             self.userDAO.deleteUser(user_to_delete)
             self.loadAllUsers()
+    
+    # Error Dialogs
+    def displayErrorNoSpecificRow(self):
+        errorDialog = QErrorMessage(self)
+        errorDialog.showMessage("Please select specific row first")
+    def displayErrorNoID(self):
+        errorDialog = QErrorMessage(self)
+        errorDialog.showMessage("Could not find item for this ID")
 
     '''
-        Return book
+    RETURN BOOK FUNCTIONS
     '''
-
     def dialog_ReturnBook(self):
         self.returnDialog = QDialog(self)
-        layout = QVBoxLayout()
-
         self.returnDialog.setWindowTitle("Scan or Enter Book ID")
         self.returnDialog.resize(630, 150)
+        layout = QVBoxLayout()
 
-        label0 = QLabel(self)
-        label0.setText("Book ID: ")
+        label1 = QLabel(self)
+        label1.setText("Book ID: ")
         id_textBox = QLineEdit(self)
-        layout.addWidget(label0)
+        layout.addWidget(label1)
         layout.addWidget(id_textBox)
 
-        #Camera scanner
+        # Camera scanner
         self.camIDscan = CameraScanner(self, 1280, 720, 10, 0)
         camViewWidget = CameraViewerWidget(self)
-        # camViewWidget.setFixedWidth(400)
-        # camViewWidget.setFixedHeight(300)
         layout.addWidget(camViewWidget)
         self.camUpdatetimer = QtCore.QTimer(self)
         self.camUpdatetimer.timeout.connect(lambda: self.updateCamImage(camViewWidget,self.camIDscan))
@@ -555,22 +490,17 @@ class SmartLibUi(QMainWindow):
         self.camUpdatetimer.stop()
         self.camIDscan.pause()
 
-        if id_textBox is None:          # Input via camera
+        if id_textBox is None:  # Input via camera
             print("return id " + str(id))
             borrowID_to_return = self.bookCirculationDAO.getBorrowIDFromBookID(id)
-
-
-        else:                           # Manual textbox input
+        else:   # Manual textbox input
             borrowID_to_return = self.bookCirculationDAO.getBorrowIDFromBookID(id_textBox.text())
             if (borrowID_to_return == None):
-                errorDialog = QErrorMessage(self)
-                errorDialog.showMessage("Couldn't find user for this ID")
+                self.displayErrorNoID()
         self.bookCirculationDAO.returnBook(borrowID_to_return)
         self.loadAllOnBorrowBooks()
         self.loadAllHistory()
-
         Timer(0.5, self.returnDialog.close).start()
-
 
     def updateCamImage(self,camViewWidget,camIDScan):
         self.window_width_idScan = 630
@@ -595,32 +525,33 @@ class SmartLibUi(QMainWindow):
             camViewWidget.setImage(image)
 
     def sendNotificationToAllOnBorrow(self):
-        # TODO: this features on server is currently in implementing process.
         warningText = "Do you want to notify user?"
-        buttonReply = QMessageBox.question(self, "Information", warningText, QMessageBox.Yes | QMessageBox.No,
-                                           QMessageBox.No)
+        buttonReply = QMessageBox.question(self, "Information", warningText, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if buttonReply == QMessageBox.Yes:
             self.notificationDAO.notifyAllOnBorrow()
 
     '''
-        Search 
+    SEARCH FUNCTION 
     '''
-
     def searchUser(self):
         keyword = self.ui.lineEditUsers_SearchBox.text()
         self.userTableAdapter.addUsers(self.userDAO.searchUser(keyword))
-
     def searchBooks(self):
         keyword = self.ui.lineEditBooks_SearchBox.text()
         self.booksTableAdapter.addBooks(self.bookDAO.searchBook(keyword))
-
     def searchHistory(self):
         keyword = self.ui.lineEditHistory_SearchBox.text()
         self.historyTableAdapter.addCirculations(self.bookCirculationDAO.searchHistory(keyword))
-
     def searchOnBorrow(self):
         keyword = self.ui.lineEditIssue_SearchBox.text()
         self.onBorrowTableAdapter.addCirculations(self.bookCirculationDAO.searchOnBorrow(keyword))
+
+# Catch Error and display through MessageBox
+def catch_exceptions(t, val, tb):
+    QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
+    old_hook(t, val, tb)
+old_hook = sys.excepthook
+sys.excepthook = catch_exceptions
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
