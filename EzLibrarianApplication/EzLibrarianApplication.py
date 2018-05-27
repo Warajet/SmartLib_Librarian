@@ -573,33 +573,26 @@ class SmartLibUi(QMainWindow):
 
 
     def updateCamImage(self,camViewWidget,camIDScan):
-        self.window_width_idScan = 400
-        self.window_height_idScan = 300
-        # self.window_height = self.groupBox_scanner.geometry().width() *16 /9
+        self.window_width_idScan = 630
+        self.window_height_idScan = 600
         if not camIDScan.getImageQueue().empty():
-            # self.startButton.setText('Camera is live')
             frame = camIDScan.getImageQueue().get()
             img = frame["img"]
-
             try:
                 img_height, img_width, img_colors = img.shape
             except AttributeError:
                 return
-
             scale_w = float(self.window_width_idScan) / float(img_width)
             scale_h = float(self.window_height_idScan) / float(img_height)
             scale = min([scale_w, scale_h])
-
             if scale == 0:
                 scale = 1
-
             img = cv2.resize(img, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             height, width, bpc = img.shape
             bpl = bpc * width
             image = QImage(img.data, width, height, bpl, QImage.Format_RGB888).mirrored(True, False)
             camViewWidget.setImage(image)
-
 
     def sendNotificationToAllOnBorrow(self):
         # TODO: this features on server is currently in implementing process.
@@ -628,7 +621,6 @@ class SmartLibUi(QMainWindow):
     def searchOnBorrow(self):
         keyword = self.ui.lineEditIssue_SearchBox.text()
         self.onBorrowTableAdapter.addCirculations(self.bookCirculationDAO.searchOnBorrow(keyword))
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
