@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from Book import Book
 from User.User import User
-from threading import Timer
+from threading import Timer, Thread
 
 class SmartLibUi(QMainWindow):
     def __init__(self):
@@ -477,6 +477,7 @@ class SmartLibUi(QMainWindow):
         self.camUpdatetimer = QtCore.QTimer(self)
         self.camUpdatetimer.timeout.connect(lambda: self.updateCamImage(camViewWidget,self.camIDscan))
         self.camUpdatetimer.start(1)
+        self.camIDscan.setDaemon(True)
         self.camIDscan.start()
 
         okButton = QPushButton('Next')
@@ -497,10 +498,9 @@ class SmartLibUi(QMainWindow):
             borrowID_to_return = self.bookCirculationDAO.getBorrowIDFromBookID(id_textBox.text())
             if (borrowID_to_return == None):
                 self.displayErrorNoID()
-        self.bookCirculationDAO.returnBook(borrowID_to_return)
-        self.loadAllOnBorrowBooks()
-        self.loadAllHistory()
-        Timer(0.5, self.returnDialog.close).start()
+            print("Return failed : ID not found in Borrow Circulation")
+        self.returnDialog.close()
+        Thread(target=self.init_element).run()
 
     def updateCamImage(self,camViewWidget,camIDScan):
         self.window_width_idScan = 630
@@ -537,8 +537,11 @@ class SmartLibUi(QMainWindow):
         keyword = self.ui.lineEditUsers_SearchBox.text()
         self.userTableAdapter.addUsers(self.userDAO.searchUser(keyword))
     def searchBooks(self):
+        # keyword = self.ui.lineEditBooks_SearchBox.text()
+        # self.booksTableAdapter.addBooks(self.bookDAO.searchBook(keyword))
         keyword = self.ui.lineEditBooks_SearchBox.text()
-        self.booksTableAdapter.addBooks(self.bookDAO.searchBook(keyword))
+        Thread(target=self.booksTableAdapter.addBooks,args=[self.bookDAO.searchBook(keyword)]).run()
+
     def searchHistory(self):
         keyword = self.ui.lineEditHistory_SearchBox.text()
         self.historyTableAdapter.addCirculations(self.bookCirculationDAO.searchHistory(keyword))

@@ -62,8 +62,8 @@ class CameraScanner(Scanner):
 
     def pause(self):
         print("Camera pause")
-        self.capture.release()
         self.running = False
+        self.capture.release()
 
 
 
