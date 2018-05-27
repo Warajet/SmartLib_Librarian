@@ -6,9 +6,6 @@ class TableAdapter:
     def __init__(self,table):
         self.table = table
 
-    def addRow(self,object):
-        pass
-
     def clearTable(self):
         while (self.table.rowCount() > 0):
             self.table.removeRow(0)
@@ -55,7 +52,7 @@ class UserTableAdapter(TableAdapter):
             self.table.setItem(row, 0, QTableWidgetItem(str(user.user_id)))
             self.table.setItem(row, 1, QTableWidgetItem(user.name))
             self.table.setItem(row, 2, QTableWidgetItem(user.email))
-            self.table.setItem(row, 3, QTableWidgetItem(user.registered_on.strftime('%d/%m/%y')))
+            self.table.setItem(row, 3, QTableWidgetItem(user.registered_on.strftime('%d/%m/%y %H:%M')))
             self.table.setItem(row, 4, QTableWidgetItem(user.lineToken))
             self.table.setItem(row, 5, QTableWidgetItem(user.rfid))
             row += 1
@@ -79,10 +76,10 @@ class HistoryTableAdapter(TableAdapter):
             self.table.setItem(row, 0, QTableWidgetItem(str(circulation.borrow_id)))
             self.table.setItem(row, 1, QTableWidgetItem(circulation.book.title))
             self.table.setItem(row, 2, QTableWidgetItem(circulation.user.name))
-            self.table.setItem(row, 3, QTableWidgetItem(circulation.borrow_time.strftime('%d/%m/%y')))
-            self.table.setItem(row, 4, QTableWidgetItem(circulation.due_time.strftime('%d/%m/%y')))
+            self.table.setItem(row, 3, QTableWidgetItem(circulation.borrow_time.strftime('%d/%m/%y %H:%M')))
+            self.table.setItem(row, 4, QTableWidgetItem(circulation.due_time.strftime('%d/%m/%y %H:%M')))
             if (circulation.return_time != None):
-              self.table.setItem(row, 5, QTableWidgetItem(circulation.return_time.strftime('%d/%m/%y')))
+              self.table.setItem(row, 5, QTableWidgetItem(circulation.return_time.strftime('%d/%m/%y %H:%M')))
             else:
                 self.table.setItem(row, 5, QTableWidgetItem("-"))
             row += 1

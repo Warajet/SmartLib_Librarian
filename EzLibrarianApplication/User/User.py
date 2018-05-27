@@ -17,6 +17,6 @@ class User:
         return self.lineToken
 
     def setLineNotifyToken(self,token):
-        self.lineToken = tokenuser
+        self.lineToken = token
 
 
