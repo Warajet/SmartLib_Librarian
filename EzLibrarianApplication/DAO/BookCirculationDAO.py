@@ -8,6 +8,7 @@ from DAO.AbstractDAO import AbstractDAO
 from DAO.BookDAO import BookDAO
 from DAO.UserDAO import UserDAO
 from constant import *
+from datetime import datetime
 
 
 class BookCirculationDAO(AbstractDAO):
@@ -143,7 +144,13 @@ class BookCirculationDAO(AbstractDAO):
 
         return None
 
+    def getOverdueCirculation(self):
+        overdueCirculations = []
+        for circulation in self.getAllOnBorrowCirculation():
+            if (circulation.due_time.replace(tzinfo=None) < datetime.now()):
+                overdueCirculations.append(circulation)
 
+        return overdueCirculations
 
 
 

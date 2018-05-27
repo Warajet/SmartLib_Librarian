@@ -11,6 +11,9 @@ from User.User import User
 from Scanner.CameraScanner import CameraScanner
 import cv2
 from CameraViewerWidget import CameraViewerWidget
+import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
+
 import pyqtgraph.examples
 
 
@@ -178,50 +181,68 @@ class SmartLibUi(QMainWindow):
     #TODO: Implement report fuction with export files
     #Temp report function (can be changed later)
     def quickReportDetails(self):
-        dialog = QDialog(self)
-        dialog.setWindowTitle("Quick Report")
-        dialog.resize(630, 150)
-        layout = QVBoxLayout()
+        # dialog = QDialog(self)
+        # dialog.setWindowTitle("Quick Report")
+        # dialog.resize(630, 150)
+        # layout = QVBoxLayout()
+        #
+        # label1 = QLabel(self)
+        # label1.setText("Total Number of Books: ")
+        # lineEdit_AllBooks = QLineEdit(self)
+        # lineEdit_AllBooks.setEnabled(False)
+        # lineEdit_AllBooks.setText(str(self.getCountAllBooks()))
+        # f = lineEdit_AllBooks.font()
+        # f.setPointSize(16)
+        # lineEdit_AllBooks.setFont(f)
+        # layout.addWidget(label1)
+        # layout.addWidget(lineEdit_AllBooks)
+        #
+        # label2 = QLabel(self)
+        # label2.setText("Total Number of Users: ")
+        # lineEdit_AllUsers = QLineEdit(self)
+        # lineEdit_AllUsers.setEnabled(False)
+        # lineEdit_AllUsers.setText(str(self.getCountAllUsers()))
+        # f = lineEdit_AllUsers.font()
+        # f.setPointSize(16)
+        # lineEdit_AllUsers.setFont(f)
+        # layout.addWidget(label2)
+        # layout.addWidget(lineEdit_AllUsers)
+        #
+        # label3 = QLabel(self)
+        # label3.setText("Total Number of Issue Books: ")
+        # lineEdit_IssueBooks = QLineEdit(self)
+        # lineEdit_IssueBooks.setEnabled(False)
+        # lineEdit_IssueBooks.setText(str(self.getCountIssueBooks()))
+        # f = lineEdit_IssueBooks.font()
+        # f.setPointSize(16)
+        # lineEdit_IssueBooks.setFont(f)
+        # layout.addWidget(label3)
+        # layout.addWidget(lineEdit_IssueBooks)
+        #
+        # okButton = QPushButton('OK')
+        # okButton.clicked.connect(lambda: dialog.close())
+        # layout.addWidget(okButton)
+        #
+        # dialog.setLayout(layout)
+        # dialog.show()
 
-        label1 = QLabel(self)
-        label1.setText("Total Number of Books: ")
-        lineEdit_AllBooks = QLineEdit(self)
-        lineEdit_AllBooks.setEnabled(False)
-        lineEdit_AllBooks.setText(str(self.getCountAllBooks()))
-        f = lineEdit_AllBooks.font()
-        f.setPointSize(16)
-        lineEdit_AllBooks.setFont(f)
-        layout.addWidget(label1)
-        layout.addWidget(lineEdit_AllBooks)
+        # Some data
+        the_grid = GridSpec(2, 1)
 
-        label2 = QLabel(self)
-        label2.setText("Total Number of Users: ")
-        lineEdit_AllUsers = QLineEdit(self)
-        lineEdit_AllUsers.setEnabled(False)
-        lineEdit_AllUsers.setText(str(self.getCountAllUsers()))
-        f = lineEdit_AllUsers.font()
-        f.setPointSize(16)
-        lineEdit_AllUsers.setFont(f)
-        layout.addWidget(label2)
-        layout.addWidget(lineEdit_AllUsers)
 
-        label3 = QLabel(self)
-        label3.setText("Total Number of Issue Books: ")
-        lineEdit_IssueBooks = QLineEdit(self)
-        lineEdit_IssueBooks.setEnabled(False)
-        lineEdit_IssueBooks.setText(str(self.getCountIssueBooks()))
-        f = lineEdit_IssueBooks.font()
-        f.setPointSize(16)
-        lineEdit_IssueBooks.setFont(f)
-        layout.addWidget(label3)
-        layout.addWidget(lineEdit_IssueBooks)
+        labels = 'On Shelves' , 'Issue books'
+        fracs = [self.getCountAllBooks(), self.getCountIssueBooks()]
 
-        okButton = QPushButton('OK')
-        okButton.clicked.connect(lambda: dialog.close())
-        layout.addWidget(okButton)
+        plt.subplot(the_grid[0, 0], aspect=1)
+        plt.pie(fracs, labels=labels, autopct='%1.1f%%', shadow=True)
 
-        dialog.setLayout(layout)
-        dialog.show()
+        labels2 = 'In-period', 'Overdue books'
+        fracs2 = [len(self.bookCirculationDAO.getAllOnBorrowCirculation()) - len(self.bookCirculationDAO.getOverdueCirculation())
+            , len(self.bookCirculationDAO.getOverdueCirculation())]
+        print(fracs2)
+        plt.subplot(the_grid[1, 0], aspect=1)
+        plt.pie(fracs2, labels=labels2, autopct='%1.1f%%', shadow=True)
+        plt.show()
 
     '''
         Add books
@@ -596,10 +617,6 @@ class SmartLibUi(QMainWindow):
         self.loadAllHistory()
 
         Timer(0.5, self.returnDialog.close).start()
-
-
-    def createDialog(self):
-        pass
 
 
     def updateCamImage(self,camViewWidget,camIDScan):
