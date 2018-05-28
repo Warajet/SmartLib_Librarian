@@ -521,7 +521,7 @@ class SmartLibUi(QMainWindow):
         warningText = "Do you want to notify user?"
         buttonReply = QMessageBox.question(self, "Information", warningText, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if buttonReply == QMessageBox.Yes:
-            self.notificationDAO.notifyAllOnBorrow()
+            Thread(target=self.notificationDAO.notifyAllOnBorrow).start()
 
     '''
     SEARCH FUNCTION 
