@@ -498,7 +498,9 @@ class SmartLibUi(QMainWindow):
             borrowID_to_return = self.bookCirculationDAO.getBorrowIDFromBookID(id_textBox.text())
             if (borrowID_to_return == None):
                 self.displayErrorNoID()
-            print("Return failed : ID not found in Borrow Circulation")
+                print("Return failed : ID not found in Borrow Circulation")
+            else:
+                self.bookCirculationDAO.returnBook(borrowID_to_return)
         self.returnDialog.close()
         Thread(target=self.init_element).run()
 
