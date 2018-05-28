@@ -391,18 +391,10 @@ class SmartLibUi(QMainWindow):
         layout.addWidget(lineEdit_Email)
 
         label3 = QLabel(self)
-        label3.setText("LINE Token: ")
-        lineEdit_LineToken = QLineEdit(self)
-        lineEdit_LineToken.setText(user_to_edit.lineToken)
-        lineEdit_LineToken.setEnabled(False)
-        layout.addWidget(label3)
-        layout.addWidget(lineEdit_LineToken)
-
-        label4 = QLabel(self)
-        label4.setText("RFID: ")
+        label3.setText("RFID: ")
         lineEdit_RFID = QLineEdit(self)
         lineEdit_RFID.setText(user_to_edit.rfid)
-        layout.addWidget(label4)
+        layout.addWidget(label3)
         layout.addWidget(lineEdit_RFID)
 
         okButton = QPushButton('OK')
@@ -411,7 +403,6 @@ class SmartLibUi(QMainWindow):
         field = []
         field.append(lineEdit_Name)
         field.append(lineEdit_Email)
-        field.append(lineEdit_LineToken)
         field.append(lineEdit_RFID)
         okButton.clicked.connect(lambda: self.onDialogEditUserSaved(dialog, user_to_edit, field))
 
@@ -421,10 +412,9 @@ class SmartLibUi(QMainWindow):
     def onDialogEditUserSaved(self, dialog, oldUser: User, field):
         name = field[0].text()
         email = field[1].text()
-        lineToken = field[2].text()
-        rfid = field[3].text()
+        rfid = field[2].text()
 
-        updatedUser = User(oldUser.user_id, name, oldUser.registered_on, email, rfid, lineToken)
+        updatedUser = User(oldUser.user_id, name, oldUser.registered_on, email, rfid)
         self.userDAO.updateUser(updatedUser)
         dialog.close()
         self.loadAllUsers()
@@ -496,11 +486,12 @@ class SmartLibUi(QMainWindow):
             borrowID_to_return = self.bookCirculationDAO.getBorrowIDFromBookID(id)
         else:   # Manual textbox input
             borrowID_to_return = self.bookCirculationDAO.getBorrowIDFromBookID(id_textBox.text())
-            if (borrowID_to_return == None):
-                self.displayErrorNoID()
-                print("Return failed : ID not found in Borrow Circulation")
-            else:
-                self.bookCirculationDAO.returnBook(borrowID_to_return)
+
+        if (borrowID_to_return == None):
+            self.displayErrorNoID()
+            print("Return failed : ID not found in Borrow Circulation")
+        else:
+            self.bookCirculationDAO.returnBook(borrowID_to_return)
         self.returnDialog.close()
         Thread(target=self.init_element).run()
 
@@ -539,11 +530,8 @@ class SmartLibUi(QMainWindow):
         keyword = self.ui.lineEditUsers_SearchBox.text()
         self.userTableAdapter.addUsers(self.userDAO.searchUser(keyword))
     def searchBooks(self):
-        # keyword = self.ui.lineEditBooks_SearchBox.text()
-        # self.booksTableAdapter.addBooks(self.bookDAO.searchBook(keyword))
         keyword = self.ui.lineEditBooks_SearchBox.text()
         Thread(target=self.booksTableAdapter.addBooks,args=[self.bookDAO.searchBook(keyword)]).run()
-
     def searchHistory(self):
         keyword = self.ui.lineEditHistory_SearchBox.text()
         self.historyTableAdapter.addCirculations(self.bookCirculationDAO.searchHistory(keyword))

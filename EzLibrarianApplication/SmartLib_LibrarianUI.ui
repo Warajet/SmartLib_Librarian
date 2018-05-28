@@ -20,7 +20,7 @@
    <string>SmartLibrary - Librarian Console</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="SmartLib_LibrarianRes.qrc">
+   <iconset>
     <normaloff>:/button/IMG/library.png</normaloff>:/button/IMG/library.png</iconset>
   </property>
   <property name="statusTip">
@@ -42,7 +42,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="iconSize">
        <size>
@@ -135,7 +135,7 @@
              <string>  ___ Books</string>
             </property>
             <property name="icon">
-             <iconset resource="SmartLib_LibrarianRes.qrc">
+             <iconset>
               <normaloff>:/button/IMG/library.png</normaloff>:/button/IMG/library.png</iconset>
             </property>
             <property name="iconSize">
@@ -160,7 +160,7 @@
              <string>  ___ Users</string>
             </property>
             <property name="icon">
-             <iconset resource="SmartLib_LibrarianRes.qrc">
+             <iconset>
               <normaloff>:/button/IMG/all_users.png</normaloff>:/button/IMG/all_users.png</iconset>
             </property>
             <property name="iconSize">
@@ -185,7 +185,7 @@
              <string> ___ Issue Books</string>
             </property>
             <property name="icon">
-             <iconset resource="SmartLib_LibrarianRes.qrc">
+             <iconset>
               <normaloff>:/button/IMG/issue_books.png</normaloff>:/button/IMG/issue_books.png</iconset>
             </property>
             <property name="iconSize">
@@ -214,7 +214,7 @@
              <string>  Add Book</string>
             </property>
             <property name="icon">
-             <iconset resource="SmartLib_LibrarianRes.qrc">
+             <iconset>
               <normaloff>:/button/IMG/add_book.png</normaloff>:/button/IMG/add_book.png</iconset>
             </property>
             <property name="iconSize">
@@ -239,7 +239,7 @@
              <string>  Add User</string>
             </property>
             <property name="icon">
-             <iconset resource="SmartLib_LibrarianRes.qrc">
+             <iconset>
               <normaloff>:/button/IMG/add_user.png</normaloff>:/button/IMG/add_user.png</iconset>
             </property>
             <property name="iconSize">
@@ -264,7 +264,7 @@
              <string>  Return Book</string>
             </property>
             <property name="icon">
-             <iconset resource="SmartLib_LibrarianRes.qrc">
+             <iconset>
               <normaloff>:/button/IMG/return_book.png</normaloff>:/button/IMG/return_book.png</iconset>
             </property>
             <property name="iconSize">
@@ -782,11 +782,6 @@
           <column>
            <property name="text">
             <string>Registered On</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>LINE Token</string>
            </property>
           </column>
           <column>

@@ -45,8 +45,7 @@ class UserTableAdapter(TableAdapter):
             self.table.setItem(row, 1, QTableWidgetItem(user.name))
             self.table.setItem(row, 2, QTableWidgetItem(user.email))
             self.table.setItem(row, 3, QTableWidgetItem(user.registered_on.strftime('%d/%m/%y %H:%M')))
-            self.table.setItem(row, 4, QTableWidgetItem(user.lineToken))
-            self.table.setItem(row, 5, QTableWidgetItem(user.rfid))
+            self.table.setItem(row, 4, QTableWidgetItem(user.rfid))
             row += 1
         header = self.table.horizontalHeader()
         header.setSectionResizeMode(1, QHeaderView.Stretch)

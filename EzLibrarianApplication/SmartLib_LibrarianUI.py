@@ -280,7 +280,7 @@ class Ui_MainWindow(object):
         self.tableUsers.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.tableUsers.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.tableUsers.setObjectName("tableUsers")
-        self.tableUsers.setColumnCount(6)
+        self.tableUsers.setColumnCount(5)
         self.tableUsers.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableUsers.setHorizontalHeaderItem(0, item)
@@ -292,8 +292,6 @@ class Ui_MainWindow(object):
         self.tableUsers.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableUsers.setHorizontalHeaderItem(4, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableUsers.setHorizontalHeaderItem(5, item)
         self.tableUsers.verticalHeader().setVisible(False)
         self.verticalLayout_4.addWidget(self.tableUsers)
         icon13 = QtGui.QIcon()
@@ -510,7 +508,7 @@ class Ui_MainWindow(object):
         self.toolBar.addSeparator()
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -585,8 +583,6 @@ class Ui_MainWindow(object):
         item = self.tableUsers.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Registered On"))
         item = self.tableUsers.horizontalHeaderItem(4)
-        item.setText(_translate("MainWindow", "LINE Token"))
-        item = self.tableUsers.horizontalHeaderItem(5)
         item.setText(_translate("MainWindow", "RFID"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabUsers), _translate("MainWindow", "All Users"))
         self.buttonHistory_Filter.setStatusTip(_translate("MainWindow", "Click to refresh"))
