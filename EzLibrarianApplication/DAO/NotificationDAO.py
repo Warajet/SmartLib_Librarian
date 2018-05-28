@@ -5,8 +5,6 @@ class NotificationDAO(AbstractDAO):
     def __init__(self, parent=None):
         AbstractDAO.__init__(self)
 
-
-
     def setToken(self, id,token):
         try :
             path = '/user/' + str(id) + "/token"
@@ -21,10 +19,8 @@ class NotificationDAO(AbstractDAO):
         except Exception:
             return False
 
-
     def notifyAllOnBorrow(self):
         try :
-
             path = '/manual_notification'
             response = requests.get(self.server_ip + path, timeout=self.timeout,
                                     headers=self.get_authentication_header(path))

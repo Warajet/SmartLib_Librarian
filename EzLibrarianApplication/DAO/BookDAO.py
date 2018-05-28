@@ -1,12 +1,10 @@
 import json
-
+import requests
+import random
 from Book import Book
 from datetime import datetime
 from DAO.AbstractDAO import AbstractDAO
 from constant import rfc_822_format
-import requests
-import random
-
 
 class BookDAO(AbstractDAO):
     def __init__(self, parent=None):
@@ -41,7 +39,6 @@ class BookDAO(AbstractDAO):
                         "Offline press .ltd")
             print("Waring! use offline data for debugging only")
 
-
         if self.parent is not None:
             self.parent.addBook(book)
 
@@ -50,9 +47,7 @@ class BookDAO(AbstractDAO):
     @staticmethod
     def constructBook(arguments):
         time_arg = "added_on"
-
         arguments[time_arg] = datetime.strptime(arguments[time_arg], rfc_822_format)
-
         return Book(**arguments)
 
     def getAllBooks(self):
@@ -88,7 +83,6 @@ class BookDAO(AbstractDAO):
 
         dict_to_add = book.__dict__
         del dict_to_add['added_on']
-
         print(dict_to_add)
 
         response = requests.put(self.server_ip + path, json=dict_to_add, timeout=self.timeout, headers=self.get_authentication_header(path))
@@ -100,7 +94,6 @@ class BookDAO(AbstractDAO):
 
     def deleteBook(self,book:Book):
         path = '/book/' + str(book.book_id)
-
         response = requests.delete(self.server_ip + path, timeout=self.timeout, headers=self.get_authentication_header(path))
         if response.status_code == 200:  # Success
             print(response.json())
@@ -125,14 +118,7 @@ class BookDAO(AbstractDAO):
         except requests.exceptions.ConnectTimeout:  # Connection timeout, use offline mockup data
             print("Timeout")
 
-
-
-
 if __name__ == "__main__":
     bookDAO = BookDAO()
     for book in bookDAO.searchBook("asp"):
         print(book.__dict__)
-
-
-
-

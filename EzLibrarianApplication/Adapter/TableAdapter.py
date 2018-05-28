@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from datetime import datetime
 
-
 class TableAdapter:
     def __init__(self,table):
         self.table = table
@@ -16,11 +15,9 @@ class BookTableAdapter(TableAdapter):
 
     def addBooks(self, books):
         self.clearTable()
-
         row  = 0
         if books is None:
             return
-
         for book in books:
             self.table.insertRow(row)
             self.table.setItem(row, 0, QTableWidgetItem(str(book.book_id)))
@@ -29,12 +26,9 @@ class BookTableAdapter(TableAdapter):
             self.table.setItem(row, 3, QTableWidgetItem(book.publisher))
             self.table.setItem(row, 4, QTableWidgetItem(book.isbn))
             self.table.setItem(row, 5, QTableWidgetItem(book.rfid))
-            row +=1
+            row += 1
         header = self.table.horizontalHeader()
-        # header.setSectionResizeMode(0, QHeaderView.Stretch)
         header.setSectionResizeMode(1, QHeaderView.Stretch)
-        # header.setSectionResizeMode(2, QHeaderView.Stretch)
-
 
 class UserTableAdapter(TableAdapter):
     def __init__(self, table):
@@ -42,11 +36,9 @@ class UserTableAdapter(TableAdapter):
 
     def addUsers(self, users):
         self.clearTable()
-
         row = 0
         if users is None:
             return
-
         for user in users:
             self.table.insertRow(row)
             self.table.setItem(row, 0, QTableWidgetItem(str(user.user_id)))
@@ -57,10 +49,7 @@ class UserTableAdapter(TableAdapter):
             self.table.setItem(row, 5, QTableWidgetItem(user.rfid))
             row += 1
         header = self.table.horizontalHeader()
-        # header.setSectionResizeMode(0, QHeaderView.Stretch)
         header.setSectionResizeMode(1, QHeaderView.Stretch)
-        # header.setSectionResizeMode(2, QHeaderView.Stretch)
-
 
 class HistoryTableAdapter(TableAdapter):
     def __init__(self,table):
@@ -84,28 +73,4 @@ class HistoryTableAdapter(TableAdapter):
                 self.table.setItem(row, 5, QTableWidgetItem("-"))
             row += 1
         header = self.table.horizontalHeader()
-        # header.setSectionResizeMode(0, QHeaderView.Stretch)
         header.setSectionResizeMode(1, QHeaderView.Stretch)
-        # header.setSectionResizeMode(2, QHeaderView.Stretch)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

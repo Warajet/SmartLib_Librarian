@@ -18,5 +18,3 @@ class User:
 
     def setLineNotifyToken(self,token):
         self.lineToken = token
-
-

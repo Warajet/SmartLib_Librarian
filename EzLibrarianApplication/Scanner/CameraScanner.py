@@ -3,7 +3,6 @@ from queue import Queue
 import cv2
 from pyzbar.pyzbar import decode
 
-
 class CameraScanner(Scanner):
     def __init__(self,parent, width, height, fps, cam = 0,dialog=None):
         Scanner.__init__(self,parent)
@@ -22,7 +21,6 @@ class CameraScanner(Scanner):
         self.capture.set(cv2.CAP_PROP_FPS, fps)
         self.lastScannedData = None
 
-
     def run(self):
         while True:
             while self.running:
@@ -38,12 +36,10 @@ class CameraScanner(Scanner):
                 try:
                     img_height, img_width, img_colors = img.shape
                 except AttributeError:
-                    # print("Camera scanner Attribute error")
                     continue
                 scale_w = float(640) / float(img_width)
                 scale_h = float(480) / float(img_height)
                 scale = min([scale_w, scale_h])
-
                 if scale == 0:
                     scale = 1
                 img = cv2.resize(img, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
@@ -56,16 +52,11 @@ class CameraScanner(Scanner):
                     print("Barcode data : " + scannedNum)
                     self.parent.returnBook(None, scannedNum)
                     return
-            # if not self.running:
-            #     return
-
 
     def pause(self):
         print("Camera pause")
         self.running = False
         self.capture.release()
-
-
 
     def resume(self):
         print("Camera resume")
@@ -74,7 +65,6 @@ class CameraScanner(Scanner):
         self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
         self.capture.set(cv2.CAP_PROP_FPS, self.fps)
         self.running = True
-
 
     def getImageQueue(self):
         return self.imgQueue

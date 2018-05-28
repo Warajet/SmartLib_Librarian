@@ -1,15 +1,12 @@
 import json
-from datetime import datetime, timedelta
-
 import requests
-
+from datetime import datetime, timedelta
 from BookCirculation import BookCirculation
 from DAO.AbstractDAO import AbstractDAO
 from DAO.BookDAO import BookDAO
 from DAO.UserDAO import UserDAO
 from constant import *
 from datetime import datetime
-
 
 class BookCirculationDAO(AbstractDAO):
     def __init__(self, parent = None):
@@ -33,13 +30,6 @@ class BookCirculationDAO(AbstractDAO):
                 due_time = book_circulations[0].due_time
                 print(str(due_time))
                 self.parent.borrowBookCallback(due_time)
-
-        # except requests.exceptions.ConnectTimeout:  # Connection timeout, use offline mockup data
-        #     self.parent.borrowBookCallback(datetime.now() + timedelta(days=7))
-        #     print("Borrow failed")
-
-
-        # return book_circulations
 
     def getAllCirculations(self):
         try:
@@ -73,7 +63,6 @@ class BookCirculationDAO(AbstractDAO):
         except requests.exceptions.ConnectTimeout:  # Connection timeout, use offline mockup data
             print("Timeout")
 
-
     @staticmethod
     def construct_book_circulation(arguments):
         time_args = ["borrow_time", "due_time", "return_time"]
@@ -89,7 +78,6 @@ class BookCirculationDAO(AbstractDAO):
 
     def getBorrowIDFromBookID(self,bookID):
         for circulation in self.getAllOnBorrowCirculation():
-            # print("cir id" + + str(circulation.book.book_id )+ "  " + str(bookID))
             if(str(circulation.book.book_id) == str(bookID)):
                 return circulation.borrow_id
 
@@ -151,8 +139,6 @@ class BookCirculationDAO(AbstractDAO):
                 overdueCirculations.append(circulation)
 
         return overdueCirculations
-
-
 
 if __name__ == "__main__":
     bookCirculationDAO = BookCirculationDAO()

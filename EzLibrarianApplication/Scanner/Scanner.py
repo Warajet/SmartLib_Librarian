@@ -1,8 +1,7 @@
 import threading
 
 '''
-    An abstract class for scanning data from physical media to program
-    
+An abstract class for scanning data from physical media to program
 '''
 class Scanner(threading.Thread):
     def __init__(self, parent):
