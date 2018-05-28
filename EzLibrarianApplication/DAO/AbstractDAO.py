@@ -4,7 +4,7 @@ from datetime import datetime
 
 class AbstractDAO(object):
     def __init__(self):
-        self.server_ip = 'http://magiapp.me:5000'
+        self.server_ip = 'http://137.116.140.178:8000'
         self.timeout = 5
 
     @staticmethod
