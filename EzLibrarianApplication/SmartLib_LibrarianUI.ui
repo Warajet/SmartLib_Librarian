@@ -17,7 +17,17 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>EasyLibrary - Librarian Console</string>
+   <string>SmartLibrary - Librarian Console</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="SmartLib_LibrarianRes.qrc">
+    <normaloff>:/button/IMG/library.png</normaloff>:/button/IMG/library.png</iconset>
+  </property>
+  <property name="statusTip">
+   <string/>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -27,6 +37,9 @@
        <font>
         <pointsize>8</pointsize>
        </font>
+      </property>
+      <property name="statusTip">
+       <string/>
       </property>
       <property name="currentIndex">
        <number>0</number>
@@ -42,7 +55,7 @@
       </property>
       <widget class="QWidget" name="tabOverview">
        <attribute name="icon">
-        <iconset resource="EZLib_LibrarianUI_res.qrc">
+        <iconset resource="SmartLib_LibrarianRes.qrc">
          <normaloff>:/icon_app/Modern UI Icons Light/appbar.eye.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.eye.png</iconset>
        </attribute>
        <attribute name="title">
@@ -53,6 +66,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLabel" name="labelOverview_Image">
+            <property name="statusTip">
+             <string>Profile picture</string>
+            </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/avatar/IMG/Susan_big.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
@@ -106,15 +122,21 @@
            <widget class="QPushButton" name="buttonOverview_Books">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>View all books</string>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
             </property>
             <property name="text">
              <string>  ___ Books</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/button/IMG/167756.png</normaloff>:/button/IMG/167756.png</iconset>
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/button/IMG/library.png</normaloff>:/button/IMG/library.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -128,15 +150,18 @@
            <widget class="QPushButton" name="buttonOverview_Users">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>View all users</string>
             </property>
             <property name="text">
              <string>  ___ Users</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/button/IMG/149071.png</normaloff>:/button/IMG/149071.png</iconset>
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/button/IMG/all_users.png</normaloff>:/button/IMG/all_users.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -150,15 +175,18 @@
            <widget class="QPushButton" name="buttonOverview_Issue">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>View all issue books</string>
             </property>
             <property name="text">
              <string> ___ Issue Books</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/button/IMG/clock-icon.png</normaloff>:/button/IMG/clock-icon.png</iconset>
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/button/IMG/issue_books.png</normaloff>:/button/IMG/issue_books.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -173,18 +201,21 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QPushButton" name="buttonOverview_4">
+           <widget class="QPushButton" name="buttonOverview_AddBook">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>Add a new book</string>
             </property>
             <property name="text">
              <string>  Add Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/button/IMG/167755.png</normaloff>:/button/IMG/167755.png</iconset>
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/button/IMG/add_book.png</normaloff>:/button/IMG/add_book.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -195,18 +226,21 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="buttonOverview_5">
+           <widget class="QPushButton" name="buttonOverview_AddUser">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>Add a new user</string>
             </property>
             <property name="text">
              <string>  Add User</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/button/IMG/167755.png</normaloff>:/button/IMG/167755.png</iconset>
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/button/IMG/add_user.png</normaloff>:/button/IMG/add_user.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -217,18 +251,21 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="buttonOverview_6">
+           <widget class="QPushButton" name="buttonOverview_ReturnBook">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="statusTip">
+             <string>Return a book</string>
             </property>
             <property name="text">
              <string>  Return Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/button/IMG/167755.png</normaloff>:/button/IMG/167755.png</iconset>
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/button/IMG/return_book.png</normaloff>:/button/IMG/return_book.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -243,8 +280,11 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tabBooks">
+       <property name="statusTip">
+        <string/>
+       </property>
        <attribute name="icon">
-        <iconset resource="EZLib_LibrarianUI_res.qrc">
+        <iconset resource="SmartLib_LibrarianRes.qrc">
          <normaloff>:/icon_book/Modern UI Icons Light/appbar.book.list.png</normaloff>:/icon_book/Modern UI Icons Light/appbar.book.list.png</iconset>
        </attribute>
        <attribute name="title">
@@ -255,11 +295,26 @@
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
            <widget class="QToolButton" name="buttonBooks_Add">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="statusTip">
+             <string>Add a new book</string>
+            </property>
             <property name="text">
              <string>Add Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</iconset>
             </property>
             <property name="iconSize">
@@ -275,11 +330,26 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonBooks_Edit">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="statusTip">
+             <string>Edit selected book</string>
+            </property>
             <property name="text">
              <string>Edit Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</iconset>
             </property>
             <property name="iconSize">
@@ -295,11 +365,26 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonBooks_Delete">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="statusTip">
+             <string>Delete selected book</string>
+            </property>
             <property name="text">
              <string>Delete Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</iconset>
             </property>
             <property name="iconSize">
@@ -328,22 +413,78 @@
           </item>
           <item>
            <widget class="QLabel" name="labelBooks_Search">
+            <property name="font">
+             <font>
+              <pointsize>8</pointsize>
+             </font>
+            </property>
+            <property name="statusTip">
+             <string>Enter a book title</string>
+            </property>
             <property name="text">
              <string>Search:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditBooks_SearchBox"/>
+           <widget class="QLineEdit" name="lineEditBooks_SearchBox">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="statusTip">
+             <string>Enter a book title</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QToolButton" name="buttonBooks_Go">
+            <property name="statusTip">
+             <string>Search</string>
+            </property>
             <property name="text">
              <string>Go</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonBooks_Refresh">
+            <property name="statusTip">
+             <string>Refresh</string>
+            </property>
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+            <property name="icon">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
             </property>
            </widget>
           </item>
@@ -351,6 +492,27 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tableBooks">
+          <property name="statusTip">
+           <string>Double click to edit a book</string>
+          </property>
+          <property name="tabKeyNavigation">
+           <bool>false</bool>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>ID</string>
@@ -376,13 +538,18 @@
             <string>ISBN</string>
            </property>
           </column>
+          <column>
+           <property name="text">
+            <string>RFID</string>
+           </property>
+          </column>
          </widget>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tabUsers">
        <attribute name="icon">
-        <iconset resource="EZLib_LibrarianUI_res.qrc">
+        <iconset resource="SmartLib_LibrarianRes.qrc">
          <normaloff>:/icon_app/Modern UI Icons Light/appbar.people.multiple.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.people.multiple.png</iconset>
        </attribute>
        <attribute name="title">
@@ -393,11 +560,26 @@
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
            <widget class="QToolButton" name="buttonUsers_Add">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="statusTip">
+             <string>Add a new user</string>
+            </property>
             <property name="text">
              <string>Add User</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</iconset>
             </property>
             <property name="iconSize">
@@ -413,11 +595,26 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonUsers_Edit">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="statusTip">
+             <string>Edit selected user</string>
+            </property>
             <property name="text">
              <string>Edit User</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</iconset>
             </property>
             <property name="iconSize">
@@ -433,11 +630,26 @@
           </item>
           <item>
            <widget class="QToolButton" name="buttonUsers_Delete">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="statusTip">
+             <string>Delete selected user</string>
+            </property>
             <property name="text">
              <string>Delete User</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</iconset>
             </property>
             <property name="iconSize">
@@ -466,22 +678,67 @@
           </item>
           <item>
            <widget class="QLabel" name="labelUsers_Search">
+            <property name="statusTip">
+             <string>Enter student name</string>
+            </property>
             <property name="text">
              <string>Search:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditUsers_SearchBox"/>
+           <widget class="QLineEdit" name="lineEditUsers_SearchBox">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="statusTip">
+             <string>Enter student name</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QToolButton" name="buttonUsers_Go">
+            <property name="statusTip">
+             <string>Enter student name</string>
+            </property>
             <property name="text">
              <string>Go</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonUsers_Refresh">
+            <property name="statusTip">
+             <string>Refresh</string>
+            </property>
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+            <property name="icon">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
             </property>
            </widget>
           </item>
@@ -489,6 +746,24 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tableUsers">
+          <property name="statusTip">
+           <string>Double click to edit a user</string>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>ID</string>
@@ -523,65 +798,43 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tabCirculation">
+      <widget class="QWidget" name="tabHistory">
        <attribute name="icon">
-        <iconset resource="EZLib_LibrarianUI_res.qrc">
-         <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.clockwise.down.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.clockwise.down.png</iconset>
+        <iconset resource="SmartLib_LibrarianRes.qrc">
+         <normaloff>:/icon_app/Modern UI Icons Light/appbar.timer.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.timer.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Book Circulation</string>
+        <string>History</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
-           <widget class="QToolButton" name="buttonCirculation_Add">
-            <property name="text">
-             <string>  Add  </string>
+           <widget class="QToolButton" name="buttonHistory_Filter">
+            <property name="enabled">
+             <bool>true</bool>
             </property>
-            <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</iconset>
-            </property>
-            <property name="iconSize">
+            <property name="minimumSize">
              <size>
-              <width>48</width>
-              <height>48</height>
+              <width>135</width>
+              <height>83</height>
              </size>
             </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonTextUnderIcon</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="buttonCirculation_Edit">
-            <property name="text">
-             <string>  Edit  </string>
-            </property>
-            <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</iconset>
-            </property>
-            <property name="iconSize">
+            <property name="maximumSize">
              <size>
-              <width>48</width>
-              <height>48</height>
+              <width>135</width>
+              <height>83</height>
              </size>
             </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonTextUnderIcon</enum>
+            <property name="statusTip">
+             <string>Click to refresh</string>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="buttonCirculation_Delete">
             <property name="text">
-             <string>  Delete  </string>
+             <string> Filter Date </string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</iconset>
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.calendar.day.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.calendar.day.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -608,30 +861,96 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label_5">
+           <widget class="QLabel" name="labelHistory_Search">
+            <property name="statusTip">
+             <string>Enter book title or student name</string>
+            </property>
             <property name="text">
              <string>Search:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditCirculation_SearchBox"/>
+           <widget class="QLineEdit" name="lineEditHistory_SearchBox">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="statusTip">
+             <string>Enter book title or student name</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="buttonCirculation_Go">
+           <widget class="QToolButton" name="buttonHistory_Go">
+            <property name="statusTip">
+             <string>Enter book title or student name</string>
+            </property>
             <property name="text">
              <string>Go</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonHistory_Refresh">
+            <property name="statusTip">
+             <string>Refresh</string>
+            </property>
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+            <property name="icon">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
             </property>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableCirculation">
+         <widget class="QTableWidget" name="tableHistory">
+          <property name="editTriggers">
+           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>ID</string>
@@ -668,8 +987,8 @@
       </widget>
       <widget class="QWidget" name="tabIssue">
        <attribute name="icon">
-        <iconset resource="EZLib_LibrarianUI_res.qrc">
-         <normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</iconset>
+        <iconset resource="SmartLib_LibrarianRes.qrc">
+         <normaloff>:/icon_app/Modern UI Icons Light/appbar.information.circle.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.information.circle.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Issue Books</string>
@@ -678,13 +997,28 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
-           <widget class="QToolButton" name="buttonIssue_Add">
+           <widget class="QToolButton" name="buttonIssue_ReturnBook">
+            <property name="minimumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
+            </property>
+            <property name="statusTip">
+             <string>Return a book</string>
+            </property>
             <property name="text">
-             <string>  Add  </string>
+             <string>Return Book</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.add.png</iconset>
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.return.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.return.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -698,33 +1032,25 @@
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="buttonIssue_Edit">
-            <property name="text">
-             <string>  Edit  </string>
-            </property>
-            <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.edit.png</iconset>
-            </property>
-            <property name="iconSize">
+           <widget class="QToolButton" name="buttonIssue_Remind">
+            <property name="minimumSize">
              <size>
-              <width>48</width>
-              <height>48</height>
+              <width>135</width>
+              <height>83</height>
              </size>
             </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonTextUnderIcon</enum>
+            <property name="maximumSize">
+             <size>
+              <width>135</width>
+              <height>83</height>
+             </size>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="buttonIssue_Delete">
             <property name="text">
-             <string>  Delete  </string>
+             <string>Remind</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
-              <normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</normaloff>:/icon_tool/Modern UI Icons Light/appbar.delete.png</iconset>
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.timer.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.timer.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -751,14 +1077,23 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label_6">
+           <widget class="QLabel" name="labelIssue_Search">
+            <property name="statusTip">
+             <string>Enter </string>
+            </property>
             <property name="text">
              <string>Search:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditIssue_SearchBox"/>
+           <widget class="QLineEdit" name="lineEditIssue_SearchBox">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QToolButton" name="buttonIssue_Go">
@@ -766,8 +1101,38 @@
              <string>Go</string>
             </property>
             <property name="icon">
-             <iconset resource="EZLib_LibrarianUI_res.qrc">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
               <normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.arrow.right.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonIssue_Refresh">
+            <property name="statusTip">
+             <string>Refresh</string>
+            </property>
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+            <property name="icon">
+             <iconset resource="SmartLib_LibrarianRes.qrc">
+              <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
             </property>
            </widget>
           </item>
@@ -775,6 +1140,24 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tableIssue">
+          <property name="editTriggers">
+           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>ID</string>
@@ -822,6 +1205,15 @@
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
    <property name="iconSize">
     <size>
      <width>76</width>
@@ -832,7 +1224,7 @@
     <enum>Qt::ToolButtonTextUnderIcon</enum>
    </property>
    <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
+    <enum>LeftToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
@@ -840,22 +1232,21 @@
    <addaction name="actionMain_Menu"/>
    <addaction name="separator"/>
    <addaction name="actionAdd_Book"/>
+   <addaction name="separator"/>
    <addaction name="actionAdd_User"/>
    <addaction name="separator"/>
    <addaction name="actionReturnBook"/>
+   <addaction name="separator"/>
+   <addaction name="actionRefresh"/>
+   <addaction name="separator"/>
    <addaction name="actionReport"/>
    <addaction name="separator"/>
-   <addaction name="actionBarcode"/>
-   <addaction name="separator"/>
-   <addaction name="actionSettings"/>
-   <addaction name="actionSQL"/>
-   <addaction name="separator"/>
-   <addaction name="actionHelp"/>
    <addaction name="actionExit"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionMain_Menu">
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_app/Modern UI Icons Light/appbar.tiles.nine.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.tiles.nine.png</iconset>
    </property>
    <property name="text">
@@ -873,20 +1264,26 @@
   </action>
   <action name="actionAdd_Book">
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_book/Modern UI Icons Light/appbar.book.png</normaloff>:/icon_book/Modern UI Icons Light/appbar.book.png</iconset>
    </property>
    <property name="text">
     <string>Add Book</string>
    </property>
+   <property name="statusTip">
+    <string>Add a new book</string>
+   </property>
   </action>
   <action name="actionAdd_User">
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_app/Modern UI Icons Light/appbar.user.add.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.user.add.png</iconset>
    </property>
    <property name="text">
     <string>Add User</string>
+   </property>
+   <property name="statusTip">
+    <string>Add a new user</string>
    </property>
   </action>
   <action name="actionReturnBook">
@@ -894,7 +1291,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_book/Modern UI Icons Light/appbar.book.open.information.png</normaloff>:/icon_book/Modern UI Icons Light/appbar.book.open.information.png</iconset>
    </property>
    <property name="text">
@@ -903,82 +1300,52 @@
    <property name="iconText">
     <string>Return Book</string>
    </property>
+   <property name="statusTip">
+    <string>Return a book</string>
+   </property>
    <property name="visible">
     <bool>true</bool>
    </property>
   </action>
-  <action name="actionReport">
-   <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.paper.png</iconset>
-   </property>
-   <property name="text">
-    <string>Report</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
-  </action>
-  <action name="actionBarcode">
-   <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.barcode.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.barcode.png</iconset>
-   </property>
-   <property name="text">
-    <string>Barcode</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
-  </action>
-  <action name="actionHelp">
-   <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.book.perspective.help.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.book.perspective.help.png</iconset>
-   </property>
-   <property name="text">
-    <string>Help</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
-  </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
      <normaloff>:/icon_app/Modern UI Icons Light/appbar.power.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.power.png</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
    </property>
-  </action>
-  <action name="actionSettings">
-   <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.cog.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.cog.png</iconset>
-   </property>
-   <property name="text">
-    <string>Settings</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
+   <property name="statusTip">
+    <string>Exit a program</string>
    </property>
   </action>
-  <action name="actionSQL">
+  <action name="actionRefresh">
    <property name="icon">
-    <iconset resource="EZLib_LibrarianUI_res.qrc">
-     <normaloff>:/icon_app/Modern UI Icons Light/appbar.database.sql.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.database.sql.png</iconset>
+    <iconset resource="SmartLib_LibrarianRes.qrc">
+     <normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.refresh.png</iconset>
    </property>
    <property name="text">
-    <string>Database</string>
+    <string>Refresh All</string>
    </property>
-   <property name="visible">
-    <bool>false</bool>
+   <property name="statusTip">
+    <string>Refresh all of the data</string>
+   </property>
+  </action>
+  <action name="actionReport">
+   <property name="icon">
+    <iconset resource="SmartLib_LibrarianRes.qrc">
+     <normaloff>:/icon_app/Modern UI Icons Light/appbar.graph.line.png</normaloff>:/icon_app/Modern UI Icons Light/appbar.graph.line.png</iconset>
+   </property>
+   <property name="text">
+    <string>View Report</string>
+   </property>
+   <property name="statusTip">
+    <string>View statistical report</string>
    </property>
   </action>
  </widget>
  <resources>
-  <include location="EZLib_LibrarianUI_res.qrc"/>
+  <include location="SmartLib_LibrarianRes.qrc"/>
  </resources>
  <connections/>
 </ui>
