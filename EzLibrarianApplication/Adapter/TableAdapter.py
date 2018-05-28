@@ -62,7 +62,7 @@ class HistoryTableAdapter(TableAdapter):
         for circulation in circulations:
             self.table.insertRow(row)
             self.table.setItem(row, 0, QTableWidgetItem(str(circulation.borrow_id)))
-            self.table.setItem(row, 1, QTableWidgetItem(circulation.book.title))
+            self.table.setItem(row, 1, QTableWidgetItem("[" + str(circulation.book.book_id) + "] " + circulation.book.title))
             self.table.setItem(row, 2, QTableWidgetItem(circulation.user.name))
             self.table.setItem(row, 3, QTableWidgetItem(circulation.borrow_time.strftime('%d/%m/%y %H:%M')))
             self.table.setItem(row, 4, QTableWidgetItem(circulation.due_time.strftime('%d/%m/%y %H:%M')))
